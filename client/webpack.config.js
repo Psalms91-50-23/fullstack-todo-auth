@@ -1,13 +1,14 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const Dotenv = require('dotenv-webpack')//need this to hide api key
+// const Dotenv = require('dotenv-webpack')//need this to hide api key
 
 module.exports = {
   entry: ['./client/index.js', './client/styles/index.scss'],
   output: {
-    path: path.join(__dirname, '..', 'server', 'public'),
+    path: path.join(__dirname, '../server/public'),
     filename: 'bundle.js'
   },
+  watch: true,
   mode: 'development',
   plugins: [
     new MiniCssExtractPlugin({
@@ -15,6 +16,7 @@ module.exports = {
       chunkFilename: '[id].css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
     })
+
   ],
   module: {
     rules: [

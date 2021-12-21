@@ -10,7 +10,7 @@
     "test": "jest",
     "test:watch": "jest --noStackTrace --watchAll",
     "dev": "run-p dev:client dev:server",
-    "dev:client": "npm run webpack -- --watch",
+    "dev:client": "npm run webpack  --watch",
     "dev:server": "nodemon --watch server server/index.js",
     "webpack": "webpack --config ./client/webpack.config.js",
     "knex": "knex --knexfile ./server/db/knexfile.js",
@@ -31,8 +31,11 @@
   },
   "description": "",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.1",
+    "uid": "^2.0.0"
   },
   "eslintConfig": {
     "extends": "eda",
@@ -69,6 +72,7 @@
     "superagent": "^6.1.0",
     "supertest": "^6.1.6",
     "webpack": "^5.58.2",
-    "webpack-cli": "^4.9.0"
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.6.0"
   }
 }
