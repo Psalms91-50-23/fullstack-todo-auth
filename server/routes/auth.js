@@ -14,13 +14,13 @@ server.post("/register", async (req,res) => {
     //test if all fields are there
     if(!email || !password || !name) return res.status(400).json({ message: "Need all data fields ===> name, password and email" })
 
-    //validate email
-    const validateEmail =  db.validateEmail(email)
-    if(!validateEmail) return res.status(404).json({ message: `Email is not a valid email`})
-  
-    //test length of password, must be 6 or higher
-    if(password.length <= 5) return res.status(404).json({ message: `Pasword must be more than 6 characters long `})
+    //validate email, and length, before '@' must contain 3 character length
+    const validEmail =  db.validateEmail(email)
+    if(!validEmail) return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@', 1 capital letter 'A-Z', 1 lowercase letter 'a-z' and 1 number '0-9'`})
 
+    //validate password, for length, characters min requirements etc
+    const validPassword = db.validatePassword(password)
+    if(!validPassword) return res.status(404).json({ message: `Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' `})
     //test if user exists already
     const userExist = await db.getUserByUserEmail(email)
     if(userExist) return res.status(403).json({ message: "User with email already exist" })
@@ -30,6 +30,7 @@ server.post("/register", async (req,res) => {
     
     //create hash pasword, salt gets appended to hash password
     const salt = await bcrypt.genSalt(10)
+    console.log("salt ", salt);
     const hashPassword = await bcrypt.hash(password, salt)
 
     //create unique user id
@@ -48,7 +49,8 @@ server.post("/register", async (req,res) => {
     //create new user
     db.addUser(newUser)
     .then(user => {
-        res.status(200).json(user)
+        //201 ok created
+        res.status(201).json(user)
     })
     .catch(error => {
         res.status(500).json({ message: "something went wrong ", error: error.message })
@@ -67,6 +69,23 @@ server.get("/", (req,res) => {
     })
 
 })
+
+server.get("/:email", async (req,res) => {
+
+    const { email } = req.params
+
+    const validEmail = await db.getUserByUserEmail(email)
+    if(!validEmail) return res.status()
+
+    db.getUserByUserEmail()
+    .then(users => {
+        res.status(200).json(users)
+    }).catch(error => {
+        res.status(500).json({ message: "something went wrong", error: error.message })
+    })
+
+})
+
 
 server.delete("/:useremail", async (req,res) => {
 
@@ -98,14 +117,10 @@ server.post("/login", async (req,res) => {
     const validPassword = bcrypt.compare( password, user.password )
     if(!validPassword) return res.status(400).json({ message: "Invalid password" })
 
-    //create an assign token
-    // console.log("process.env ", process.env.JWT_TOKEN_SECRET);
-
-    const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET)
+    //create and assign token, go to below website
      //https://jwt.io and paste token to see your data stored at jwt
-    // console.log(token);
-    // return res.json(token)
-    // return res.status(200).json({ message: `You are logged in `})
+    const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET)
+    //login sends token to header
     res.header("auth-token", token).send(token)
    
 })
