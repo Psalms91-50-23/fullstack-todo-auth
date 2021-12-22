@@ -15,34 +15,35 @@ const numberRegex = /\d{1}/ //1 digit match 0-9
 const specialCharRegex = /[!@#$%^&]{1}/ //must have 1 special character '!@#$%^&*
 
 //test for min required characters
-function minEmailCharReqReached(email){
+// function minEmailCharReqReached(email){
 
-    const emailSplit = email.split("@")[0].split("")
-    var capitalLetterCounter = 0
-    var lowerCaseLetterCounter = 0
-    var numberCounter = 0
-    var minCharReached = false
-    // console.log("email split ", emailSplit);
+//     const emailSplit = email.split("@")[0].split("")
+//     const firstEmailPart = email.split("@")[0]
+//     var capitalLetterCounter = 0
+//     var lowerCaseLetterCounter = 0
+//     var numberCounter = 0
+//     var minCharReached = false
+//     // console.log("email split ", emailSplit);
 
-    for(var i = 0; i < emailSplit.length ; i++){
+//     for(var i = 0; i < emailSplit.length ; i++){
 
-        var character = emailSplit[i]
-        if(capitalLetterRegex.test(character)){
-            capitalLetterCounter++
-        }
-        if(numberRegex.test(character)){
-            numberCounter++
-        }
-        if(lowerCaseLetterRegex.test(character)){
-            lowerCaseLetterCounter++
-        }
-        if(capitalLetterCounter >= 1 && numberCounter >= 1 && lowerCaseLetterCounter >= 1){
-            minCharReached = true
-            return minCharReached //when reached = true, esape loop with return
-        }
+//         var character = emailSplit[i]
+//         if(capitalLetterRegex.test(character)){
+//             capitalLetterCounter++
+//         }
+//         if(numberRegex.test(character)){
+//             numberCounter++
+//         }
+//         if(lowerCaseLetterRegex.test(character)){
+//             lowerCaseLetterCounter++
+//         }
+//         if(capitalLetterCounter >= 1 && numberCounter >= 1 && lowerCaseLetterCounter >= 1){
+//             minCharReached = true
+//             return minCharReached //when reached = true, esape loop with return
+//         }
 
-    }
-    //bottom works but the forEach loop cannot escape when when min character is reaced, has to loop through all the characters while for loop above doesnt have to
+//     }
+    //bottom works but the forEach loop cannot escape when  min character is reached, has to loop through all the characters while for loop above doesnt have to
     // emailSplit.forEach( character => {
     //     console.log('letter ',character
     //     );
@@ -69,12 +70,12 @@ function minEmailCharReqReached(email){
     //     }
     // });
     // return minCharReached
-}
+//}
 
 function validateEmail(userEmail){
 
     //test if email matches email regex expression and that it has all the min requirements for an email
-    if(emailRegex.test(userEmail) && minEmailCharReqReached(userEmail)) return true
+    if(emailRegex.test(userEmail)) return true
 
 }
 
@@ -94,7 +95,6 @@ function minPasswordCharReqReached(password){
       
         var character = passwordSplit[i]
         if(capitalLetterRegex.test(character)){
-
             capitalLetterCounter++
         }
         if(numberRegex.test(character)){
@@ -239,6 +239,17 @@ function deleteTodo(todoId){
 
 }
 
+function updateUser(uid, userUpdatedDetails){
+
+    return db('users')
+    .where({uid})
+    .update(userUpdatedDetails)
+    .then(() => {
+
+    })
+
+}
+
 module.exports = {
     
     addUser,
@@ -253,7 +264,7 @@ module.exports = {
     getUserById,
     getAllUserTodos,
     deleteTodo,
-    minEmailCharReqReached,
-    validatePassword
+    validatePassword,
+    updateUser
     
 }

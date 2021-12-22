@@ -16,7 +16,7 @@ server.post("/register", async (req,res) => {
 
     //validate email, and length, before '@' must contain 3 character length
     const validEmail =  db.validateEmail(email)
-    if(!validEmail) return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@', 1 capital letter 'A-Z', 1 lowercase letter 'a-z' and 1 number '0-9'`})
+    if(!validEmail) return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@'`})
 
     //validate password, for length, characters min requirements etc
     const validPassword = db.validatePassword(password)
