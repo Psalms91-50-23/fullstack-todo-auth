@@ -70,6 +70,22 @@ server.get("/", (req,res) => {
 
 })
 
+
+server.get("/getuser/:uid", async (req,res) => {
+
+    const { uid } = req.params
+
+    // const user = await db.getUserByUID(uid)
+    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
+
+    db.getUserByUID(uid)
+    .then(user => {
+        res.status(200).json(user)
+    }).catch(error => {
+        res.status(500).json({ message: "something went wrong", error: error.message })
+    })
+})
+
 server.get("/:email", async (req,res) => {
 
     const { email } = req.params
