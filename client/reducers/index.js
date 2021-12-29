@@ -4,6 +4,6 @@ import userReducer from "./userReducer"
 
 export default combineReducers({
   // stuff
-  user: userReducer
+  userState: userReducer
   
 })

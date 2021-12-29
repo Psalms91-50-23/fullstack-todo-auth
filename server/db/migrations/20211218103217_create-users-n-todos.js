@@ -19,8 +19,8 @@ exports.up = function(knex) {
         table.string("updated_at"),
         table.boolean("completed").defaultTo(false),
         table.boolean("active").defaultTo(false),
-        table.boolean("priority").defaultTo(false),
-        table.integer("user_uid")
+        table.integer("priority"),
+        table.string("user_uid")
         .unsigned()
         .notNullable()
         .references("uid")

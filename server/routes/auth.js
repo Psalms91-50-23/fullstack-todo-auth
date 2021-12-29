@@ -5,30 +5,33 @@ const db = require("../db/db")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { uid } = require('uid')
-const { auth } = require("./authJWTVerify")
+const { auth } = require("./authJwtVerify")
+const priority = ["low","moderate","high","very high"]
 
 server.post("/register", async (req,res) => {
 
     const { email, password, name } = req.body
-
+    console.log("body ",req.body);
     //test if all fields are there
-    if(!email || !password || !name) return res.status(400).json({ message: "Need all data fields ===> name, password and email" })
-
+    if(!email || !password || !name) return  res.status(400).json({ message: "Need all data fields ===> name, password and email" })
+    console.log("field pass");
+     //test if user exists already
+     const userExist = await db.getUserByEmail(email)
+     if(userExist) return  res.status(400).json({ message: "User with email already exist" })
+     console.log("user already exists pass");
     //validate email, and length, before '@' must contain 3 character length
     const validEmail =  db.validateEmail(email)
-    if(!validEmail) return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@'`})
-
+    if(!validEmail)  return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@'`})
+    console.log("validate email pass");
     //validate password, for length, characters min requirements etc
     const validPassword = db.validatePassword(password)
     if(!validPassword) return res.status(404).json({ message: `Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' `})
-    //test if user exists already
-    const userExist = await db.getUserByUserEmail(email)
-    if(userExist) return res.status(403).json({ message: "User with email already exist" })
+    console.log("validate password pass");
 
-    const created_at = new Date().toTimeString()
-    const updated_at = new Date().toTimeString()
+    const created_at = new Date().toUTCString()
+    const updated_at = new Date().toUTCString()
     
-    //create hash pasword, salt gets appended to hash password
+    //create hash password, salt gets appended to hash password
     const salt = await bcrypt.genSalt(10)
     console.log("salt ", salt);
     const hashPassword = await bcrypt.hash(password, salt)
@@ -45,7 +48,7 @@ server.post("/register", async (req,res) => {
         updated_at
 
     }
-
+    console.log("add user pass ");
     //create new user
     db.addUser(newUser)
     .then(user => {
@@ -70,16 +73,33 @@ server.get("/", (req,res) => {
 
 })
 
+server.get("/getuser/:uid", async (req,res) => {
+
+    const { uid } = req.params
+
+    // const user = await db.getUserByUID(uid)
+    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
+
+    db.getUserByUID(uid)
+    .then(user => {
+        res.status(200).json(user)
+    }).catch(error => {
+        res.status(500).json({ message: "something went wrong", error: error.message })
+    })
+})
+
 server.get("/:email", async (req,res) => {
 
     const { email } = req.params
+    console.log("email in get user email ",email);
+    // const user = await db.getUserByEmail(email)
+    // console.log("user exists ", user);
+    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
 
-    const validEmail = await db.getUserByUserEmail(email)
-    if(!validEmail) return res.status()
-
-    db.getUserByUserEmail()
-    .then(users => {
-        res.status(200).json(users)
+    db.getUserByEmail(email)
+    .then(user => {
+        console.log("user by email in then  ",user);
+        res.status(200).json(user)
     }).catch(error => {
         res.status(500).json({ message: "something went wrong", error: error.message })
     })
@@ -87,14 +107,14 @@ server.get("/:email", async (req,res) => {
 })
 
 
-server.delete("/:useremail", async (req,res) => {
+server.delete("/:email", async (req,res) => {
 
-    const { useremail } = req.params 
-    const userEmailExists = await db.getUserByUserEmail(useremail)
+    const { email } = req.params 
+    const userEmailExists = await db.getUserByUserEmail(email)
 
     if(!userEmailExists) return res.status(404).json({ message: "User name does not exist" })
     
-    db.deleteUserByUserEmail(useremail)
+    db.deleteUserByUserEmail(email)
     .then( userDeleted =>{
         res.status(200).json(userDeleted)
     }).catch(error => {
@@ -110,23 +130,24 @@ server.post("/login", async (req,res) => {
     if( !email || !password ) return res.status(404).json({ message: `Must have all fields entered ===> email and password` })
 
     //test if user exist
-    const user = await db.getUserByUserEmail(email)
+    const user = await db.getUserByEmail(email)
     if(!user) return res.status(404).json({ message: `User with email:${email} does not exist in the database` })
         
     //validate password, check if  password matches the password kept in bcrypt
     const validPassword = bcrypt.compare( password, user.password )
     if(!validPassword) return res.status(400).json({ message: "Invalid password" })
 
-    //create and assign token, go to below website
+    //create and assign token with our added JWT_TOKEN_SECRET to it, go to below website
      //https://jwt.io and paste token to see your data stored at jwt
-    const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET)
-    //login sends token to header
+    const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '1h'})
+    //login sends token in the header to the client side
+    console.log("token ", token);
     res.header("auth-token", token).send(token)
    
 })
 
 //gets all user and their todos
-server.get("/:uid/todos", auth, async (req,res) => {
+server.get("/:uid/todos", async (req,res) => {
 
     const { uid } = req.params
     // console.log("uid in auth ", uid);
@@ -134,15 +155,16 @@ server.get("/:uid/todos", auth, async (req,res) => {
     // console.log("user in auth exisit ", userUIDExist);
     if(!userUIDExist) return res.status(404).json({ message: `No User found with given UID: ${uid}` })
 
-    db.getAllUserTodos(uid)
+    db.getAllUserTodosByUID(uid)
     .then(userTodos => {
 
         userTodos.map( todo => {
-            todo.todos_completed = Boolean(todo.todos_completed)
-            todo.todos_active = Boolean(todo.todos_active)
-            todo.todos_priority = Boolean(todo.todos_priority)
+            todo.completed = Boolean(todo.completed)
+            todo.active = Boolean(todo.active)
+            todo.priority = priority[todo.priority]
+           /* todo.priority = Boolean(todo.priority)*/
         })
-        // console.log("user todos ", userTodos);
+        console.log("user todos ", userTodos);
         return res.status(200).json(userTodos)
     })
     .catch(error => {
@@ -152,7 +174,7 @@ server.get("/:uid/todos", auth, async (req,res) => {
 })
 
 
-server.get("/:uid/todos/:todoId", auth, async (req,res) => {
+server.get("/:uid/todos/:todoId", async (req,res) => {
 
     const { uid, todoId } = req.params
     // console.log("uid in auth ", uid);
@@ -167,7 +189,9 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
     .then(todo => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
-        todo.priority = Boolean(todo.priority)
+        todo.priority = priority[todo.priority]
+
+        /*todo.priority = Boolean(todo.priority)*/
         return res.status(200).json(todo)
     })
     .catch(error => {
@@ -176,4 +200,14 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 
 })
 
+
+server.post("/logout", (req,res) => {
+
+    var authToken = req.header('auth-token')
+    console.log("auth ",authToken);
+    authToken = ""
+    console.log("auth null ", authToken);
+    return  res.header("auth-token", authToken).send(authToken)
+
+})
 module.exports = server
