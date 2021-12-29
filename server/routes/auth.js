@@ -73,6 +73,7 @@ server.get("/", (req,res) => {
 
 })
 
+
 server.get("/getuser/:uid", async (req,res) => {
 
     const { uid } = req.params

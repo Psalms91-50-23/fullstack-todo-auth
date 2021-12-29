@@ -52,15 +52,22 @@ export function getUserByUID(uid){
     return request
     .get(`${baseURL}/getuser/${uid}`)
     .then( response => {
+<<<<<<< HEAD
         console.log("user by uid ", response.body);
+=======
+        console.log("user by uid ", response);
+>>>>>>> c56c27ea0a94d61f73222d92edf25e1da05130f4
         return response.body
     }).catch(error => {
         console.log("error ",error.message);
     })
 
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c56c27ea0a94d61f73222d92edf25e1da05130f4
 // export const getUserByUserEmail = async (email) => {
 //     try{
 
