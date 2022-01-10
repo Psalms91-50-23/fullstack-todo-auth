@@ -1,0 +1,25 @@
+
+
+.todo__container {
+    display: flex;
+    /* flex-direction: column; */
+}
+
+/* .todos_selection {
+
+    min-height: 30px;
+
+} */
+
+.todo__details {
+    width: 250px;
+    background-color: green;
+}
+
+.todo__toggle {
+
+    cursor: pointer;
+    margin-left: 20px;
+    /* min-height: 30px; */
+    background-color: red;
+}

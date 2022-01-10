@@ -148,7 +148,7 @@ server.post("/login", async (req,res) => {
 })
 
 //gets all user and their todos
-server.get("/:uid/todos", async (req,res) => {
+server.get("/:uid/todos", auth, async (req,res) => {
 
     const { uid } = req.params
     // console.log("uid in auth ", uid);
@@ -175,7 +175,7 @@ server.get("/:uid/todos", async (req,res) => {
 })
 
 
-server.get("/:uid/todos/:todoId", async (req,res) => {
+server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 
     const { uid, todoId } = req.params
     // console.log("uid in auth ", uid);
@@ -211,4 +211,5 @@ server.post("/logout", (req,res) => {
     return  res.header("auth-token", authToken).send(authToken)
 
 })
+
 module.exports = server

@@ -9,7 +9,7 @@ const SignUp = () => {
 
     const authToken = localStorage.getItem("auth-token")
     if(authToken){
-        window.location = "/homepage"
+        window.location = "/home"
     }
     
     const history = useHistory()
@@ -48,7 +48,7 @@ const SignUp = () => {
                 if(user) setUserExists(user)
                 else setUserExists("")
 
-                console.log("user exists ",userExists);
+                console.log("user exists: ",userExists);
                 
             }).catch(error => {
                 console.log('error ',error.message);

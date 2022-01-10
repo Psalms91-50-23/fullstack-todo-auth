@@ -9,9 +9,9 @@ const priority = ["low","moderate","high","very high"]
 
 server.post("/", auth, (req,res) => {
 
-    const { task, completed, user_uid, priority, active } = req.body
+    const { task, completed, user_uid, active } = req.body
     console.log("body ",req.body);
-    if(!(task || completed || user_uid || priority || active)) return res.status(404).json({ message: `require task, completed, user_id, priority, active fields` })
+    if(!(task || completed || user_uid || req.body.priority || active)) return res.status(404).json({ message: `require task, completed, user_id, priority, active fields` })
     
     const created_at = new Date().toUTCString()
     const updated_at = new Date().toUTCString()
@@ -21,7 +21,7 @@ server.post("/", auth, (req,res) => {
         task,
         completed,
         active,
-        priority,
+        priority: req.body.priority,
         created_at,
         updated_at,
         user_uid
@@ -35,18 +35,6 @@ server.post("/", auth, (req,res) => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
         todo.priority = priority[todo.priority]
-       /* if(todo.priority === 0){
-        //    todo.priority = "low"
-        }
-        else if(todo.priority === 1){
-         //   todo.priority = "moderate"
-        }
-        else if(todo.priority === 2){
-         //   todo.priority = "high"
-        }
-        else if(todo.priority === 3){
-          //  todo.priority = "very high"
-        }*/
 
         res.status(200).json(todo)
     }).catch( error => {
@@ -63,19 +51,6 @@ server.get("/", auth, (req,res) => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
             todo.priority = priority[todo.priority]
-
-            /*if(todo.priority === 0){
-                todo.priority = "low"
-            }
-            else if(todo.priority === 1){
-                todo.priority = "moderate"
-            }
-            else if(todo.priority === 2){
-                todo.priority = "high"
-            }
-            else if(todo.priority === 3){
-                todo.priority = "very high"
-            }*/
            
         })
         res.status(200).json(todos)
@@ -99,6 +74,40 @@ server.delete("/:todoId", auth, async (req,res) => {
     db.deleteTodo(todoId)
     .then(deletedMessage => {
         res.status(200).json(deletedMessage)
+    }).catch(error => {
+        res.status(500).json({ message: `Something went wrong`, error: error.message })
+    })
+
+})
+
+server.patch("/:todoId", auth,  async (req,res) => {
+
+    const { todoId } = req.params
+    const todo = req.body
+    
+    console.log("todo ",todo);
+    const oldTodo = await db.getTodoById(todoId)
+    console.log("todo exists? ", oldTodo);
+    if(!oldTodo) return res.status(404).json({ message: `No such todo exists in database`})
+    const { created_at } = oldTodo
+    const updated_at = new Date().toUTCString()
+    const newTodo = {...todo, created_at, updated_at}
+
+    db.updateTodo(todoId, newTodo, oldTodo)
+    .then( response => {
+
+        console.log("msg ",response);
+        const { oldTodo, updatedTodo } = response
+
+        updatedTodo.active = Boolean(updatedTodo.active)
+        updatedTodo.completed = Boolean(updatedTodo.completed)
+        updatedTodo.priority = priority[updatedTodo.priority]
+
+        oldTodo.active = Boolean(oldTodo.active)
+        oldTodo.completed = Boolean(oldTodo.completed)
+        oldTodo.priority = priority[oldTodo.priority]
+
+        res.status(200).json({...response, oldTodo, updatedTodo})
     }).catch(error => {
         res.status(500).json({ message: `Something went wrong`, error: error.message })
     })

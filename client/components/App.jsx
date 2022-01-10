@@ -9,6 +9,7 @@ import SignInSignUp from './SignInSignUp'
 import { setUser } from "../actions/userActions"
 import jwt_decode from "jwt-decode";
 import { getUserByUID } from '../api/user'
+import TodoDetails from './TodoDetails'
 
 
 function App () {
@@ -20,12 +21,11 @@ function App () {
   const history = useHistory()
 
   const authToken = localStorage.getItem("auth-token")
-  console.log("window ", window);
-  if (window.location.pathname !== "/" && !authToken && !isLogin) {
+  // console.log("window ", window);
+  if (window.location.pathname !== "/" && !authToken ) {
     console.log("tests ");
     window.location = "/";
   }
-
    //Go to Login page if not logged in
   // if (window.location.pathname != "/" && !authToken) {
   //   console.log("tests 2");
@@ -55,12 +55,17 @@ function App () {
   console.log("islogin ",isLogin);
   console.log("history app ", history);
   return (
+    
     <Router>
+      {isLogin && 
+      (<Route path="/home" component={Home}/>)
+      }
       <Route exact path="/" component={SignInSignUp}/>
       <Route path="/signin" component={SignIn}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="/homepage" component={Homepage}/>
       <Route path="/home" component={Home}/>
+      {/* <Route path="/todo/:id" component={TodoDetails}/> */}
       {/* <Route path="/signinsignup" component={SignInSignUp}/> */}
     </Router>
   )

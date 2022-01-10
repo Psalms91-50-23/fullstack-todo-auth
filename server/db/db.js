@@ -16,6 +16,8 @@ const capitalLetterRegex = /[A-Z]{1}/ //1 character match A-Z
 const lowerCaseLetterRegex = /[a-z]{1}/ //1 character match a-z
 const numberRegex = /\d{1}/ //1 digit match 0-9
 const specialCharRegex = /[!@#$%^&]{1}/ //must have 1 special character '!@#$%^&*
+const priority = ["low","moderate","high","very high"]
+
 
 function validateEmail(userEmail){
 
@@ -135,6 +137,7 @@ function getTodoById(id){
 function getAllTodos(){
 
     return db('todos')
+    .orderBy("id", "desc")
     .select()
 }
 
@@ -150,13 +153,15 @@ function getAllUserTodosByUID(uid){
 
     return db("todos")
     .select()
+    .orderBy("created_at", "desc")
     .where({user_uid: uid})
     .then( userTodos => {
         return userTodos
     })
 
-
 }
+
+
 function getAllUserTodos(uid){
 
     return db("users")
@@ -196,16 +201,34 @@ function deleteTodo(todoId){
 
 }
 
-function updateUser(uid, userUpdatedDetails){
+async function updateUser(uid, userUpdatedDetails){
+
+    const oldUserDetail = await db.getUserByUID(uid)
 
     return db('users')
     .where({uid})
     .update(userUpdatedDetails)
     .then(() => {
-
+        return { message: `user with uid: ${uid} has been updated successfully`, oldUserDetail, newUpdatedUserDetail: userUpdatedDetails}
     })
 
 }
+
+ function updateTodo(todoId, todo, oldTodo){
+
+    // const oldTodo = await db.getTodoById(todoId)
+    console.log("old todo ",oldTodo);
+ 
+
+    return db("todos")
+    .where("id", todoId)
+    .update(todo)
+    .then(() => {
+        return { message: "successful", oldTodo, updatedTodo: todo}
+    })
+
+}
+
 
 module.exports = {
     
@@ -223,6 +246,7 @@ module.exports = {
     deleteTodo,
     validatePassword,
     updateUser,
-    getAllUserTodosByUID
+    getAllUserTodosByUID,
+    updateTodo
     
 }
