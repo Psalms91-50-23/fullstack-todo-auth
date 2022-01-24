@@ -88,8 +88,9 @@ export async function getUserByUserEmail(email){
 
 }
 
-export function logoutUser(authToken){
+export function logoutUser(){
 
+    const authToken = localStorage.getItem("auth-token")
     return request
     .post(baseURL+"/logout")
     .send(authToken)

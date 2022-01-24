@@ -1,4 +1,28 @@
 
 .header {
     display: flex;
+    justify-content: space-between;
+    background-color: green;
+    /* max-width: 340px; */
+    width: 100%;
+}
+
+.header__user {
+    display: flex;
+    flex-direction: column;
+    /* cursor: pointer; */
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.header__user__logout {
+    cursor: pointer;
+}
+
+.header__user__logout:hover {
+    background-color: rgba(163, 189, 208, 0.408);
+}
+.header__user__name {
+    font-size: 12px;
 }

@@ -1,0 +1,32 @@
+
+.signup {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 340px;
+    background-color: aqua;
+    align-items: center;
+}
+
+.signup__signin {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.signup__register {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.register__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 340px;
+    background-color: cornflowerblue;
+    left: 50%;
+}

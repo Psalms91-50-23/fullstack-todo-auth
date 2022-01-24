@@ -7,12 +7,15 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setUser } from "../actions/userActions"
 import { getUserByUID } from '../api/user'
 import jwt_decode from "jwt-decode";
+import { setTodos } from "../actions/userActions"
+import "../css/Home.css"
+
 
 const Home = () => {
 
     const history = useHistory()
     const dispatch = useDispatch()
-    const { user } = useSelector(state => state.userState )
+    const { user, todos } = useSelector(state => state.userState )
     
     useEffect(() => {
 
@@ -37,11 +40,15 @@ const Home = () => {
 
     console.log("user in home ", user);
     return (
-        <div>
-            <Header />
-            <AddTodos />
-            <TodoList/>
-            <h1>Home</h1>
+        <div className='home'>
+            <div className='home__container'>
+                <div className='home__components'>  
+                    <Header />
+                    <AddTodos />
+                    <TodoList/>
+                    <h1>Home</h1> 
+                </div> 
+            </div>
             {/* <button onClick={() => history.push("/register")}>register</button>
             <button onClick={() => history.push("/login")}>login</button> */}
         </div>

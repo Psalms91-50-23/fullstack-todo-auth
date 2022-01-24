@@ -1,0 +1,138 @@
+
+.addTodo__container {
+    display: flex;
+    width: 100%;
+    /* max-width: 340px; */
+    /* min-width: 240px; */
+    background-color: darkolivegreen;
+}
+
+.addTodo__inputs {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.addTodo__submit {
+    display: flex;
+    background-color: red;
+    /* width: auto;
+    height: auto; */
+    margin: 0px;
+    padding: 0px;
+    justify-content: center;
+}
+
+.addTodo__select {
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: true;
+    justify-content: flex-start;
+    /* width: 100%; */
+    margin: 3px;
+    /* flex: 1; */
+}
+
+.addTodo__task {
+    display: flex;
+    margin: 5px 0px;
+    width: 100%;
+}
+
+.addTodo__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: yellow;
+    flex-wrap: wrap;
+    /* align-items: flex-start; */
+    /* justify-content: space-evenly; */
+}
+
+.addTodo__select > span {
+    display: flex;
+    flex-wrap: true;
+    margin: 0px;
+    padding: 0px;
+    background-color: blue;
+    /* justify-content: center; */
+    /* width: 100%; */
+}
+.addTodo__addBoxIcon {
+    display: flex;
+    width: 25px;
+   
+    /* width: 100%; */
+    margin: 0;
+    padding: 0;
+    /* background-color: orange; */
+    justify-content:flex-start;
+    
+}
+/* div > p {
+    width: 30px;
+} */
+.addTodo__addBoxIcon:hover {
+    cursor: pointer;
+    background-color: red;
+}
+
+.addTodo__priority {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: aqua;
+    justify-content: space-evenly;
+    margin-right: 5px;
+}
+
+.addTodo__active {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: brown;
+    justify-content: space-evenly;
+    margin-right: 5px;
+}
+
+.addTodo__completed {
+    display: flex;
+    width: 100%;
+    background-color: chartreuse;
+    justify-content: space-evenly;
+    margin-right: 5px;
+}
+
+.addTodo__task > label {
+    width: 10%;
+}
+
+.addTodo__task > input {
+    width: 90%;
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+    .addTodo__form{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .addTodo__priority {
+      
+        flex-wrap: wrap;
+    }
+    
+    .addTodo__active {
+ 
+        flex-wrap: wrap;
+    }
+    
+    .addTodo__completed {
+     
+        flex-wrap: wrap;
+       
+    }
+}

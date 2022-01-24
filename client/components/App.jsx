@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter as Router, Route, useHistory, Redirect  } from 'react-router-dom'
+import { BrowserRouter as Router, Route, useHistory  } from 'react-router-dom'
 import Home from './Home'
 import Homepage from './Homepage'
 import SignIn from './SignIn'
@@ -9,7 +9,6 @@ import SignInSignUp from './SignInSignUp'
 import { setUser } from "../actions/userActions"
 import jwt_decode from "jwt-decode";
 import { getUserByUID } from '../api/user'
-import TodoDetails from './TodoDetails'
 
 
 function App () {
@@ -22,7 +21,7 @@ function App () {
 
   const authToken = localStorage.getItem("auth-token")
   // console.log("window ", window);
-  if (window.location.pathname !== "/" && !authToken ) {
+  if (!authToken && window.location.pathname != "/") {
     console.log("tests ");
     window.location = "/";
   }
@@ -52,14 +51,13 @@ function App () {
   //   }
 
   // },[])
-  console.log("islogin ",isLogin);
-  console.log("history app ", history);
+
   return (
     
     <Router>
-      {isLogin && 
+      {/* {isLogin && 
       (<Route path="/home" component={Home}/>)
-      }
+      } */}
       <Route exact path="/" component={SignInSignUp}/>
       <Route path="/signin" component={SignIn}/>
       <Route path="/signup" component={SignUp}/>

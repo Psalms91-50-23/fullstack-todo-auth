@@ -4,8 +4,8 @@ exports.up = function(knex) {
 
         table.increments("id").primary(),
         table.text("task", 200),
-        table.string("created_at"),
-        table.string("updated_at"),
+        table.date("created_at"),
+        table.date("updated_at"),
         table.boolean("completed").defaultTo(false),
         table.boolean("active").defaultTo(false),
         table.integer("priority"),

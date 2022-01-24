@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const { uid } = require('uid')
 const { auth } = require("./authJwtVerify")
-const priority = ["low","moderate","high","very high"]
+const priorityIndex = ["low","moderate","high","very high"]
 
 server.post("/register", async (req,res) => {
 
@@ -162,7 +162,7 @@ server.get("/:uid/todos", auth, async (req,res) => {
         userTodos.map( todo => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
-            todo.priority = priority[todo.priority]
+            /*todo.priority = priorityIndex.indexOf(todo.priority)*/
            /* todo.priority = Boolean(todo.priority)*/
         })
         console.log("user todos ", userTodos);
@@ -190,7 +190,7 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
     .then(todo => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
-        todo.priority = priority[todo.priority]
+        todo.priority = priorityIndex[todo.priority]
 
         /*todo.priority = Boolean(todo.priority)*/
         return res.status(200).json(todo)

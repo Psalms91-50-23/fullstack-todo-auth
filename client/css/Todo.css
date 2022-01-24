@@ -3,23 +3,52 @@
 .todo__container {
     display: flex;
     /* flex-direction: column; */
+    width: 100%;
 }
 
-/* .todos_selection {
+.todo__buttons {
 
-    min-height: 30px;
+    display: flex;
 
-} */
+}
 
 .todo__details {
-    width: 250px;
+    width: 100%;
     background-color: green;
 }
 
-.todo__toggle {
+.todo__edit {
 
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 5px;
     /* min-height: 30px; */
+    height: 25px;
     background-color: red;
+}
+
+.todo__delete {
+
+    cursor: pointer;
+    margin-left: 5px;
+    height: 25px;
+    background-color: red;
+}
+
+
+.todo__addBoxIcon {
+    cursor: pointer;
+}
+.todos__selection__taskContainer {
+    /* display: flex; */
+    display: flex;
+    width: 100%;
+}
+.todos__selection__taskLabel {
+    /* width: 100%; */
+    flex: 0.10;
+}
+.todos__selection__task {
+    /* width: 100%; */
+    flex: 0.90;
+    margin-right: 10px;
 }

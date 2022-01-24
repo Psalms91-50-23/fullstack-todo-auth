@@ -1,0 +1,115 @@
+
+.editTodo {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.editTodo__form {
+
+    display: flex;
+    flex-direction: column;
+    margin: 0px 10px;
+}
+
+.editTodo__text {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+
+}
+
+.editTodo__checkBoxContainer{
+
+    display: flex;
+    background-color: brown;
+    justify-content: start;
+    align-items: center;
+    /* margin: 0px 10px; */
+
+}
+
+.editTodo__task {
+
+    display: flex;
+
+}
+
+/* .editTodo__input {
+
+    
+    margin-right: 10px;
+
+} */
+
+.editTodo__label{
+
+    flex: 0.10;
+}
+
+.editTodo__input {
+
+    flex: 0.90;
+}
+
+.editTodo__completed {
+
+    background-color: aqua;
+    margin-right: 10px;
+
+}
+
+.editTodo__completed > label {
+
+    margin-right: 5px; 
+
+}
+
+.editTodo__active {
+
+    background-color: cadetblue;
+    margin-right: 10px;
+    /* width: 100%; */
+}
+
+.editTodo__active > label {
+
+    margin-right: 5px;
+
+}
+
+
+.editTodo__priority {
+
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+    /* width: 100%; */
+}
+
+.editTodo__priority > label {
+
+    margin-right: 5px;
+
+}
+
+
+.editTodo__addBoxIcon {
+    display: flex;
+    background-color: rgb(84, 240, 6);
+    /* height: 20px; */
+    /* width: auto; */
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.editTodo__addBoxIcon > span {
+
+    display: flex;
+    height: auto;
+    justify-content: center;
+}

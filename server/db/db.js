@@ -219,12 +219,11 @@ async function updateUser(uid, userUpdatedDetails){
     // const oldTodo = await db.getTodoById(todoId)
     console.log("old todo ",oldTodo);
  
-
     return db("todos")
     .where("id", todoId)
     .update(todo)
     .then(() => {
-        return { message: "successful", oldTodo, updatedTodo: todo}
+        return { message: "Successful", oldTodo, updatedTodo: todo}
     })
 
 }

@@ -9,7 +9,7 @@ const todoRoutes = require("./routes/todos")
 server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
-// var whitelist = ['http://localhost:3000/*']
+// var whitelist = ['http://localhost:3000']
 // var corsOptions = {
 //   origin: function (origin, callback, next) {
 //     if (whitelist.indexOf(origin) !== -1) {
@@ -20,7 +20,7 @@ server.use(express.static(path.join(__dirname, 'public')))
 //     }
 //   }
 // }
-// server.use(cors(corsOptions))
+// server.use(cors())
 //routes middle ware
 server.use("/api/user", authRoutes)
 server.use("/api/todos", todoRoutes)

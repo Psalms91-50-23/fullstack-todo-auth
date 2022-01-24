@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUserByUID } from '../api/user'
 import { setUser } from "../actions/userActions"
 import jwt_decode from "jwt-decode";
+import "../css/Signin.css"
 
 const SignIn = () => {
 
@@ -46,29 +47,35 @@ const SignIn = () => {
                 })
               }
         })
+        .then(() => {
+            history.replace("/home") 
+        })
         .catch( error => {
             console.log("error ", error.message);
         })
-        history.replace("/home") 
+        // 
     }
 
     console.log(userDeets);
     return (
-        <div>
-            <h1>Login</h1>
-            <form>
-                <h3>email</h3>
-                <input type="text" name="email" value={email} onChange={ e => handleChange(e)}/>
-                <h3>password</h3>
-                <input type="password" name="password" onChange={ e => handleChange(e)} value={password}/>
-                <button type="submit" onClick={ e => loginUser(e)}>Sign-in</button>
-            </form>
+        <div className='signin'>
             <div>
-                <button>
-                    <NavLink to="/signup">
-                        not a registered user? go register
-                    </NavLink>
-                </button>
+                <h1>Login</h1>
+                <form onSubmit={e => loginUser(e)}>
+                    <h3>email</h3>
+                    <input type="text" name="email" value={email} onChange={ e => handleChange(e)}/>
+                    <h3>password</h3>
+                    <input type="password" name="password" onChange={ e => handleChange(e)} value={password}/>
+                    <button type="submit">Sign-in</button>
+                    {/* <input type="submit"/> */}
+                </form>
+                <div>
+                    <button>
+                        <NavLink to="/signup">
+                            not a registered user? go register
+                        </NavLink>
+                    </button>
+                </div>
             </div>
         </div>
     )

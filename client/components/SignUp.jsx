@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { register, getUserByEmail, getUserByUserEmail } from '../api/user'
 import { validateEmail, validatePassword, minPasswordCharReqReached, minEmailLength } from "../utils/functions"
-
+import "../css/Signup.css"
 
 const SignUp = () => {
 
@@ -13,10 +13,10 @@ const SignUp = () => {
     }
     
     const history = useHistory()
-
+    console.log("history in signup ", history)
     const [ emailLength, setEmailLenth ] = useState(false)
     const [ userExists, setUserExists ] = useState("")
-    const [ userExistsError, setUserExistsError ] = useState(true)
+    // const [ userExistsError, setUserExistsError ] = useState(true)
     //email and password error
     const [ emailError, setEmailError ] = useState(true)
     const [ passwordError, setPasswordError ] = useState(true)
@@ -45,8 +45,8 @@ const SignUp = () => {
             getUserByEmail(email)
             .then( user => {
                 console.log("user coming back ",user);
-                if(user) setUserExists(user)
-                else setUserExists("")
+                if(user) setUserExists(true)
+                else setUserExists(false)
 
                 console.log("user exists: ",userExists);
                 
@@ -77,19 +77,19 @@ const SignUp = () => {
            
     },[password])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        // if(success) history.push("/login")
-        if(userExists){
+    //     // if(success) history.push("/login")
+    //     if(userExists){
 
-            setUserExistsError(true) 
-            // setSuccess(true)
-        }
-        else {
-            setUserExistsError(false)
-        }
+    //         setUserExistsError(true) 
+    //         // setSuccess(true)
+    //     }
+    //     else {
+    //         setUserExistsError(false)
+    //     }
 
-    },[userExists])
+    // },[userExists])
 
     function handleChange(e){
         e.preventDefault()
@@ -97,11 +97,11 @@ const SignUp = () => {
         setUserDeets({...userDeets, [e.target.name]: e.target.value})
 
     }
-    
+    // &&  !userExistsError //and user error is falsy do following
     function registerUser(e){
         e.preventDefault()
-        //by being falsy, no error in email or password, user does not exist and user error is falsy do following
-        if( !emailError && !passwordError && !userExists &&  !userExistsError){
+        //by being falsy, no error in email or password, user does not exist 
+        if( !emailError && !passwordError && !userExists){
             // console.log("before push ");
             register(userDeets)
             history.replace("/signin")
@@ -112,38 +112,44 @@ const SignUp = () => {
     console.log(userDeets);
 
     return (
-        <div>
-            <h1>Register</h1>
-            <form onSubmit={e => registerUser(e)}>
-                <h3>name</h3>
-                <input type="text" name="name" value={name} required onChange={ e => handleChange(e)}/>
-                <h3>email</h3>
-                <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required/>
+        <div className='register__container'>
+            <div className='signup__register'>
+                <h3>Register</h3>
+                <form onSubmit={e => registerUser(e)}>
+                    <h3>name</h3>
+                    <input type="text" name="name" value={name} required onChange={ e => handleChange(e)}/>
+                    <h3>email</h3>
+                    <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required/>
+                    {
+                        !emailLength && 
+                        (<p> Email have not reached a min of 3 character length </p>)
+
+                    }
+                    {
+                        emailError && (<p> Email is not a valid email </p>)
+                    }
+                    <h3>password</h3>
+                    <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required/>
+                    {
+                        passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' ` </p>)
+                    }
+                    <button type="submit">Register</button>
+                </form>
                 {
-                    !emailLength ?  
-                    (<p>Email have not reached a min of 3 character length</p>)
-                    :
-                    ""
+                    userExists && <p> User email already exists, choose another email </p>
                 }
-                {
-                    emailError && (<p>email is not a valid email</p>)
-                }
-                <h3>password</h3>
-                <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required/>
-                {
-                    passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' ` </p>)
-                }
-                <button type="submit">Register</button>
-            </form>
-            {
-                userExistsError && <p>User email already exists, choose another email</p>
-            }
-            <button>
-                <NavLink to="/signin">
-                    A registered user? go login
-                </NavLink>
-            </button>
+            </div>
+            <div>
+                <button className='signup__signin'>
+                    <NavLink to="/signin">
+                        A registered user? go login
+                    </NavLink>
+                </button>
+            </div>
         </div>
+        // <div className='signup'>
+            
+        // </div>
     )
 }
 

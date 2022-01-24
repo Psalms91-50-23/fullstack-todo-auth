@@ -1,0 +1,25 @@
+
+.home {
+
+    display: flex;
+    background-color: burlywood;
+    justify-content: center;
+    
+
+}
+
+.home__container {
+    display: flex;
+    width: 500px;
+    justify-content: center;
+    background-color: aqua;
+}
+
+.home__components {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(36, 169, 56);
+    width: 100%;
+    /* width: 500px; */
+   
+}
