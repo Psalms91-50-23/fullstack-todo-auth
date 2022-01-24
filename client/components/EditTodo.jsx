@@ -42,7 +42,7 @@ const Edit = ({ todo, toggleEdit }) => {
     }
 
     const { id, completed, active, priority, task } = userTodo
-    console.log("edit user todo ", userTodo);
+    // console.log("edit user todo ", userTodo);
 
   return (
 
@@ -83,9 +83,6 @@ const Edit = ({ todo, toggleEdit }) => {
                        {
                            !active && 
                            <div className='editTodo__completed'>
-                                {/* <p>
-                                    completed {userTodo.completed.toString()}
-                                </p> */}
                                 <label htmlFor='completed'>completed </label>
                                 <input 
                                     name="completed" 
@@ -100,9 +97,6 @@ const Edit = ({ todo, toggleEdit }) => {
                        {
                            !completed &&
                             <div className='editTodo__active'>
-                                {/* <p>
-                                    active {userTodo.active.toString()}
-                                </p> */}
                                 <label htmlFor="active">active: </label>
                                 <input 
                                     name="active" 
@@ -114,169 +108,14 @@ const Edit = ({ todo, toggleEdit }) => {
                             </div>
 
                        }
-                        {/* { !active && !completed &&
-                            <>
-                                <div className='editTodo__completed'>
-                                <p>
-                                    completed {userTodo.completed.toString()}
-                                </p>
-                                <label htmlFor='completed'>completed </label>
-                                <input 
-                                    name="completed" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={completed}
-                                    onChange={(e) => onChangeCompleteHandler(e)}
-                                />
-                                </div> 
-                                <div className='editTodo__active'>
-                                    <p>
-                                        active {active.toString()}
-                                    </p>
-                                    <label htmlFor="active">active: </label>
-                                    <input 
-                                        name="active" 
-                                        type="checkbox"
-                                        //setting default value to the todo passed down as props
-                                        defaultChecked={active}
-                                        onChange={(e) => onChangeCompleteHandler(e) }
-                                    /> 
-                                </div>
-                            </>
-                        }
-                        { active && !completed &&
-                            <>
-                             
-                                <div className='editTodo__active'>
-                                    <p>
-                                        active {active.toString()}
-                                    </p>
-                                    <label htmlFor="active">active: </label>
-                                    <input 
-                                        name="active" 
-                                        type="checkbox"
-                                        //setting default value to the todo passed down as props
-                                        defaultChecked={active}
-                                        onChange={(e) => onChangeCompleteHandler(e) }
-                                    /> 
-                                </div>
-                            
-                            </>
-
-                        }
-                        {
-                            !active && completed &&
-                            <>
-                                <div className='editTodo__completed'>
-                                <p>
-                                    completed {userTodo.completed.toString()}
-                                </p>
-                                <label htmlFor='completed'>completed </label>
-                                <input 
-                                    name="completed" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={completed}
-                                    onChange={(e) => onChangeCompleteHandler(e)}
-                                />
-                                </div> 
-                            
-                            </>
-
-                        } */}
-                        
-                        
-                        {/* { 
-                        
-                        active ? 
-                            <div className='editTodo__completed'>
-                                <p>
-                                    completed {userTodo.completed.toString()}
-                                </p>
-                                <label htmlFor='completed'>completed </label>
-                                <input 
-                                    name="completed" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={active}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !active})}
-                                />
-                            </div>
-                            :
-                            <div className='editTodo__completed'>
-                                <p>
-                                    completed {userTodo.completed.toString()}
-                                </p>
-                                <label htmlFor='completed'>completed </label>
-                                <input 
-                                    name="completed" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={todo.active}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : active})}
-                                />
-                            </div> 
-                        
-                        } */}
-                        {/* {!completed && 
-                            <div className='editTodo__active'>
-                                <p>
-                                    active {userTodo.active.toString()}
-                                </p>
-                                <label htmlFor="active">active: </label>
-                                <input 
-                                    name="active" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={todo.active}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : }) }
-                                /> 
-                            </div>
-                        } */}
-                        {/* {
-                        
-                        completed ?
-                            <div className='editTodo__active'>
-                                <p>
-                                    active {userTodo.active.toString()}
-                                </p>
-                                <label htmlFor="active">active: </label>
-                                <input 
-                                    name="active" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={todo.completed}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !completed}) }
-                                /> 
-                            </div>
-                            :
-                            <div className='editTodo__active'>
-                                <p>
-                                    active {userTodo.active.toString()}
-                                </p>
-                                <label htmlFor="active">active: </label>
-                                <input 
-                                    name="active" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={completed}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : completed}) }
-                                /> 
-                            </div>
-                        } */}
-                        {/* <span onClick={(e) => submitTodo(e)} className='editTodo__addBoxIcon'>
-                            <AddBoxIcon/>
-                        </span> */}
                         <div className='editTodo__addBoxIcon' onClick={(e) => submitTodo(e)}>
-                            {/* <p onClick={(e) => submitTodo(e)}>
-                            </p> */}
-                                <span  onClick={(e) => submitTodo(e)} >
-                                    <AddBoxIcon/>
-                                </span>
+                            <span  onClick={(e) => submitTodo(e)} >
+                                <AddBoxIcon/>
+                            </span>
                         </div>
                     </div>
             </form>
-        {/* </div> */}
+  
     </div>
       
   )

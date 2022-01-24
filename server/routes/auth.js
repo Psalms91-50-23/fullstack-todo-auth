@@ -14,26 +14,26 @@ server.post("/register", async (req,res) => {
     console.log("body ",req.body);
     //test if all fields are there
     if(!email || !password || !name) return  res.status(400).json({ message: "Need all data fields ===> name, password and email" })
-    console.log("field pass");
+    // console.log("field pass");
      //test if user exists already
      const userExist = await db.getUserByEmail(email)
      if(userExist) return  res.status(400).json({ message: "User with email already exist" })
-     console.log("user already exists pass");
+    //  console.log("user already exists pass");
     //validate email, and length, before '@' must contain 3 character length
     const validEmail =  db.validateEmail(email)
     if(!validEmail)  return res.status(404).json({ message: `Email is not a valid email, characters allowed 'a-z,A-Z,0-9,_' and must contain min 3 characters before '@'`})
-    console.log("validate email pass");
+    // console.log("validate email pass");
     //validate password, for length, characters min requirements etc
     const validPassword = db.validatePassword(password)
     if(!validPassword) return res.status(404).json({ message: `Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' `})
-    console.log("validate password pass");
+    // console.log("validate password pass");
 
     const created_at = new Date().toUTCString()
     const updated_at = new Date().toUTCString()
     
     //create hash password, salt gets appended to hash password
     const salt = await bcrypt.genSalt(10)
-    console.log("salt ", salt);
+    // console.log("salt ", salt);
     const hashPassword = await bcrypt.hash(password, salt)
 
     //create unique user id
@@ -48,7 +48,7 @@ server.post("/register", async (req,res) => {
         updated_at
 
     }
-    console.log("add user pass ");
+    // console.log("add user pass ");
     //create new user
     db.addUser(newUser)
     .then(user => {
@@ -99,7 +99,7 @@ server.get("/:email", async (req,res) => {
 
     db.getUserByEmail(email)
     .then(user => {
-        console.log("user by email in then  ",user);
+        // console.log("user by email in then  ",user);
         res.status(200).json(user)
     }).catch(error => {
         res.status(500).json({ message: "something went wrong", error: error.message })
@@ -142,7 +142,7 @@ server.post("/login", async (req,res) => {
      //https://jwt.io and paste token to see your data stored at jwt
     const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '1h'})
     //login sends token in the header to the client side
-    console.log("token ", token);
+    // console.log("token ", token);
     res.header("auth-token", token).send(token)
    
 })
@@ -165,7 +165,7 @@ server.get("/:uid/todos", auth, async (req,res) => {
             /*todo.priority = priorityIndex.indexOf(todo.priority)*/
            /* todo.priority = Boolean(todo.priority)*/
         })
-        console.log("user todos ", userTodos);
+        // console.log("user todos ", userTodos);
         return res.status(200).json(userTodos)
     })
     .catch(error => {
@@ -205,9 +205,9 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 server.post("/logout", (req,res) => {
 
     var authToken = req.header('auth-token')
-    console.log("auth ",authToken);
+    // console.log("auth ",authToken);
     authToken = ""
-    console.log("auth null ", authToken);
+    // console.log("auth null ", authToken);
     return  res.header("auth-token", authToken).send(authToken)
 
 })

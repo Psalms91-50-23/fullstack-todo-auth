@@ -9,7 +9,7 @@ export function register(user){
     .post(baseURL+"/register")
     .send(user)
     .then((response) => {
-        console.log("response ", response);
+        // console.log("response ", response);
         return response.body
     })
     .catch(error => {
@@ -23,7 +23,7 @@ export function login(user){
     .post(baseURL+"/login")
     .send(user)
     .then((response) => {
-        console.log("response ", response);
+        // console.log("response ", response);
         return  response.header
         // response.body
     })
@@ -38,7 +38,7 @@ export function getUserByEmail(email){
     return request
     .get(baseURL+"/"+email)
     .then((response) => {
-        console.log("get user by email ", response.body);
+        // console.log("get user by email ", response.body);
         return response.body
         // response.body
     })
@@ -52,7 +52,7 @@ export function getUserByUID(uid){
     return request
     .get(`${baseURL}/getuser/${uid}`)
     .then( response => {
-        console.log("user by uid ", response.body);
+        // console.log("user by uid ", response.body);
         return response.body
     }).catch(error => {
         console.log("error ",error.message);

@@ -20,16 +20,15 @@ const Home = () => {
     useEffect(() => {
 
         const userToken = localStorage.getItem("auth-token")
-        console.log("userToken Home ", userToken);
+        // console.log("userToken Home ", userToken);
       
         if(userToken){
             var decoded = jwt_decode(userToken);
-            console.log("decoded in addtodo ", decoded);
+            // console.log("decoded in addtodo ", decoded);
             //sent uid to jwt online in login route backend, just grabbing uid from jwt token 
             const { uid } = decoded
             getUserByUID(uid)
             .then(user => {
-                console.log("user in addtodo ", user);
                 dispatch(setUser(user))
             }).catch(error => {
                 console.log("error ",error.message);
@@ -38,7 +37,6 @@ const Home = () => {
 
     },[])
 
-    console.log("user in home ", user);
     return (
         <div className='home'>
             <div className='home__container'>

@@ -6,7 +6,6 @@ const { auth } = require("./authJwtVerify")
 
 const priorityIndex = ["low","moderate","high","very high"]
 
-
 server.post("/", auth, (req,res) => {
 
 
@@ -19,8 +18,8 @@ server.post("/", auth, (req,res) => {
 
     const created_at = new Date()
     const updated_at = new Date()
-    console.log("created_at format in posted todos ", created_at)
-    console.log("updatedted_at format in posted todos ", updated_at)
+    // console.log("created_at format in posted todos ", created_at)
+    // console.log("updatedted_at format in posted todos ", updated_at)
     const newTodo = {
 
         task,
@@ -44,9 +43,7 @@ server.post("/", auth, (req,res) => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
         /*todo.priority = priorityIndex[todo.priority]*/
-        
-        console.log("todo posted after changes ", todo);
-
+        // console.log("todo posted after changes ", todo);
         res.status(200).json(todo)
     }).catch( error => {
         res.status(500).json({ message: `Something went wrong`, error: error.message})
@@ -77,7 +74,6 @@ server.get("/", auth, (req,res) => {
 server.delete("/:todoId", auth, async (req,res) => {
 
     const { todoId } = req.params
-
     const todoExists = await db.getTodoById(todoId)
 
     if(!todoExists) return res.status(404).json({ message: `No such todos exists `})
@@ -95,10 +91,8 @@ server.patch("/:todoId", auth,  async (req,res) => {
 
     const { todoId } = req.params
     const todo = req.body
-    
-    console.log("todo ",todo);
     const oldTodo = await db.getTodoById(todoId)
-    console.log("todo exists? ", oldTodo);
+
     if(!oldTodo) return res.status(404).json({ message: `No such todo exists in database`})
     const { created_at } = oldTodo
     const updated_at = Date.now()
@@ -108,7 +102,6 @@ server.patch("/:todoId", auth,  async (req,res) => {
     db.updateTodo(todoId, newTodo, oldTodo)
     .then( response => {
  
-        console.log("msg ",response);
         const { oldTodo, updatedTodo } = response
 
         response.updatedTodo.active = Boolean(response.updatedTodo.active)
@@ -117,10 +110,8 @@ server.patch("/:todoId", auth,  async (req,res) => {
 
         response.oldTodo.active = Boolean(response.oldTodo.active)
         response.oldTodo.completed = Boolean(response.oldTodo.completed)
-        console.log("updated todo ", updatedTodo)
-        console.log("old todo ",oldTodo);
+
         // oldTodo.priority = priorityIndex[oldTodo.priority]
-        console.log("update seeing if it is an number value ", todo.priority);
 
         res.status(200).json({...response, oldTodo, updatedTodo})
     }).catch(error => {
@@ -140,7 +131,7 @@ server.get('/:todoId', auth, async (req,res) => {
     db.getTodoById(todoId)
     .then( todo => {
  
-        console.log("msg ",todo);
+        // console.log("msg ",todo);
         // const { oldTodo, updatedTodo } = todo
 
         // updatedTodo.active = Boolean(updatedTodo.active)
@@ -157,26 +148,5 @@ server.get('/:todoId', auth, async (req,res) => {
     })
     
 })
-
-// server.get("/:uid", auth, async (req,res) => {
-
-//     const { uid } = req.params
-//     console.log("uid in auth ", uid);
-
-//     const userUIDExist = await db.getUserByUID(uid)
-//     console.log("user in auth exisit ", userUIDExist);
-//     if(!userUIDExist) return res.status(404).json({ message: `No User found with given UID: ${uid}` })
-
-//     db.getAllUserTodos(uid)
-//     .then(userTodos => {
-//         console.log("user todos ", userTodos);
-//         return res.status(200).json(userTodos)
-//     })
-//     .catch(error => {
-//         res.status(500).json({ message: "something went wrong", error: error.message })
-//     })
-
-// })
-
 
 module.exports = server

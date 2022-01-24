@@ -1,19 +1,60 @@
 
 .header {
+
     display: flex;
     justify-content: space-between;
-    background-color: green;
+    height: 70px;
+    /* background-color: green; */
     /* max-width: 340px; */
     width: 100%;
+    margin-bottom: 10px;
+    /* background-color: coral; */
 }
 
+
+
+.header__container {
+    
+    display: flex;
+    flex: 1;
+    /* justify-content: flex-end; */
+    margin: 5px 10px;
+    
+    
+}
+
+.header__img {
+
+    height: 100%;
+    width: 100%;
+    /* background-color: rebeccapurple; */
+    /* margin: 20px 0px; */
+}
+
+.header__container img {
+
+    /* padding-top: 20px; */
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    /* width: auto;
+    height: auto; */
+
+}
+
+
+
+
 .header__user {
+
     display: flex;
     flex-direction: column;
     /* cursor: pointer; */
     justify-content: center;
     align-items: center;
     margin-left: 5px;
+    width: 100%;
+    /* background-color: aqua; */
 }
 
 .header__user__logout {

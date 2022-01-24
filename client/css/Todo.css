@@ -4,17 +4,22 @@
     display: flex;
     /* flex-direction: column; */
     width: 100%;
+    padding: 10px;
 }
 
 .todo__buttons {
 
     display: flex;
+    /* flex: 1; */
+    flex: 0.2;
+    /* width: 100%; */
 
 }
 
 .todo__details {
     width: 100%;
     background-color: green;
+    flex: 0.8;
 }
 
 .todo__edit {

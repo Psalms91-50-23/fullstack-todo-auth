@@ -25,9 +25,8 @@ const Header = () => {
         const authToken = localStorage.getItem("auth-token")
         logoutUser(authToken)
         .then(response => {
-            console.log("response in logout homepage  ", response);
             localStorage.removeItem('auth-token');
-            //user logged out, push to login page/ which is home
+            //user logged out, push to login page which is home
             history.push("/")
             
         })
@@ -38,27 +37,19 @@ const Header = () => {
 
     return (
         <div className='header'>
-            <h1>Your Todo List</h1>
-            <div className='header__user' >
-                {/* {name && 
-                    
-                } */}
-                <span className='header__user__name'>
-                    Logged in as {name}
-                </span>
-                <span className='header__user__logout' onClick={logout}>
-                    Logout
-                </span>
-                {/* <div>
-                    <span>
-                        logged in as {name}
+            <div className='header__container'>
+                {/* <h2>Your Todo List</h2> */}
+                <div className='header__img'>
+                    <img src="../images/todo.png" alt="" />
+                </div>
+                <div className='header__user' >
+                    <span className='header__user__name'>
+                        Logged in as {name}
+                    </span>
+                    <span className='header__user__logout' onClick={logout}>
+                        Logout
                     </span>
                 </div>
-                <div>
-                    <span>
-                        logout
-                    </span>
-                </div> */}
             </div>
         </div>
     )

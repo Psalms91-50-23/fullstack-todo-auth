@@ -1,5 +1,7 @@
 
 .filter {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     background-color: blueviolet;
 }
@@ -8,37 +10,47 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content:flex-start;
-    flex-wrap: wrap;
+    /* justify-content:flex-start; */
+    /* flex-wrap: wrap; */
 }
 
 .filter__container {
     display: flex;
     flex-wrap: wrap;
+    /* justify-content: space-between; */
     width: 100%;
+    background-color: chartreuse;
 }
 
 .filter__inputs {
     display: flex;
     flex-direction: row;
-    
+    /* justify-content: space-between; */
 }
 
 .filter__priority {
     display: flex;
     width: 100%;
     background-color: red;
-    justify-content:space-evenly;
+    /* justify-content:space-evenly; */
 }
 
 .filter__completed {
     display: flex;
     flex-direction: row;
+    /* flex-wrap: wrap; */
     background-color: aqua;
 }
 
 .filter__active {
     display: flex;
+    /* min-width: 100px; */
     flex-direction: row;
-    background-color: rgb(174, 153, 194);
+    background-color: rgb(105, 57, 150);
+    /* flex-wrap: wrap; */
+
+}
+
+@media only screen and (max-width: 380px){
+
 }

@@ -23,12 +23,9 @@ const TodoList = () => {
             dispatch(load(true))
             // const token = localStorage.getItem("auth-token")
             // console.log("token in todolist ", token);
-            console.log("user in todolist ", user);
             const { uid }= user
             getAllUserTodosByUID(uid)
             .then(todos => {
-                console.log("user todos ",todos);
-                // setUserTodos(todos)
                 dispatch(setTodos(todos))
                 dispatch(load(false))
             }).catch(error => {
@@ -45,7 +42,7 @@ const TodoList = () => {
 
         if(todos){
 
-            console.log("todo length change ", todos.length);
+            // console.log("todo length change ", todos.length);
             setUserTodos(todos)
         }
 
@@ -54,7 +51,7 @@ const TodoList = () => {
     useEffect(() => {
 
         setLoadingTodos(loading)
-        console.log("loading todos  ",loadingTodos);
+        // console.log("loading todos  ",loadingTodos);
 
     },[loading])
 
@@ -63,7 +60,7 @@ const TodoList = () => {
         // const authToken = localStorage.getItem("auth-token")
         logoutUser()
         .then(response => {
-            console.log("response in logout homepage  ", response);
+            // console.log("response in logout homepage  ", response);
             localStorage.removeItem('auth-token');
             //user logged out, push to login page/ which is home
             history.push("/")
@@ -74,15 +71,7 @@ const TodoList = () => {
         })
     }
 
-    // useEffect(() => {
 
-    //     if(filter){
-    //         console.log("filter in todolist ", filter);
-    //     }
-    // },[filter])
-    console.log("todos ", todos, " todo length ", todos?.length);
-    // console.log("user in todolist ", user);
-    // console.log("user todolist ", userTodos);
     return (
         <div className='todoList'>
             <h2>Todo list</h2>

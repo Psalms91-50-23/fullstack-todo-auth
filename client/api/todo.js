@@ -12,7 +12,7 @@ export function createTodo(todo){
     .send(todo)
     .set("auth-token", token)
     .then(response => {
-        console.log("create todo api frontend ", response.body)
+        // console.log("create todo api frontend ", response.body)
         return response.body
     }).catch(error => {
         console.log("error ",error.message)
@@ -28,31 +28,13 @@ export function getAllUserTodosByUID(userUID){
     .get(`${userTodosBaseURL}/${userUID}/todos`)
     .set("auth-token", token)
     .then( response  => {
-        console.log("response get all user todo by uid ", response.body)
+        // console.log("response get all user todo by uid ", response.body)
         return response.body
     }).catch(error => {
         console.log("error ",error.message);
     })
 
 }
-
-// export function updateThisTodoByID(todoId, todo){
-
-//     const token = localStorage.getItem("auth-token")
-//     console.log("todo before patching ", todo);
-//     return request
-//     .patch(`${todoBaseURL}/${todoId}`)
-//     .set("auth-token", token)
-//     .send(todo)
-//     .then( response => {
-//         console.log("response from updateThisTodoByID ", response)
-//         const { message, oldTodo, updatedTodo} = response.body
-//         return updatedTodo
-
-//     }).catch(error => {
-//         console.log("error ",error.message)
-//     })
-// }
 
 export function updateTodoByID(todoId, todo){
 
@@ -67,7 +49,7 @@ export function updateTodoByID(todoId, todo){
     .set('auth-token', token)
     .send(todo)
     .then(response => {
-        console.log("msg in todo.js res.body ", response.body)
+        // console.log("msg in todo.js res.body ", response.body)
         // console.log("date format id "+todoId+" ", dateFormat);
         const { oldTodo, updatedTodo, message } = response.body
         return updatedTodo
@@ -84,7 +66,7 @@ export function deleteTodoById(id){
     .delete(`${todoBaseURL}/${id}`)
     .set("auth-token", token)
     .then( response  => {
-        console.log("response for delete ", response)
+        // console.log("response for delete ", response)
         return response.body
     }).catch(error => {
         console.log("error ",error.message);

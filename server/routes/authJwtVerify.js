@@ -11,7 +11,7 @@ function auth(req, res, next){
         jwt.verify(token, process.env.JWT_TOKEN_SECRET, (error, decoded) => {
             if(error) throw new Error(error)
             req.user = decoded
-            console.log("req.user ",req.user);
+            // console.log("req.user ",req.user);
             next()
         })
         // console.log("verified", verified);
