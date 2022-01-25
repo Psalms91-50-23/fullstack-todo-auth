@@ -1,9 +1,13 @@
 
 .filter {
+    
     display: flex;
+    box-sizing: border-box;
     flex-direction: column;
     width: 100%;
     background-color: blueviolet;
+    padding-left: 10px;
+
 }
 
 .filter__form {

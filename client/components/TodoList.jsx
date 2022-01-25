@@ -17,6 +17,7 @@ const TodoList = () => {
     const dispatch = useDispatch()
     const { user, todos, loading, filter } = useSelector(state => state.userState )
     const [ loadingTodos, setLoadingTodos ] = useState(false)
+    const [ isFilter, setIsFilter ] = useState("")
     useEffect(() => {
 
         if(user){
@@ -30,6 +31,7 @@ const TodoList = () => {
                 dispatch(load(false))
             }).catch(error => {
                 console.log("error ",error.message);
+                //error token expired/invalid logout and reload browser, otherwise it stays on loading error
                 logout()
                 location.reload()
                 
@@ -37,6 +39,12 @@ const TodoList = () => {
         }
         
     },[user])
+
+    // useEffect(() => {
+
+    //     setIsFilter(filter)
+
+    // },[filter])
 
     useEffect(() => {
 
@@ -75,7 +83,10 @@ const TodoList = () => {
     return (
         <div className='todoList'>
             <h2>Todo list</h2>
-            <Filter setUserTodos={setUserTodos} userTodos={userTodos}/>
+            <p>
+                filter state {isFilter?.toString()}
+            </p>
+            <Filter userTodos={userTodos}/>
             <h4>User: {user?.email}</h4>
             {!loadingTodos && filter ? (filter?.map(todo => {
                 const { id } = todo

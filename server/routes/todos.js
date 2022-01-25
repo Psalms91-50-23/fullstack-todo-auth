@@ -12,7 +12,7 @@ server.post("/", auth, (req,res) => {
     const { task, completed, user_uid, active, priority } = req.body
     console.log("body ",req.body);
     if(!(task || completed || user_uid || priority || active)) return res.status(404).json({ message: `require task, completed, user_id, priority, active fields` })
-    console.log("initial date format ", new Date());
+    // console.log("initial date format ", new Date());
     // const created_at = new Date().toUTCString()
     // const updated_at = new Date().toUTCString()
 
@@ -34,9 +34,9 @@ server.post("/", auth, (req,res) => {
 
     db.addTodo(newTodo)
     .then( todo => {
-        console.log("todo posted before", todo);
-        console.log("todo created at  ", todo.created_at.toString());
-        console.log("todo updated at  ", todo);
+        // console.log("todo posted before", todo);
+        // console.log("todo created at  ", todo.created_at.toString());
+        // console.log("todo updated at  ", todo);
 
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
@@ -58,7 +58,7 @@ server.get("/", auth, (req,res) => {
         todos.map(todo => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
-            todo.priority = priorityIndex[todo.priority]
+            /*todo.priority = priorityIndex[todo.priority]*/
            
         })
         res.status(200).json(todos)
