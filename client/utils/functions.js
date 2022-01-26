@@ -1,10 +1,10 @@
-// const db = require('./connection')
+
 //^ = at start
 // (\w{3,}) = can have values from a-z,A-Z,0-9,_ (\w) , must be 3({3,}) characters min or more, this part is the length test
 //@ not in brackets = must include '@'
 //([a-zA-Z\d]{2,}) = must contain letters within '[]' from a-z, A-Z, any digits 0-9 (\d), must be min of 2 characters or more
 //\.  must contain "." \ is an escape character as '.' has a meaning in regex
-//([a-z]{2,}) = must contain letters with '[]', a-z and must be 2 more more {2,} characters
+//([a-z]{2,}) = must contain letters within '[]', a-z and must be 2 or more {2,} characters
 //example of above is Ba4@gmail.com
 //(\.[a-z]{2,})? this is optional with the '?' = must contain '.','\' is an escape character as '.' has meaning in regex, it can mean any character except linebreaks 
 //example of above full regex expression with optional end part is Ba4@hotmail.co.nz

@@ -77,8 +77,8 @@ server.get("/getuser/:uid", async (req,res) => {
 
     const { uid } = req.params
 
-    // const user = await db.getUserByUID(uid)
-    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
+    const user = await db.getUserByUID(uid)
+    if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
 
     db.getUserByUID(uid)
     .then(user => {
@@ -91,9 +91,9 @@ server.get("/getuser/:uid", async (req,res) => {
 server.get("/:email", async (req,res) => {
 
     const { email } = req.params
-    // const user = await db.getUserByEmail(email)
+    const user = await db.getUserByEmail(email)
     // console.log("user exists ", user);
-    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
+    if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
 
     db.getUserByEmail(email)
     .then(user => {
