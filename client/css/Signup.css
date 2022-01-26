@@ -104,6 +104,12 @@
 
 }
 
+.signup__emailError {
+
+    padding: 0 10px;
+
+}
+
 .signup__password {
 
     display: flex;

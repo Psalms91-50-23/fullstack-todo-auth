@@ -112,7 +112,7 @@ const SignUp = () => {
                     </div>
                     <div className="signup__email">
                         <h2>Email</h2>
-                        <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required/>
+                        <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required />
                         {
                             !emailLength && 
                             (<p> Email have not reached a min of 3 character length </p>)
@@ -127,7 +127,7 @@ const SignUp = () => {
                     </div>
                     <div className="signup__password">
                         <h2>Password</h2>
-                        <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required/>
+                        <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required />
                         {
                             passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character "!@#$%^&"  </p>)
                         }

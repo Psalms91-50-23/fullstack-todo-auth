@@ -111,7 +111,7 @@ const SignIn = () => {
                     <form onSubmit={e => loginUser(e)}>
                         <div className="signin__email">
                             <h2>Email</h2>
-                            <input type="text" name="email" value={email} onChange={ e => handleChange(e)}/>
+                            <input type="text" name="email" required value={email} onChange={ e => handleChange(e)}/>
                             { emailError &&
                                 <span>
                                     Invalid Email, Either typo or Email is not registered
@@ -120,7 +120,7 @@ const SignIn = () => {
                         </div>
                         <div className="signin__password">
                             <h2>Password</h2>
-                            <input type="password" name="password" onChange={ e => handleChange(e)} value={password}/>
+                            <input type="password" required name="password" onChange={ e => handleChange(e)} value={password}/>
                             {passwordError &&
                             <span>
                                 Password did not match database
