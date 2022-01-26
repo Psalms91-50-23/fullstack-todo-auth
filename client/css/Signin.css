@@ -61,6 +61,20 @@
 
 }
 
+.signin__emailError {
+
+    margin-top: 10px;
+    color: red;
+
+}
+
+.signin__passwordError {
+
+    margin-top: 10px;
+    color: red;
+
+}
+
 .signin__password {
 
     display: flex;

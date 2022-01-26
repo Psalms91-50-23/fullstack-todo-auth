@@ -113,7 +113,7 @@ const SignIn = () => {
                             <h2>Email</h2>
                             <input type="text" name="email" required value={email} onChange={ e => handleChange(e)}/>
                             { emailError &&
-                                <span>
+                                <span className='signin__emailError'>
                                     Invalid Email, Either typo or Email is not registered
                                 </span>
                             }
@@ -122,7 +122,7 @@ const SignIn = () => {
                             <h2>Password</h2>
                             <input type="password" required name="password" onChange={ e => handleChange(e)} value={password}/>
                             {passwordError &&
-                            <span>
+                            <span className='signin__passwordError'>
                                 Password did not match database
                             </span>
 
