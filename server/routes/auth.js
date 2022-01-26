@@ -11,7 +11,7 @@ const priorityIndex = ["low","moderate","high","very high"]
 server.post("/register", async (req,res) => {
 
     const { email, password, name } = req.body
-    console.log("body ",req.body);
+    // console.log("body ",req.body);
     //test if all fields are there
     if(!email || !password || !name) return  res.status(400).json({ message: "Need all data fields ===> name, password and email" })
     // console.log("field pass");
@@ -28,8 +28,8 @@ server.post("/register", async (req,res) => {
     if(!validPassword) return res.status(404).json({ message: `Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' `})
     // console.log("validate password pass");
 
-    const created_at = new Date().toUTCString()
-    const updated_at = new Date().toUTCString()
+    const created_at = new Date()
+    const updated_at = new Date()
     
     //create hash password, salt gets appended to hash password
     const salt = await bcrypt.genSalt(10)
@@ -48,7 +48,7 @@ server.post("/register", async (req,res) => {
         updated_at
 
     }
-    // console.log("add user pass ");
+    // console.log("newUser ",newUser);
     //create new user
     db.addUser(newUser)
     .then(user => {
@@ -72,6 +72,63 @@ server.get("/", (req,res) => {
     })
 
 })
+/* 
+    
+const bcrypt = require('bcrypt');
+async function hashIt(password){
+  const salt = await bcrypt.genSalt(6);
+  const hashed = await bcrypt.hash(password, salt);
+}
+hashIt(password);
+// compare the password user entered with hashed pass.
+async function compareIt(password){
+  const validPassword = await bcrypt.compare(password, hashedPassword);
+}
+compareIt(password);
+
+*/
+server.get("/password", async (req,res) => {
+
+    //send who user details from login to backend so I can use email to check if email exists and grab the hashed password and compare
+
+    const tempUserDetails = req.body
+    const { email, password } = tempUserDetails
+    const userExists = await db.getUserByEmail(email)
+    var passwordValid = null
+    var userWithHashPassword = null
+
+    if(userExists){
+
+        const hashedPassword = userExists.password
+        const validPassword = await bcrypt.compare(password, hashedPassword);
+
+        if(!validPassword){
+            return res.status(404).json({ email: "Email is valid", user_password: "Password is not valid"})
+        }else{
+            return res.status(200).json(`validpassword ${validPassword}`)
+        }
+
+    }
+
+    const users = await db.getAllUsers()
+
+    for(var i = 0; i < users.length-1 ; i++)
+    {
+
+        const hashedPassword = users[i].password
+        const validPassword = await bcrypt.compare(password, hashedPassword);
+        if(validPassword){
+            passwordValid = true
+        }
+        if(i === users.length-1 && !validPassword)
+        {
+
+        }
+    }
+
+    const validPassword = await bcrypt.compare(password, hashedPassword);
+
+})
 
 
 server.get("/getuser/:uid", async (req,res) => {
@@ -92,7 +149,6 @@ server.get("/getuser/:uid", async (req,res) => {
 server.get("/:email", async (req,res) => {
 
     const { email } = req.params
-    console.log("email in get user email ",email);
     // const user = await db.getUserByEmail(email)
     // console.log("user exists ", user);
     // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
@@ -135,15 +191,32 @@ server.post("/login", async (req,res) => {
     if(!user) return res.status(404).json({ message: `User with email:${email} does not exist in the database` })
         
     //validate password, check if  password matches the password kept in bcrypt
-    const validPassword = bcrypt.compare( password, user.password )
-    if(!validPassword) return res.status(400).json({ message: "Invalid password" })
-
-    //create and assign token with our added JWT_TOKEN_SECRET to it, go to below website
+    //user.password being kep is hashpassword
+    // const validPassword = await bcrypt.compare( req.body.password, user.password ) //this works
+    // if(!validPassword) return res.status(400).json({ message: "Invalid password" })// error handling if it does not match
+     //create and assign token with our added JWT_TOKEN_SECRET to it, go to below website
      //https://jwt.io and paste token to see your data stored at jwt
-    const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '1h'})
-    //login sends token in the header to the client side
-    // console.log("token ", token);
-    res.header("auth-token", token).send(token)
+     //const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '2h'})
+     //login sends token in the header to the client side
+     // console.log("token ", token);
+     //res.header("auth-token", token).send(token)
+
+    //bottom combines the 4 things from above compare() function error check and also create and send jwt token
+    bcrypt.compare( password, user.password).then((result) => {
+
+        if(!result){
+            return res.status(400).json({ error_message: "Invalid password or password did not match database" })
+        }
+        else{
+             //create and assign token with our added JWT_TOKEN_SECRET to it, go to below website
+            //https://jwt.io and paste token to see your data stored at jwt
+            const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '2h'})
+            //login sends token in the header to the client side
+            console.log("token ", token);
+            res.header("auth-token", token).send(token)
+        }
+
+    }) 
    
 })
 

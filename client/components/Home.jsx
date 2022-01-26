@@ -40,15 +40,17 @@ const Home = () => {
     return (
         <div className='home'>
             <div className='home__container'>
-                <div className='home__components'>  
-                    <Header />
-                    <AddTodos />
-                    <TodoList/>
-                    <h1>Home</h1> 
-                </div> 
+                <div className='home__content__container'>
+                    <img className='home__img' src="https://c.tenor.com/ak6js9w3VSIAAAAC/todos.gif" alt="" />
+                    <div className='home__container'>
+                        <div className='home__components'>  
+                            <Header />
+                            <AddTodos />
+                            <TodoList/>
+                        </div> 
+                    </div>
+                </div>
             </div>
-            {/* <button onClick={() => history.push("/register")}>register</button>
-            <button onClick={() => history.push("/login")}>login</button> */}
         </div>
     )
 }

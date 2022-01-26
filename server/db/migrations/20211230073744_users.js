@@ -7,8 +7,8 @@ exports.up = function(knex) {
         table.string('name').notNullable()
         table.string("email").unique()
         table.string("password").notNullable()
-        table.string("created_at")
-        table.string("updated_at")
+        table.date("created_at")
+        table.date("updated_at")
 
     })
 }

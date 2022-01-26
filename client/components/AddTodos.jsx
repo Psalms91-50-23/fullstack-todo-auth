@@ -16,7 +16,7 @@ const AddTodos = () => {
     const [ todo, setTodo ] = useState({
         task: "",
         completed: false,
-        active: true,
+        active: false,
         priority: 0,
         user_uid: ""
     })
@@ -38,15 +38,26 @@ const AddTodos = () => {
             setEmpty(true)
             return
         }
+        if(!completed && !active ){
+            todo.active = true
+        }
+
         setEmpty(false)
         e.preventDefault()
         createTodo(todo)
         .then(response => {
             dispatch(addTodo(response))
-            setTodo({...todo, task: ""})
+            setTodo({...todo, task: "", active: false, completed: false})
         }).catch(error => {
             console.log("error ",error.message);
         })
+
+    }
+
+    function onChangeTask(e){
+        e.preventDefault()
+        setTodo({...todo, [e.target.name] : e.target.value})
+        setEmpty(false)
 
     }
 
@@ -57,14 +68,14 @@ const AddTodos = () => {
             <form className='addTodo__form' onSubmit={e => submitTodo(e)}>
                 <div className='addTodo__task'>
                     <div>
-                        <label htmlFor='task' >todo: </label>
-                        <input name="task" value={task} onChange={ e => setTodo({...todo, [e.target.name]: e.target.value})}/>
+                        <label htmlFor='task' >Todo </label>
+                        <input name="task" value={task} onChange={ e => onChangeTask(e)}/>
                     </div>
-                    {empty && <span > Task cannot be empty </span>}
+                    {empty && <span >Task cannot be empty</span>}
                 </div>
                 <div className='addTodo__inputs'>
                     <div className='addTodo__priority'> 
-                        <label htmlFor='priority' >priority </label>
+                        <label htmlFor='priority' >priority</label>
                         <select name="priority" value={priority} onChange={ e => setTodo({...todo, [e.target.name]: Number(e.target.value)})}>
                             <option value={0}>low</option>
                             <option value={1}>moderate</option>
@@ -72,20 +83,25 @@ const AddTodos = () => {
                             <option value={3}>very high</option>
                         </select>
                     </div>
-                    <div className='addTodo__completed'>
-                        <label htmlFor='completed'>completed </label>
-                        <input name="completed" type="checkbox"
-                            defaultChecked={completed}
-                            onChange={() => setTodo({...todo, completed: !completed})}
-                        />
-                    </div>
-                    <div className='addTodo__active'>
-                        <label htmlFor='active' >active </label>
-                        <input name="active" type="checkbox"
-                            defaultChecked={active}
-                            onChange={() => setTodo({...todo, active: !active})}
-                        />
-                    </div>
+                    { !active && 
+                        <div className='addTodo__completed'>
+                            <label htmlFor='completed'>completed</label>
+                            <input name="completed" type="checkbox"
+                                defaultChecked={completed}
+                                onChange={() => setTodo({...todo, completed: !completed})}
+                            />
+                        </div>
+                    }
+                    { !completed && 
+                        <div className='addTodo__active'>
+                            <label htmlFor='active' >active</label>
+                            <input name="active" type="checkbox"
+                                defaultChecked={active}
+                                onChange={() => setTodo({...todo, active: !active})}
+                            />
+                        </div>
+                    }
+                    
                     <span className='addTodo__addBoxIcon'>
                         <AddBoxIcon onClick={e => submitTodo(e)}/>
                     </span>

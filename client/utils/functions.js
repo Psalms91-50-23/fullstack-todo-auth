@@ -41,7 +41,7 @@ function minPasswordCharReqReached(password){
 
     //test for length of password, if 5 or lower return false
     if(passwordArray.length <= 5) return minPasswordCharReached
-    console.log("pw length pass ", passwordArray.length)
+    // console.log("pw length pass ", passwordArray.length)
     //after above condition passes do below
     for(var i = 0; i < passwordArray.length ; i++){
         

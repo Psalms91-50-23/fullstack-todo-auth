@@ -30,12 +30,10 @@ const Filter = ({userTodos}) => {
 
     function onSubmit(e){
         e.preventDefault()
-        console.log("priority ",priority);
         if(all){
             // setUserTodos(userTodos)
             dispatch(filterTodos(null))
         }else{
-            console.log("-1 priority");
             dispatch(filterTodos(filteringTodos(userTodos)))
         }
 
@@ -46,7 +44,7 @@ const Filter = ({userTodos}) => {
         if(filteredTodos.priority == -1){
             return (
             <> 
-                <h2>top</h2>
+                {/* <h2>top</h2> */}
                 <p>priority: {filteredTodos.priority}</p>
                 <p>priority: none</p>
                 <p>all {filteredTodos.all.toString()}</p>
@@ -55,7 +53,7 @@ const Filter = ({userTodos}) => {
         }else {
             return ( 
             <>
-                <h2>bottom</h2>
+                {/* <h2>bottom</h2> */}
                 <p>priority: {filteredTodos.priority}</p>
                 <p>priority: {priorityIndex[priority]}</p>
                 <p>all {filteredTodos.all.toString()}</p>
@@ -84,6 +82,8 @@ const Filter = ({userTodos}) => {
             else if(filteredTodos.priority >= 0 && todo.active === filteredTodos.active && todo.priority === filteredTodos.priority || 
                 filteredTodos.priority >= 0 && todo.completed === filteredTodos.completed && todo.priority === filteredTodos.priority ){
                     return todo
+            }else if(filteredTodos.priority === -1 && filteredTodos.active === false && filteredTodos.completed === false){
+                return todo
             }
 
         })
@@ -92,23 +92,12 @@ const Filter = ({userTodos}) => {
 
     return (
         <div className='filter'>
-            <h1>Filter search</h1>
-            {textOnScreen()}
+            <h3>Filter search</h3>
+            {/* {textOnScreen()} */}
             <form onSubmit={e => onSubmit(e)} className='filter__form'>
                 {all ?
-                    <div>
-                        <label htmlFor='all'>All</label>
-                        <input 
-                            name="all" 
-                            type="checkbox"
-                            defaultChecked={all}
-                            onChange={(e) => setFilteredTodos({...filteredTodos, [e.target.name]: !all})}
-                        />
-                        <button onClick={(e) => onSubmit(e)}>filter</button>
-                    </div>
-                    :
-                    <div className='filter__container'>
-                        <div className='filter__inputs'>
+                    <div className='filter__inputs'> 
+                        <div className="filter__all">
                             <input 
                                 name="all" 
                                 type="checkbox"
@@ -116,6 +105,22 @@ const Filter = ({userTodos}) => {
                                 onChange={(e) => setFilteredTodos({...filteredTodos, [e.target.name]: !all})}
                             />
                             <label htmlFor='all'>All</label>
+                            <button onClick={(e) => onSubmit(e)}>Filter</button>
+                        </div>
+                    </div>
+                    :
+                    <div className='filter__container'>
+                        <div className='filter__inputs'>
+                            <div className='filter__all'>
+                                <input 
+                                    name="all" 
+                                    type="checkbox"
+                                    defaultChecked={all}
+                                    onChange={(e) => setFilteredTodos({...filteredTodos, [e.target.name]: !all})}
+                                />
+                                <label htmlFor='all'>All</label>
+
+                            </div>
                             {!active && 
                                 <div className='filter__completed'>
                                     <input 
@@ -124,7 +129,7 @@ const Filter = ({userTodos}) => {
                                         defaultChecked={completed}
                                         onChange={(e) => setFilteredTodos({...filteredTodos, [e.target.name]: !completed})}
                                     />
-                                    <label htmlFor='completed'>completed</label>
+                                    <label htmlFor='completed'>Completed</label>
                                 </div>
 
                             }
@@ -136,10 +141,11 @@ const Filter = ({userTodos}) => {
                                         defaultChecked={active}
                                         onChange={ e => setFilteredTodos({...filteredTodos, [e.target.name]: !active}) }
                                     /> 
-                                    <label htmlFor="active">active</label>
+                                    <label htmlFor="active">Active</label>
                                 </div>
                             }
                             <div className='filter__priority'>
+                                <label htmlFor='priority' >Priority</label>
                                 <select 
                                     name="priority" 
                                     value={priority}
@@ -153,9 +159,9 @@ const Filter = ({userTodos}) => {
                                     <option value={3}>very high</option>
                             
                                 </select>
-                                <label htmlFor='priority' >priority</label>      
+                                     
                             </div>
-                            <button onClick={(e) => onSubmit(e)}>filter</button>
+                            <button className='filter__submitButton' onClick={(e) => onSubmit(e)}>Filter</button>
                         </div>   
                     </div>    
                 }

@@ -3,9 +3,9 @@ import { updateTodoByID, getTodoById } from '../api/todo.js'
 import { updateTodo, deleteTodo, updateThisTodo } from '../actions/userActions'
 import "../css/EditTodo.css"
 // import EditIcon from '@mui/icons-material/Edit';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-const priorityIndex = ["low","moderate","high","very high"]
+// const priorityIndex = ["low","moderate","high","very high"]
 
 const Edit = ({ todo, toggleEdit }) => {
 
@@ -18,9 +18,7 @@ const Edit = ({ todo, toggleEdit }) => {
         priority: todo.priority,
     })
     const dispatch = useDispatch()
-
-   
-
+    const { id, completed, active, priority, task } = userTodo
 
     function submitTodo(e){
 
@@ -41,7 +39,7 @@ const Edit = ({ todo, toggleEdit }) => {
         }) 
     }
 
-    const { id, completed, active, priority, task } = userTodo
+    
     // console.log("edit user todo ", userTodo);
 
   return (
@@ -54,16 +52,18 @@ const Edit = ({ todo, toggleEdit }) => {
             <p>
                 priority:  {priorityIndex[userTodo.priority]}
             </p> */}
-            <p>
-                active {active.toString()} <br/>
-                completed {completed.toString()}
-            </p>
+            <span>
+                <strong>Active:</strong> {active.toString()} <br/>
+            </span>
+            <span>
+                <strong>Completed:</strong> {completed.toString()}
+            </span>
 
         </div> }
         {/* <div className="todos__selection"> */}
             <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
                     <div className="editTodo__task">
-                        <label className='editTodo__label' htmlFor='task' >todo: </label>
+                        <label className='editTodo__label' htmlFor='task' >Todo: </label>
                         <input 
                             className='editTodo__input' 
                             name="task" value={task} 
@@ -72,7 +72,7 @@ const Edit = ({ todo, toggleEdit }) => {
                     </div>
                     <div className="editTodo__checkBoxContainer">
                         <div className='editTodo__priority'>
-                            <label htmlFor='priority' >priority: </label>
+                            <label htmlFor='priority' >Priority: </label>
                             <select name="priority" value={priority} onChange={ (e) =>  setUserTodo({...userTodo, [e.target.name]: e.target.value })}>
                                 <option value={0}>low</option>
                                 <option value={1}>moderate</option>

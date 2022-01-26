@@ -2,6 +2,7 @@
 const environment = process.env.NODE_ENV || 'development'
 const config = require('./knexfile')[environment]
 const db = require('knex')(config)
+const bcrypt = require("bcryptjs")
 //^ = at start
 // (\w{3,}) = can have values from a-z,A-Z,0-9,_ (\w) , must be 3({3,}) characters min or more, this part is the length test
 //@ not in brackets = must include '@'

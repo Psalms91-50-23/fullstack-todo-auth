@@ -28,7 +28,7 @@ export function login(user){
         // response.body
     })
     .catch(error => {
-        console.log("error ",error.message);
+        console.log("Error password did not match database ",error.message);
     })
 }
 
@@ -74,12 +74,14 @@ export function getUserByUID(uid){
 
 // }
 
+
+
 export async function getUserByUserEmail(email){
 
     try{
 
         const user = await axios.get(`${baseURL}/${email}`)
-        console.log("req user data ",user);
+        // console.log("req user data ",user);
         return user
 
     }catch(error){

@@ -20,10 +20,10 @@
 
 }
 
-.editTodo__checkBoxContainer{
+.editTodo__checkBoxContainer {
 
     display: flex;
-    background-color: brown;
+    /* background-color: brown; */
     justify-content: start;
     align-items: center;
     /* margin: 0px 10px; */
@@ -33,17 +33,18 @@
 .editTodo__task {
 
     display: flex;
+    /* justify-content: space-evenly; */
 
 }
 
-/* .editTodo__input {
+.editTodo__task > label {
 
-    
-    margin-right: 10px;
+    font-weight: 700;
+    margin-right: 5px;
 
-} */
+}
 
-.editTodo__label{
+.editTodo__label {
 
     flex: 0.10;
 }
@@ -55,7 +56,9 @@
 
 .editTodo__completed {
 
-    background-color: aqua;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
     margin-right: 10px;
 
 }
@@ -63,19 +66,23 @@
 .editTodo__completed > label {
 
     margin-right: 5px; 
+    font-weight: 700;
 
 }
 
 .editTodo__active {
 
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
+    display: flex;
+    flex-direction: row;
     margin-right: 10px;
-    /* width: 100%; */
+
 }
 
 .editTodo__active > label {
 
     margin-right: 5px;
+    font-weight: 700;
 
 }
 
@@ -91,13 +98,14 @@
 .editTodo__priority > label {
 
     margin-right: 5px;
+    font-weight: 700;
 
 }
 
 
 .editTodo__addBoxIcon {
     display: flex;
-    background-color: rgb(84, 240, 6);
+    /* background-color: rgb(84, 240, 6); */
     /* height: 20px; */
     /* width: auto; */
     justify-content: center;

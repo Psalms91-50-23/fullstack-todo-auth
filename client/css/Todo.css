@@ -1,10 +1,15 @@
 
 
 .todo__container {
+
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: row;
+    padding-bottom: 20px;
     width: 100%;
     padding: 10px;
+    border-bottom: 1px solid black;
+    background-color: rgb(255, 255, 255);
+    /* background-color: rgba(255, 255, 255, 0.4); */
 }
 
 .todo__buttons {
@@ -18,7 +23,7 @@
 
 .todo__details {
     width: 100%;
-    background-color: green;
+    /* background-color: green; */
     flex: 0.8;
 }
 
@@ -28,7 +33,7 @@
     margin-left: 5px;
     /* min-height: 30px; */
     height: 25px;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .todo__delete {
@@ -36,24 +41,37 @@
     cursor: pointer;
     margin-left: 5px;
     height: 25px;
-    background-color: red;
+    /* background-color: red; */
 }
 
+.todo__info > p {
+
+    margin: 0;
+    padding: 3px 0;
+    color: black;
+
+}
 
 .todo__addBoxIcon {
+
     cursor: pointer;
+
 }
-.todos__selection__taskContainer {
+
+.todo__selection__taskContainer {
     /* display: flex; */
     display: flex;
     width: 100%;
+
 }
-.todos__selection__taskLabel {
+.todo__selection__taskLabel {
     /* width: 100%; */
     flex: 0.10;
+
 }
-.todos__selection__task {
+.todo__selection__task {
     /* width: 100%; */
     flex: 0.90;
     margin-right: 10px;
+    
 }

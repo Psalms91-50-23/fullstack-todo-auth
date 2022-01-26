@@ -79,15 +79,17 @@ const TodoList = () => {
         })
     }
 
-
     return (
         <div className='todoList'>
-            <h2>Todo list</h2>
-            <p>
-                filter state {isFilter?.toString()}
-            </p>
-            <Filter userTodos={userTodos}/>
-            <h4>User: {user?.email}</h4>
+            <div className='todoList__title'>
+                <h1>Todo List</h1>
+            </div>
+            {/* <div className="todoList__borderTop"></div> */}
+            {/* <div className="todoList__filter">
+            </div> */}
+            <Filter userTodos={userTodos}/> 
+            {/* <h4>User: {user?.email}</h4> */}
+            <div className='todoLists__content'>
             {!loadingTodos && filter ? (filter?.map(todo => {
                 const { id } = todo
                 return  (<Todo key={id} todo={todo}/>)
@@ -99,6 +101,8 @@ const TodoList = () => {
                     }))
             }
             {loadingTodos && <Loading/>}
+            </div>
+            
         </div>
     )
 }

@@ -17,7 +17,7 @@ const Todo = ({todo}) => {
     // console.log("in todo jsx  ", todo);
     
     const { user, todos } = useSelector(state => state.userState )
-    const foundTodo = todos.find(thisTodo  => thisTodo.id === todo.id)
+    // const foundTodo = todos.find(thisTodo  => thisTodo.id === todo.id)
     const dispatch = useDispatch()
     
     const [ toggle, setToggle ] = useState(false)
@@ -59,7 +59,7 @@ const Todo = ({todo}) => {
     function submitTodo(e, id){
 
         e.preventDefault()
-        updateTodoByID(foundTodo.id, userTodo)
+        updateTodoByID(todo.id, userTodo)
         .then(response => {
             // const { oldTodo, updatedTodo, message } = response
             dispatch(updateTodo(response))
@@ -73,14 +73,22 @@ const Todo = ({todo}) => {
     function editTodo(userTodo){
 
         return (
-            <div className='todos'>
-                <p>
-                    toggle {toggle.toString()} <br/>
-                    userTodo priority:  {userTodo.priority} <br/>
-                    active {userTodo.active.toString()} <br/>
-                    completed {userTodo.completed.toString()}
-                </p>
-                <div className='todos_selection'>
+            <div className='todo'>
+                <div className="todo__textInfo"> 
+                    {/* <span>
+                        toggle {toggle.toString()}
+                    </span> */}
+                    <span>
+                        userTodo priority:  {userTodo.priority}
+                    </span>
+                    <span>
+                        active {userTodo.active.toString()} 
+                    </span>
+                    <span>
+                        completed {userTodo.completed.toString()}
+                    </span>
+                </div>
+                <div className='todo_selection'>
                     <form onSubmit={(e) => submitTodo(e)}>
                         <div className='todos__selection__taskContainer'>
                             <label className='todos__selection__taskLabel' htmlFor='task' >todo: </label>
@@ -135,37 +143,27 @@ const Todo = ({todo}) => {
     return (
         <div className='todo__container'>
             <div className='todo__details'>
-                {
+                {/* {
                     <p>toggle: {toggle.toString()}</p>
-                }
+                } */}
                 { toggle?
-                     <EditTodo todo={todo} todoId={todo.id} toggleEdit={toggleEdit}/>
+                     <EditTodo todo={todo} toggleEdit={toggleEdit}/>
                     :
                     <div className='todo__info'>
-                        <div className=''>
-                            {/* <p>
-                                priority: {priority}
-                            </p> */}
-                            <h3> todo </h3>
-                            <p> id: {id}</p>
-                            <p> task: {task}</p>
-                            <p> user_uid: {user_uid}</p>
-                            <p> completed: {completed.toString()}</p>
-                            <p> active: {active.toString()}</p>
-                            <p> priority: {priorityIndex[priority]}</p>
-                            <p> 
-                                created_at: {new Date(created_at).toTimeString()}
-                            </p>
-                            <p> 
-                                updated_at: {new Date(updated_at).toTimeString()}
-                                
-                            </p>
-                            {/* <p> created_at: {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(created_at)}
-                            </p>
-                            <p> updated_at: {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(updated_at)}
-                            </p> */}
-                            
-                        </div> 
+                        <h3>Todo</h3>
+                        {/* <p> id: {id}</p> */}
+                        <p><strong>Task:</strong> {task}</p>
+                        {/* <p> user_uid: {user_uid}</p> */}
+                        <p><strong>Completed:</strong> {completed.toString()}</p>
+                        <p><strong>Active:</strong> {active.toString()}</p>
+                        <p><strong>Priority:</strong> {priorityIndex[priority]}</p>
+                        <p> 
+                            <strong>Created at:</strong> {new Date(created_at).toTimeString()}
+                        </p>
+                        <p> 
+                            <strong>Updated at:</strong> {new Date(updated_at).toTimeString()}   
+
+                        </p>
                     </div>
                     
                 }

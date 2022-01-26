@@ -1,5 +1,129 @@
 
-.signin_signup {
+.signin__signup {
+
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    /* margin-top: 20px; */
+    /* max-width: 500px; */
+    /* width: 100%; */
+    /* height: 100%; */
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    /* background-color: aquamarine; */
+}
+
+
+.signin__signup__img {
+
+    flex: auto;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px 20px 0px 0px;
+
+}
+
+.signin__signupImgContainer  {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    max-width: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* top: -50px; */
+
+}
+
+.signin__signup__contentContainer {
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    width: 100%;
+    max-width: 500px;
+    flex: 1;
+    border: 1px solid black;
+    border-top: 5px solid white;
+    border-radius: 50% 50% 0px 0px;
+    z-index: 5;
+    /* margin-top: -100px; */
+    background-color: rgba(128, 128, 128, 1);
+
+}
+
+.signin__signup__content {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    max-width: 500px;
+    width: 100%;
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
+    margin-top: -125px;
+    /* top: -50px; */
+}
+.signin__button {
+
+    width: 200px;
+    /* padding: 0px 10px; */
+}
+
+.signin__container {
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.signin__container > h3 {
+    
+    color: white;
+
+}
+
+.signin__container > button:hover {
+
+    cursor: pointer;
+
+}
+
+.signup__container {
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.signup__container > h3 {
+    
+    color: white;
+
+}
+
+.signup__container > button {
+
+    margin-bottom: 10px;
+
+}
+
+.signup__container > button:hover {
+
+    cursor: pointer;
+
+}
+
+.signup__button {
+
+    width: 200px;
+
 }

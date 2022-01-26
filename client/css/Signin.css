@@ -1,4 +1,97 @@
 .signin {
+
     display: flex;
     justify-content: center;
+    position: relative;
+    width: 100%;
+    background-color: black;
+    height: 100vh;
+    align-items: center;
+    z-index: 0;
+    
+}
+
+.signin__rightPattern
+{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    max-width: 400px;
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid black; */
+    align-items: center;
+    z-index: -1;
+    background-color: rgba(255, 255, 255, 0.2);
+    /* transform: translateX(400px); */
+    border-radius: 0px 25px 0px 0px;
+    
+}
+
+.signin__formContainer {
+
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    align-items: center;
+    /* z-index: 0; */
+    /* margin-top: 20px; */
+    background-color: white;
+    border-radius: 0px 60% 0px 0px;
+    
+}
+
+.signin__form {
+
+    width: 70%;
+
+}
+
+
+.signin__email {
+
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+
+}
+
+.signin__password {
+
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+
+}
+
+
+
+.signin__submitButton {
+
+    margin: 10px 0px;
+    width: 100%;
+
+}
+
+.signin__submitButton:hover {
+
+    cursor: pointer;
+
+}
+
+.signin__goRegisterButton {
+
+    width: 100%
+
+}
+
+.signin__goRegisterButton:hover {
+
+    cursor: pointer;
+
 }

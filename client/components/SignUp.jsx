@@ -6,14 +6,13 @@ import "../css/Signup.css"
 
 const SignUp = () => {
 
-
     const authToken = localStorage.getItem("auth-token")
     if(authToken){
         window.location = "/home"
     }
     
     const history = useHistory()
-    console.log("history in signup ", history)
+    // console.log("history in signup ", history)
     const [ emailLength, setEmailLenth ] = useState(false)
     const [ userExists, setUserExists ] = useState("")
     // const [ userExistsError, setUserExistsError ] = useState(true)
@@ -34,21 +33,20 @@ const SignUp = () => {
 
         //test the start of the email min 3 character length
         const isValidEmailLength = minEmailLength(email)
-        console.log("isEmailValid ", isValidEmailLength);
+        // console.log("isEmailValid ", isValidEmailLength);
         if(isValidEmailLength){
 
             //email length is reached, changed it to true
             setEmailLenth(true)
             const isValidEmail = validateEmail(email)
-            console.log('validated email ', isValidEmail);
+            // console.log('validated email ', isValidEmail);
 
             getUserByEmail(email)
             .then( user => {
-                console.log("user coming back ",user);
+                // console.log("user coming back ",user);
                 if(user) setUserExists(true)
                 else setUserExists(false)
-
-                console.log("user exists: ",userExists);
+                // console.log("user exists: ",userExists);
                 
             }).catch(error => {
                 console.log('error ',error.message);
@@ -71,25 +69,11 @@ const SignUp = () => {
     useEffect(() => {
 
         const isValidPassword = validatePassword(password)
-        console.log("isValidPassword ", isValidPassword);
+        // console.log("isValidPassword ", isValidPassword);
         if(isValidPassword)  setPasswordError(false)
         else setPasswordError(true)
            
     },[password])
-
-    // useEffect(() => {
-
-    //     // if(success) history.push("/login")
-    //     if(userExists){
-
-    //         setUserExistsError(true) 
-    //         // setSuccess(true)
-    //     }
-    //     else {
-    //         setUserExistsError(false)
-    //     }
-
-    // },[userExists])
 
     function handleChange(e){
         e.preventDefault()
@@ -109,42 +93,53 @@ const SignUp = () => {
       
     }
 
-    console.log(userDeets);
+    function login(){
+        history.push("/signin")
+    }
+    // console.log(userDeets);
 
+    console.log("password ", password);
     return (
-        <div className='register__container'>
-            <div className='signup__register'>
-                <h3>Register</h3>
-                <form onSubmit={e => registerUser(e)}>
-                    <h3>name</h3>
-                    <input type="text" name="name" value={name} required onChange={ e => handleChange(e)}/>
-                    <h3>email</h3>
-                    <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required/>
-                    {
-                        !emailLength && 
-                        (<p> Email have not reached a min of 3 character length </p>)
 
-                    }
-                    {
-                        emailError && (<p> Email is not a valid email </p>)
-                    }
-                    <h3>password</h3>
-                    <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required/>
-                    {
-                        passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character '!@#$%^&' ` </p>)
-                    }
-                    <button type="submit">Register</button>
-                </form>
-                {
-                    userExists && <p> User email already exists, choose another email </p>
-                }
-            </div>
-            <div>
-                <button className='signup__signin'>
-                    <NavLink to="/signin">
+        <div className='register__container'>
+            <div className='signup__content'>
+                <div className="signup__title">
+                    <h1>Register</h1>
+                </div>
+                <form className="signup__form" onSubmit={e => registerUser(e)}>
+                    <div className="signup__name">
+                        <h2>Name</h2>
+                        <input type="text" name="name" value={name} required onChange={ e => handleChange(e)}/>
+                    </div>
+                    <div className="signup__email">
+                        <h2>Email</h2>
+                        <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required/>
+                        {
+                            !emailLength && 
+                            (<p> Email have not reached a min of 3 character length </p>)
+
+                        }
+                        {
+                            emailError && (<p> Email is not a valid email </p>)
+                        }
+                        {
+                            userExists && <p className='signup__emailError'> User email already exists, choose another email </p>
+                        }
+                    </div>
+                    <div className="signup__password">
+                        <h2>Password</h2>
+                        <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required/>
+                        {
+                            passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character "!@#$%^&"  </p>)
+                        }
+                        <button className='signup__register' type="submit">
+                            Register
+                        </button>
+                    </div>
+                    <button className='signup__login' onClick={login}>
                         A registered user? go login
-                    </NavLink>
-                </button>
+                    </button>
+                </form>
             </div>
         </div>
         // <div className='signup'>

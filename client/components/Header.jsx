@@ -37,19 +37,13 @@ const Header = () => {
 
     return (
         <div className='header'>
-            <div className='header__container'>
-                {/* <h2>Your Todo List</h2> */}
-                <div className='header__img'>
-                    <img src="../images/todo.png" alt="" />
-                </div>
-                <div className='header__user' >
-                    <span className='header__user__name'>
-                        Logged in as {name}
-                    </span>
-                    <span className='header__user__logout' onClick={logout}>
-                        Logout
-                    </span>
-                </div>
+            <div className='header__user__container' >
+                <span className='header__user__name'>
+                    Logged in as {name}
+                </span>
+                <span className='header__user__logout' onClick={logout}>
+                    Logout
+                </span>
             </div>
         </div>
     )
