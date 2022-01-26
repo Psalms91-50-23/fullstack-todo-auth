@@ -21,7 +21,8 @@ const AddTodos = () => {
         user_uid: ""
     })
 
- 
+    const { task, completed, active, priority, user_uid } = todo
+
     useEffect(() => {
 
         if(user){
@@ -31,6 +32,8 @@ const AddTodos = () => {
           
     },[user])
 
+    
+
     function submitTodo(e){
 
         if(!todo.task)
@@ -39,7 +42,7 @@ const AddTodos = () => {
             return
         }
         if(!completed && !active ){
-            todo.active = true
+            todo.active = !todo.active
         }
 
         setEmpty(false)
@@ -61,7 +64,7 @@ const AddTodos = () => {
 
     }
 
-    const { task, completed, active, priority, user_uid } = todo
+    
 
     return (
         <div className='addTodo__container'>
@@ -97,6 +100,7 @@ const AddTodos = () => {
                             <label htmlFor='active' >active</label>
                             <input name="active" type="checkbox"
                                 defaultChecked={active}
+                                value={active}
                                 onChange={() => setTodo({...todo, active: !active})}
                             />
                         </div>
