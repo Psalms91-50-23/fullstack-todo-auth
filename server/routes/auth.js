@@ -72,64 +72,6 @@ server.get("/", (req,res) => {
     })
 
 })
-/* 
-    
-const bcrypt = require('bcrypt');
-async function hashIt(password){
-  const salt = await bcrypt.genSalt(6);
-  const hashed = await bcrypt.hash(password, salt);
-}
-hashIt(password);
-// compare the password user entered with hashed pass.
-async function compareIt(password){
-  const validPassword = await bcrypt.compare(password, hashedPassword);
-}
-compareIt(password);
-
-*/
-server.get("/password", async (req,res) => {
-
-    //send who user details from login to backend so I can use email to check if email exists and grab the hashed password and compare
-
-    const tempUserDetails = req.body
-    const { email, password } = tempUserDetails
-    const userExists = await db.getUserByEmail(email)
-    var passwordValid = null
-    var userWithHashPassword = null
-
-    if(userExists){
-
-        const hashedPassword = userExists.password
-        const validPassword = await bcrypt.compare(password, hashedPassword);
-
-        if(!validPassword){
-            return res.status(404).json({ email: "Email is valid", user_password: "Password is not valid"})
-        }else{
-            return res.status(200).json(`validpassword ${validPassword}`)
-        }
-
-    }
-
-    const users = await db.getAllUsers()
-
-    for(var i = 0; i < users.length-1 ; i++)
-    {
-
-        const hashedPassword = users[i].password
-        const validPassword = await bcrypt.compare(password, hashedPassword);
-        if(validPassword){
-            passwordValid = true
-        }
-        if(i === users.length-1 && !validPassword)
-        {
-
-        }
-    }
-
-    const validPassword = await bcrypt.compare(password, hashedPassword);
-
-})
-
 
 server.get("/getuser/:uid", async (req,res) => {
 
@@ -212,7 +154,7 @@ server.post("/login", async (req,res) => {
             //https://jwt.io and paste token to see your data stored at jwt
             const token = jwt.sign({ uid: user.uid }, process.env.JWT_TOKEN_SECRET, {expiresIn: '2h'})
             //login sends token in the header to the client side
-            console.log("token ", token);
+            console.log("token in /login route ", token);
             res.header("auth-token", token).send(token)
         }
 

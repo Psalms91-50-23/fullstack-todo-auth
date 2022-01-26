@@ -19,7 +19,6 @@ const SignUp = () => {
     //email and password error
     const [ emailError, setEmailError ] = useState(true)
     const [ passwordError, setPasswordError ] = useState(true)
-    const [ success, setSuccess ] = useState(false)
 
     const [ userDeets,setUserDeets ] = useState({
         name: "",
@@ -98,7 +97,7 @@ const SignUp = () => {
     }
     // console.log(userDeets);
 
-    console.log("password ", password);
+    // console.log("password ", password);
     return (
 
         <div className='register__container'>
@@ -142,9 +141,7 @@ const SignUp = () => {
                 </form>
             </div>
         </div>
-        // <div className='signup'>
-            
-        // </div>
+
     )
 }
 
