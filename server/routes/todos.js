@@ -10,7 +10,6 @@ server.post("/", auth, (req,res) => {
 
 
     const { task, completed, user_uid, active, priority } = req.body
-    console.log("body ",req.body);
     if(!(task || completed || user_uid || priority || active)) return res.status(404).json({ message: `require task, completed, user_id, priority, active fields` })
     // console.log("initial date format ", new Date());
     // const created_at = new Date().toUTCString()

@@ -218,8 +218,7 @@ async function updateUser(uid, userUpdatedDetails){
  function updateTodo(todoId, todo, oldTodo){
 
     // const oldTodo = await db.getTodoById(todoId)
-    console.log("old todo ",oldTodo);
- 
+
     return db("todos")
     .where("id", todoId)
     .update(todo)
