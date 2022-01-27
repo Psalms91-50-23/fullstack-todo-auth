@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
+
 }
 
 body {
@@ -10,6 +11,7 @@ body {
   background-color: #eeebe4;
   color: #28282e;
   font-family: 'Lato', sans-serif;
+  /* height: 100vh; */
   
 }
 
