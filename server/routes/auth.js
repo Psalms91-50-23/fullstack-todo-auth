@@ -36,12 +36,14 @@ server.post("/register", async (req,res) => {
     // console.log("salt ", salt);
     const hashPassword = await bcrypt.hash(password, salt)
 
+    const emailLowerCase = email.toLowerCase()
+    
     //create unique user id
     const userUID = uid(16)
     const newUser = {
 
         uid: userUID,
-        email,
+        email: emailLowerCase,
         password: hashPassword,
         name,
         created_at,
@@ -53,6 +55,9 @@ server.post("/register", async (req,res) => {
     db.addUser(newUser)
     .then(user => {
         //201 ok created
+        // console.log("user registerd ",user);
+        user.created_at = new Date(user.created_at).toTimeString()
+        user.updated_at = new Date(user.updated_at).toTimeString()
         res.status(201).json(user)
     })
     .catch(error => {
@@ -66,6 +71,15 @@ server.get("/", (req,res) => {
 
     db.getAllUsers()
     .then(users => {
+
+        users = users.map( user => {
+
+            user.created_at = new Date(user.created_at).toTimeString()
+            user.updated_at = new Date(user.updated_at).toTimeString()
+            return user
+
+        })
+
         res.status(200).json(users)
     }).catch(error => {
         res.status(500).json({ message: "something went wrong", error: error.message })
@@ -92,16 +106,30 @@ server.get("/:email", async (req,res) => {
 
     const { email } = req.params
     const user = await db.getUserByEmail(email)
-    // console.log("user exists ", user);
-    if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
+    // if(!user) return res.status(403).json({ message: `User with email: ${email} does not exist` })
 
-    db.getUserByEmail(email)
-    .then(user => {
-        // console.log("user by email in then  ",user);
+    if(user){
+        
+        user.created_at = new Date(user.created_at).toTimeString()
+        user.updated_at = new Date(user.updated_at).toTimeString()
         res.status(200).json(user)
-    }).catch(error => {
-        res.status(500).json({ message: "something went wrong", error: error.message })
-    })
+
+
+    }else{
+
+        res.json({ error: "Something went wrong, Email does not exist"})
+
+    }
+    
+    // db.getUserByEmail(email)
+    // .then(user => {
+    //     // console.log("user by email in then  ",user);
+    //     user.created_at = new Date(user.created_at).toTimeString()
+    //     user.updated_at = new Date(user.updated_at).toTimeString()
+    //     res.status(200).json(user)
+    // }).catch(error => {
+    //     res.status(500).json({ message: "something went wrong", error: error.message })
+    // })
 
 })
 
@@ -109,12 +137,12 @@ server.get("/:email", async (req,res) => {
 server.delete("/:email", async (req,res) => {
 
     const { email } = req.params 
-    const userEmailExists = await db.getUserByUserEmail(email)
+    const userEmailExists = await db.getUserByEmail(email)
 
     if(!userEmailExists) return res.status(404).json({ message: "User name does not exist" })
     
     db.deleteUserByUserEmail(email)
-    .then( userDeleted =>{
+    .then( userDeleted => {
         res.status(200).json(userDeleted)
     }).catch(error => {
         res.status(500).json({ message: "something went wrong", error: error.message })
@@ -175,12 +203,15 @@ server.get("/:uid/todos", auth, async (req,res) => {
     .then(userTodos => {
 
         userTodos.map( todo => {
+
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
-            /*todo.priority = priorityIndex.indexOf(todo.priority)*/
-           /* todo.priority = Boolean(todo.priority)*/
+            todo.priority = priorityIndex[todo.priority]
+            todo.created_at = new Date( todo.created_at).toTimeString()
+            todo.updated_at = new Date(todo.updated_at).toTimeString()
+
         })
-        // console.log("user todos ", userTodos);
+
         return res.status(200).json(userTodos)
     })
     .catch(error => {
@@ -203,12 +234,14 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 
     db.getTodoById(todoId)
     .then(todo => {
+
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
         todo.priority = priorityIndex[todo.priority]
-
-        /*todo.priority = Boolean(todo.priority)*/
+        todo.created_at = new Date( todo.created_at).toTimeString()
+        todo.updated_at = new Date(todo.updated_at).toTimeString()
         return res.status(200).json(todo)
+
     })
     .catch(error => {
         res.status(500).json({ message: "something went wrong", error: error.message })
@@ -220,9 +253,7 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 server.post("/logout", (req,res) => {
 
     var authToken = req.header('auth-token')
-    // console.log("auth ",authToken);
     authToken = ""
-    // console.log("auth null ", authToken);
     return  res.header("auth-token", authToken).send(authToken)
 
 })

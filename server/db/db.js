@@ -85,6 +85,7 @@ function getUserByEmail(email){
     return db("users")
         .where({email})
         .first()
+
       
 }
 
@@ -121,7 +122,10 @@ function addTodo(todo){
     return db('todos')
     .insert(todo,'id')
     .then( idArr => {
-        return getTodoById(idArr[0])
+        console.log(" idArr ", idArr);
+        const temp = getTodoById(idArr[0])
+        console.log("temp ",temp);
+        return temp
         
     })
 
@@ -215,7 +219,7 @@ async function updateUser(uid, userUpdatedDetails){
 
 }
 
- function updateTodo(todoId, todo, oldTodo){
+ function updateTodo(todoId, todo){
 
     // const oldTodo = await db.getTodoById(todoId)
 
@@ -223,7 +227,7 @@ async function updateUser(uid, userUpdatedDetails){
     .where("id", todoId)
     .update(todo)
     .then(() => {
-        return { message: "Successful", oldTodo, updatedTodo: todo}
+        return { message: "Successful", updatedTodo: todo}
     })
 
 }

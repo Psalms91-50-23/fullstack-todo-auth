@@ -12,6 +12,7 @@ const priorityIndex = ["low","moderate","high","very high"]
 const userReducer = ( state = initialState, action) => {
 
     switch(action.type){
+        
         case SET_USER:
             return {...state, user: action.user}
         case ADD_TODO:
@@ -26,14 +27,14 @@ const userReducer = ( state = initialState, action) => {
             const updatedTodos = state.todos.map(todo => {
         
                 if(todo.id === action.todo.id){
-             
+                    return action.todo
                 }
                 else{
                     return todo
                 }
             })
             return {
-                ...state, todos: [...updatedTodos]
+                ...state, todos: updatedTodos
             }
         case DELETE:
             return {

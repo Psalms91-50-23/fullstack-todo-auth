@@ -12,7 +12,6 @@ export function createTodo(todo){
     .send(todo)
     .set("auth-token", token)
     .then(response => {
-        // console.log("create todo api frontend ", response.body)
         return response.body
     }).catch(error => {
         console.log("error ",error.message)
@@ -41,7 +40,7 @@ export function updateTodoByID(todoId, todo){
     const token = localStorage.getItem("auth-token")
     // console.log("token in update by id ", token)
     // console.log("todo update by id ", todo)
-    console.log("todo id ", todoId)
+    // console.log("todo id ", todoId)
     todo.priority = Number(todo.priority)
     
     return request

@@ -1,57 +1,68 @@
 import React, { useState, useEffect} from 'react'
 import { updateTodoByID, getTodoById } from '../api/todo.js'
-import { updateTodo, deleteTodo, updateThisTodo } from '../actions/userActions'
+import { updateTodo, deleteTodo, updateThisTodo, setUser } from '../actions/userActions'
 import "../css/EditTodo.css"
 // import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-// const priorityIndex = ["low","moderate","high","very high"]
+const priorityIndex = ["low","moderate","high","very high"]
 
 const Edit = ({ todo, toggleEdit }) => {
 
-     const [ userTodo, setUserTodo ] = useState({
-        id: todo.id,
-        user_uid: todo.user_uid,
-        task: todo.task,
-        completed: todo.completed,
-        active: todo.active,
-        priority: todo.priority,
+   
+    const [ submit, setSubmit ] = useState(false)
+    const [ userTodo, setUserTodo ] = useState({
+
+            id: todo.id,
+            user_uid: todo.user_uid,
+            task: todo.task,
+            completed: todo.completed,
+            active: todo.active,
+            priority: priorityIndex.indexOf(todo.priority),
+        
     })
+
+
+    useEffect(() => {
+
+        if(submit){
+
+            if(userTodo.active && userTodo.completed){
+                return setError(true)
+            }
+            
+            updateTodoByID(id, userTodo)
+            .then(response => {
+    
+                setUserTodo(response)
+                dispatch(updateTodo(response))
+                setUserTodo(response)
+                toggleEdit()
+               
+            }).catch(error => {
+                console.log("error ",error.message);
+            }) 
+        }
+
+    },[submit])
+
     const dispatch = useDispatch()
     const { id, completed, active, priority, task } = userTodo
 
     function submitTodo(e){
 
-        if(userTodo.active && userTodo.completed){
-            return setError(true)
-        }
-        // setError(false)
         e.preventDefault()
-        updateTodoByID(id, userTodo)
-        .then(response => {
-            // console.log("response from update todo", response);
-            // const { oldTodo, updatedTodo, message } = response
-            dispatch(updateTodo(response))
-            setUserTodo(response)
-            toggleEdit()
-        }).catch(error => {
-            console.log("error ",error.message);
-        }) 
+        setSubmit(true)
+        
     }
 
-    
+//    console.log("submit ",submit);
     // console.log("edit user todo ", userTodo);
 
   return (
 
     <div className="editTodo">
         { <div className='editTodo__text'>
-            {/* <p>
-                userTodo priority:  {userTodo.priority.toString()}
-            </p>
-            <p>
-                priority:  {priorityIndex[userTodo.priority]}
-            </p> */}
             <span>
                 <strong>Active:</strong> {active.toString()} <br/>
             </span>
@@ -60,7 +71,6 @@ const Edit = ({ todo, toggleEdit }) => {
             </span>
 
         </div> }
-        {/* <div className="todos__selection"> */}
             <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
                     <div className="editTodo__task">
                         <label className='editTodo__label' htmlFor='task' >Todo: </label>

@@ -4,6 +4,7 @@ import { register, getUserByEmail, getUserByUserEmail } from '../api/user'
 import { validateEmail, validatePassword, minPasswordCharReqReached, minEmailLength } from "../utils/functions"
 import "../css/Signup.css"
 
+
 const SignUp = () => {
 
     const authToken = localStorage.getItem("auth-token")
@@ -12,14 +13,11 @@ const SignUp = () => {
     }
     
     const history = useHistory()
-    // console.log("history in signup ", history)
-    const [ emailLength, setEmailLenth ] = useState(false)
+    const [ emailLengthError, setEmailLengthError ] = useState("")
     const [ userExists, setUserExists ] = useState("")
     const [ emailMsgExample, setEmailMsgExample ] = useState(true)
-    //email and password error
-    const [ emailError, setEmailError ] = useState("")
+    const [ invalidEmailError, setInvalidEmailError ] = useState("")
     const [ passwordError, setPasswordError ] = useState(true)
-
     const [ userDeets,setUserDeets ] = useState({
         name: "",
         email: "",
@@ -33,95 +31,79 @@ const SignUp = () => {
         //test the start of the email min 3 character length
         const isValidEmailLength = minEmailLength(email)
         // console.log("isEmailValid ", isValidEmailLength);
+        setUserExists(false)
         if(isValidEmailLength){
-
         //email length is reached, changed it to true
-            setEmailLenth(true)
+            setEmailLengthError(false)
             const isValidEmail = validateEmail(email)
             if(isValidEmail){
-                setEmailMsgExample(false)
-                return
+                setEmailMsgExample(false)  
+            }else{
+                setEmailMsgExample(true)
             }
         
         }
         else{
-            setEmailLenth(false)
+            setEmailLengthError(true)
         }
-        
-        
+          
     },[email])
 
     useEffect(() => {
 
         const isValidPassword = validatePassword(password)
-        // console.log("isValidPassword ", isValidPassword);
-        if(isValidPassword)  setPasswordError(false)
+        if(isValidPassword) setPasswordError(false)
         else setPasswordError(true)
            
     },[password])
 
+
+
     function handleChange(e){
         e.preventDefault()
-        // console.log(e.target.value);
         setUserDeets({...userDeets, [e.target.name]: e.target.value})
 
     }
-    // &&  !userExistsError //and user error is falsy do following
+
+
     function registerUser(e){
+
         e.preventDefault()
-        // setSubmit(true)
         const isValidEmailLength = minEmailLength(email)
         if(!isValidEmailLength){
-            setEmailLenth(false)
-           console.log("Email length before @ has to have a minimum of 3 characters")
+            setEmailLengthError(true)
            return 
         }
         const isValidEmail = validateEmail(email)
-        // console.log("isValidEmail ",isValidEmail);
         if(!isValidEmail){
 
             setEmailError(true)
             // throw new Error("Email is not a valid Email")
-            console.log("Email is not a valid Email")
             return 
         }
-        
-        if(!emailError){
+        setInvalidEmailError(false)
+        getUserByEmail(email)
+        .then( response => {
+            // response = {error: "Something went wrong, Email does not exist"}
+            if(response.error) {
 
-            getUserByEmail(email)
-            .then( user => {
-                // console.log("user coming back ",user);
-                if(user) {
-    
-                    setUserExists(true)                    
-                    console.log("User already Exists")
-                    return 
-                    // throw new Error("User already Exists")
-                }
-                console.log("user does not exist ", user);
                 setUserExists(false)
-                // setEmailError(true)
-                if( !emailError && !passwordError && !userExists && isValidEmail){
-                    // console.log("before push ");
-                    register(userDeets)
-                    history.replace("/signin")
-                }
-
-            }).catch(error => {
-                console.log('error ',error.message);
-            })
-        }
+                register(userDeets)
+                history.push("/signin")
+                return
+            }
+            setUserExists(true)
             
-        //by being falsy, no error in email or password, user does not exist   
-      
+        }).catch(error => {
+            console.log('error ',error.message);
+        })
     }
+
 
     function login(){
         history.push("/signin")
     }
-    // console.log(userDeets);
 
-    // console.log("password ", password);
     return (
 
         <div className='register__container'>
@@ -138,17 +120,17 @@ const SignUp = () => {
                         <h2>Email</h2>
                         <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required />
                         {
-                            !emailLength && 
-                            (<p> Email have not reached a min of 3 character length before "@" </p>)
+                            emailLengthError && 
+                            <p> Email have not reached a min of 3 character length before "@" </p>
 
                         }
                         {
                             emailMsgExample && 
-                            (<p> Email examples Ba4@hotmail.co.nz, ba4@gmail.com </p>)
+                            <p> Email examples ba4@hotmail.co.nz, ba4@gmail.com, not case sensitive</p>
 
                         }
                         {
-                            emailError && (<p > Email is not a valid email. </p>)
+                            invalidEmailError && <p > Email is not a valid email </p>
                         }
                         {
                             userExists && <p> User email already exists, choose another email </p>

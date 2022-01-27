@@ -7,6 +7,7 @@ import { createTodo } from '../api/todo'
 import { addTodo } from "../actions/userActions"
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
+const priorityIndex = ["low","moderate","high","very high"]
 const AddTodos = () => {
 
     const { user } = useSelector(state => state.userState )
@@ -41,16 +42,17 @@ const AddTodos = () => {
             setEmpty(true)
             return
         }
-        if(!completed && !active ){
-            todo.active = !todo.active
+        if(!todo.completed && !todo.active ){
+            setTodo({...todo, active: todo.active})
         }
-
         setEmpty(false)
         e.preventDefault()
         createTodo(todo)
         .then(response => {
+
             dispatch(addTodo(response))
-            setTodo({...todo, task: "", active: false, completed: false})
+            //set back to default
+            setTodo({...todo, task: ""})
         }).catch(error => {
             console.log("error ",error.message);
         })
@@ -63,8 +65,6 @@ const AddTodos = () => {
         setEmpty(false)
 
     }
-
-    
 
     return (
         <div className='addTodo__container'>

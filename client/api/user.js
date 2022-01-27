@@ -38,12 +38,16 @@ export function getUserByEmail(email){
     return request
     .get(baseURL+"/"+email)
     .then((response) => {
-        // console.log("get user by email ", response.body);
+
+        if(response.body.error){
+            return response.body
+        }
+
         return response.body
-        // response.body
+
     })
     .catch(error => {
-        console.log("error ",error.message);
+        console.log("Error Email does not exists ",error.message);
     })
 }
 
