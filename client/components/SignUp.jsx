@@ -15,9 +15,9 @@ const SignUp = () => {
     // console.log("history in signup ", history)
     const [ emailLength, setEmailLenth ] = useState(false)
     const [ userExists, setUserExists ] = useState("")
-    // const [ userExistsError, setUserExistsError ] = useState(true)
+    const [ emailMsgExample, setEmailMsgExample ] = useState(true)
     //email and password error
-    const [ emailError, setEmailError ] = useState(true)
+    const [ emailError, setEmailError ] = useState("")
     const [ passwordError, setPasswordError ] = useState(true)
 
     const [ userDeets,setUserDeets ] = useState({
@@ -35,33 +35,19 @@ const SignUp = () => {
         // console.log("isEmailValid ", isValidEmailLength);
         if(isValidEmailLength){
 
-            //email length is reached, changed it to true
+        //email length is reached, changed it to true
             setEmailLenth(true)
             const isValidEmail = validateEmail(email)
-            // console.log('validated email ', isValidEmail);
-
-            getUserByEmail(email)
-            .then( user => {
-                // console.log("user coming back ",user);
-                if(user) setUserExists(true)
-                else setUserExists(false)
-                // console.log("user exists: ",userExists);
-                
-            }).catch(error => {
-                console.log('error ',error.message);
-            })
-            // const userEmailExists = getUser(email)
-            // console.log("userExists ",userEmailExists);
-            // if(userEmailExists) setUserExists(userEmailExists)
-            //below means a legit email, no error is false
-            if(isValidEmail) setEmailError(false)
-            else setEmailError(true)
-            
-
+            if(isValidEmail){
+                setEmailMsgExample(false)
+                return
+            }
+        
         }
         else{
             setEmailLenth(false)
         }
+        
         
     },[email])
 
@@ -83,12 +69,50 @@ const SignUp = () => {
     // &&  !userExistsError //and user error is falsy do following
     function registerUser(e){
         e.preventDefault()
-        //by being falsy, no error in email or password, user does not exist 
-        if( !emailError && !passwordError && !userExists){
-            // console.log("before push ");
-            register(userDeets)
-            history.replace("/signin")
+        // setSubmit(true)
+        const isValidEmailLength = minEmailLength(email)
+        if(!isValidEmailLength){
+            setEmailLenth(false)
+           console.log("Email length before @ has to have a minimum of 3 characters")
+           return 
         }
+        const isValidEmail = validateEmail(email)
+        // console.log("isValidEmail ",isValidEmail);
+        if(!isValidEmail){
+
+            setEmailError(true)
+            // throw new Error("Email is not a valid Email")
+            console.log("Email is not a valid Email")
+            return 
+        }
+        
+        if(!emailError){
+
+            getUserByEmail(email)
+            .then( user => {
+                // console.log("user coming back ",user);
+                if(user) {
+    
+                    setUserExists(true)                    
+                    console.log("User already Exists")
+                    return 
+                    // throw new Error("User already Exists")
+                }
+                console.log("user does not exist ", user);
+                setUserExists(false)
+                // setEmailError(true)
+                if( !emailError && !passwordError && !userExists && isValidEmail){
+                    // console.log("before push ");
+                    register(userDeets)
+                    history.replace("/signin")
+                }
+
+            }).catch(error => {
+                console.log('error ',error.message);
+            })
+        }
+            
+        //by being falsy, no error in email or password, user does not exist   
       
     }
 
@@ -115,14 +139,19 @@ const SignUp = () => {
                         <input type="text" name="email" value={email} onChange={ e => handleChange(e)} required />
                         {
                             !emailLength && 
-                            (<p> Email have not reached a min of 3 character length </p>)
+                            (<p> Email have not reached a min of 3 character length before "@" </p>)
 
                         }
                         {
-                            emailError && (<p> Email is not a valid email </p>)
+                            emailMsgExample && 
+                            (<p> Email examples Ba4@hotmail.co.nz, ba4@gmail.com </p>)
+
                         }
                         {
-                            userExists && <p className='signup__emailError'> User email already exists, choose another email </p>
+                            emailError && (<p > Email is not a valid email. </p>)
+                        }
+                        {
+                            userExists && <p> User email already exists, choose another email </p>
                         }
                     </div>
                     <div className="signup__password">

@@ -30,7 +30,6 @@
     flex-wrap: wrap;
     width: 100%;
     box-sizing: border-box;
-    /* background-color: chartreuse; */
 
 }
 
@@ -86,8 +85,6 @@ select:hover{
     width: 100%;
     justify-content: flex-start;
     margin-top: 5px;
-    /* padding: 0 5px; */
-    /* background-color: red; */
 
 }
 
@@ -103,10 +100,7 @@ select:hover{
     display: flex;
     flex-direction: row;
     margin-left: 5px;
-    /* justify-content: center; */
-    /* box-sizing: border-box; */
-    /* flex-wrap: wrap; */
-    /* background-color: aqua; */
+
 }
 
 
@@ -121,7 +115,6 @@ select:hover{
 
     display: flex;
     flex-direction: row;
-    /* background-color: rgb(105, 57, 150); */
 
 }
 

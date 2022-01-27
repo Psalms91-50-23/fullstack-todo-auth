@@ -25,7 +25,8 @@ function validateEmail(userEmail){
 
 function minEmailLength(email){
 
-    if(minEmailReq.test(email)) return true
+    const minChar = email.substring(0,3)
+    if(minEmailReq.test(minChar)) return true
     else return false
 
 }

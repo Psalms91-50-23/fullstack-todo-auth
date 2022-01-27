@@ -15,25 +15,23 @@
 .todo__buttons {
 
     display: flex;
-    /* flex: 1; */
     flex: 0.2;
-    /* width: 100%; */
 
 }
 
 .todo__details {
+
     width: 100%;
-    /* background-color: green; */
     flex: 0.8;
+
 }
 
 .todo__edit {
 
     cursor: pointer;
     margin-left: 5px;
-    /* min-height: 30px; */
     height: 25px;
-    /* background-color: red; */
+
 }
 
 .todo__delete {
@@ -41,7 +39,7 @@
     cursor: pointer;
     margin-left: 5px;
     height: 25px;
-    /* background-color: red; */
+
 }
 
 .todo__info > p {
@@ -59,18 +57,20 @@
 }
 
 .todo__selection__taskContainer {
-    /* display: flex; */
+
     display: flex;
     width: 100%;
 
 }
+
 .todo__selection__taskLabel {
-    /* width: 100%; */
+
     flex: 0.10;
 
 }
+
 .todo__selection__task {
-    /* width: 100%; */
+
     flex: 0.90;
     margin-right: 10px;
     
