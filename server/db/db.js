@@ -122,11 +122,7 @@ function addTodo(todo){
     return db('todos')
     .insert(todo,'id')
     .then( idArr => {
-        console.log(" idArr ", idArr);
-        const temp = getTodoById(idArr[0])
-        console.log("temp ",temp);
-        return temp
-        
+        return getTodoById(idArr[0])      
     })
 
 }
