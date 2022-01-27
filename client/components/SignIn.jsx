@@ -120,7 +120,7 @@ const SignIn = () => {
                         </div>
                         <div className="signin__password">
                             <h2>Password</h2>
-                            <input type="password" required name="password" onChange={ e => handleChange(e)} value={password}/>
+                            <input type="password" required name="password" onChange={ e => handleChange(e)} value={password} autoComplete='on'/>
                             {passwordError &&
                             <span className='signin__passwordError'>
                                 Password did not match database

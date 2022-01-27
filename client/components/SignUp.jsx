@@ -156,7 +156,7 @@ const SignUp = () => {
                     </div>
                     <div className="signup__password">
                         <h2>Password</h2>
-                        <input type="password" name="password" onChange={ e => handleChange(e)} value={password} required />
+                        <input type="password" name="password" onChange={ e => handleChange(e)} value={password} autoComplete='on' required />
                         {
                             passwordError && (<p>Password must have these 4 min requirements,  Password must be more than 6 characters long, must contain 1 capital letter, 1 lowercase letter and 1 special character "!@#$%^&"  </p>)
                         }
