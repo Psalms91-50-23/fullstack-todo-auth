@@ -42,10 +42,17 @@
 
 }
 
+.todo__info > h3 {
+
+    margin: 0;
+    padding-bottom: 8px;
+
+}
+
 .todo__info > p {
 
     margin: 0;
-    padding: 3px 0;
+    padding: 2px 0;
     color: black;
 
 }

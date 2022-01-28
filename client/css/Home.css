@@ -4,9 +4,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.9);
     justify-content: center;
+
     
 }
 
@@ -15,17 +16,18 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    overflow: hidden; /* latest changes */
 
 }
 
 .home__content__container {
 
     display: flex;
-    margin-top: 20px;
+    margin-top: 10px;
     flex-direction: column;
     max-width: 500px;
     width: 100%;
-    overflow: hidden;
+    /* overflow: hidden; */
 
 }
 
@@ -46,5 +48,6 @@
     flex-direction: column;
     max-width: 500px;
     width: 100%;
+  
    
 } 

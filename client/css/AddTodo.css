@@ -3,7 +3,8 @@
 
     display: flex;
     width: 100%;
-    margin: 20px 0px;
+    /* margin: 10px 0px; */
+    margin-top: 5px; /*latest changes */
 
 }
 
