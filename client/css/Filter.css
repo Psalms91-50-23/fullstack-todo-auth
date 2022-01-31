@@ -39,7 +39,7 @@ input:hover {
     
 }
 
-select:hover{
+select:hover {
 
     cursor: pointer;
 
@@ -130,15 +130,19 @@ select:hover{
 
 }
 
-.filter__inputs > button:hover {
+/* .filter__inputs > button:hover {
 
     cursor: pointer;
 
-}
+} */
 
 .filter__submitButton {
 
     width: 100%;
     margin-right: 10px;
 
+}
+
+.filter__submitButton:hover {
+    cursor: pointer;
 }

@@ -202,13 +202,14 @@ server.get("/:uid/todos", auth, async (req,res) => {
     db.getAllUserTodosByUID(uid)
     .then(userTodos => {
 
-        userTodos.map( todo => {
+        userTodos = userTodos.map( todo => {
 
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
             todo.priority = priorityIndex[todo.priority]
             todo.created_at = new Date( todo.created_at).toTimeString()
             todo.updated_at = new Date(todo.updated_at).toTimeString()
+            return todo
 
         })
 

@@ -7,31 +7,23 @@ const Filter = ({userTodos}) => {
 
     const dispatch = useDispatch()
     // const { filter } = useSelector(state => state.userState)
+    const [ buttonState, setButtonState ] = useState(false)
     const priorityIndex = ["low","moderate","high","very high"]
     const [ filteredTodos, setFilteredTodos ] = useState({
-        completed: "",
-        active: "",
-        priority: "",
-        all: "",
+
+        completed: false,
+        active: false,
+        priority: -1,
+        all: false,
+
     })
     const { completed, active, priority, all } = filteredTodos
-    useEffect(() => {
-
-        setFilteredTodos({
-            completed: false,
-            active: false,
-            priority: -1,
-            all: false,
-        })
-
-    },[])
-
-
 
     function onSubmit(e){
         e.preventDefault()
         if(all){
             // setUserTodos(userTodos)
+            console.log("all path ", all);
             dispatch(filterTodos(null))
         }else{
             dispatch(filterTodos(filteringTodos(userTodos)))
@@ -60,35 +52,75 @@ const Filter = ({userTodos}) => {
             </>)
         }
     }
-/*
-//todo.priority === filteredTodos.priority 
-*/
 
-/* 
- if(todo.active === filteredTodos.active && todo.completed === filteredTodos.completed && filteredTodos.priority !== -1 && filteredTodos.all === false){
-                console.log("filteredTodos ", filteredTodos);
-                console.log("inside filter");
-                return todo
-            }
-*/
+useEffect(() => {
+
+    if(priority >= 0 ){
+        setFilteredTodos({...filteredTodos, priority})
+    }
+
+},[priority])
+
+useEffect(() => {
+
+    if(active){
+        setFilteredTodos({...filteredTodos, active})
+    }
+
+},[active])
+
+useEffect(() => {
+
+    if(completed){
+        setFilteredTodos({...filteredTodos, completed})
+    }
+    
+},[completed])
+
+useEffect(() => {
+
+    if(all){
+        setFilteredTodos({...filteredTodos, all})
+    }
+
+},[all])
+
+
     function filteringTodos(todos){
 
         const filtered = todos.filter((todo, id) => {
-          
-            if(filteredTodos.priority === -1 && filteredTodos.active === true && todo.active === filteredTodos.active || 
-                filteredTodos.priority === -1 && filteredTodos.completed === true && todo.completed === filteredTodos.completed){
-                    return todo
+
+            //converting filtered.priority Number to store a string value instead, a word string not a number string
+            if(priority >= 0){
+
+                filterTodos.priority = priorityIndex[priority]
+                
             }
-            else if(filteredTodos.priority >= 0 && todo.active === filteredTodos.active && todo.priority === filteredTodos.priority || 
-                filteredTodos.priority >= 0 && todo.completed === filteredTodos.completed && todo.priority === filteredTodos.priority ){
-                    return todo
-            }else if(filteredTodos.priority === -1 && filteredTodos.active === false && filteredTodos.completed === false){
+            
+            if( priority >= 0 && !all && !active  && !completed  && filterTodos.priority === todo.priority ){
                 return todo
             }
-
+            else if( priority >= 0 && !all && !active  && completed  && filterTodos.priority === todo.priority && completed === todo.completed ||
+                priority >= 0 && !all && active  && !completed  && filterTodos.priority === todo.priority && active === todo.active ){
+                return todo
+            }
+            else if( filteredTodos.priority === -1 && filteredTodos.active && todo.active === filteredTodos.active || 
+                filteredTodos.priority === -1 && filteredTodos.completed  && todo.completed === filteredTodos.completed){
+                    return todo
+            }
+            else if( filteredTodos.priority === -1 && !filteredTodos.active && !filteredTodos.completed ){
+                return todo
+            }
+            else if( filteredTodos.priority >= 0 && todo.active === filteredTodos.active && todo.priority === filteredTodos.priority || 
+                filteredTodos.priority >= 0 && todo.completed === filteredTodos.completed && todo.priority === filteredTodos.priority ){
+                    return todo
+            }
+           
         })
+
         return filtered
     }
+
 
     return (
         <div className='filter'>

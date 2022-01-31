@@ -27,6 +27,7 @@ const TodoList = () => {
             const { uid }= user
             getAllUserTodosByUID(uid)
             .then(todos => {
+                // console.log("todo");
                 dispatch(setTodos(todos))
                 dispatch(load(false))
             }).catch(error => {

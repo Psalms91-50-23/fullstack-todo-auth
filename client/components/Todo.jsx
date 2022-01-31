@@ -8,28 +8,23 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import EditTodo from './EditTodo'
 
-// import moment from "moment"
-
-
 const Todo = ({todo}) => {
 
     const priorityIndex = ["low","moderate","high","very high"]
-    
-    const { user, todos } = useSelector(state => state.userState )
-    // const foundTodo = todos.find(thisTodo  => thisTodo.id === todo.id)
     const dispatch = useDispatch()
-    
     const [ toggle, setToggle ] = useState(false)
+
+    const { task, user_uid, id, completed, priority, active, created_at, updated_at } = todo 
+
     const [ userTodo, setUserTodo ] = useState({
         id,
-        user_uid: todo.user_uid,
+        user_uid,
         task,
         completed,
         active,
-        priority: priorityIndex.indexOf(priority),
+        priority: priorityIndex.indexOf(priority),//priority comes in the form of a string (a word not string number), converted it to a number
     })
 
-    const { task, user_uid, id, completed, priority, active, created_at, updated_at } = todo 
 
 
     function toggleEdit(){
@@ -51,16 +46,13 @@ const Todo = ({todo}) => {
 
     }
 
-
     // console.log("todo in todo jsx ", todo);
     // console.log('userTodos in todo.jsx ', userTodo);
 
     return (
         <div className='todo__container'>
             <div className='todo__details'>
-                {/* {
-                    <p>toggle: {toggle.toString()}</p>
-                } */}
+
                 { toggle?
                      <EditTodo todo={todo} toggleEdit={toggleEdit}/>
                     :

@@ -86,7 +86,6 @@ server.patch("/:todoId", auth,  async (req,res) => {
     const { todoId } = req.params
     const todo = req.body
     const oldTodo = await db.getTodoById(todoId)
-    console.log("patch old todo  ", oldTodo);
     if(!oldTodo) return res.status(404).json({ message: `No such todo exists in database`})
     const { created_at } = oldTodo
     const updated_at = Date.now()
@@ -109,6 +108,8 @@ server.patch("/:todoId", auth,  async (req,res) => {
         oldTodo.priority = priorityIndex[oldTodo.priority]
         oldTodo.created_at = new Date(oldTodo.created_at).toTimeString()
         oldTodo.updated_at = new Date(oldTodo.updated_at).toTimeString()
+    
+        // console.log("after response update todo ", updatedTodo);
 
         res.status(200).json({...response, oldTodo, updatedTodo})
     }).catch(error => {
