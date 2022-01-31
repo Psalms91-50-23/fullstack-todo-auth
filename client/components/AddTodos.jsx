@@ -45,11 +45,13 @@ const AddTodos = () => {
         if(!todo.completed && !todo.active ){
             setTodo({...todo, active: todo.active})
         }
+        // console.log("add todo ",todo);
         setEmpty(false)
         e.preventDefault()
         createTodo(todo)
         .then(response => {
 
+            // console.log("response todo ",response);
             dispatch(addTodo(response))
             //set back to default
             setTodo({...todo, task: ""})

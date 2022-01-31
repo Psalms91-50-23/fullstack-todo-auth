@@ -21,11 +21,11 @@ const Filter = ({userTodos}) => {
 
     function onSubmit(e){
         e.preventDefault()
-        if(all){
+        if(all || priority === -1 && !active && !completed ){
             // setUserTodos(userTodos)
-            console.log("all path ", all);
             dispatch(filterTodos(null))
-        }else{
+        }
+        else{
             dispatch(filterTodos(filteringTodos(userTodos)))
         }
 
@@ -53,37 +53,37 @@ const Filter = ({userTodos}) => {
         }
     }
 
-useEffect(() => {
+    useEffect(() => {
 
-    if(priority >= 0 ){
-        setFilteredTodos({...filteredTodos, priority})
-    }
+        if(priority >= 0 ){
+            setFilteredTodos({...filteredTodos, priority})
+        }
 
-},[priority])
+    },[priority])
 
-useEffect(() => {
+    useEffect(() => {
 
-    if(active){
-        setFilteredTodos({...filteredTodos, active})
-    }
+        if(active){
+            setFilteredTodos({...filteredTodos, active})
+        }
 
-},[active])
+    },[active])
 
-useEffect(() => {
+    useEffect(() => {
 
-    if(completed){
-        setFilteredTodos({...filteredTodos, completed})
-    }
-    
-},[completed])
+        if(completed){
+            setFilteredTodos({...filteredTodos, completed})
+        }
+        
+    },[completed])
 
-useEffect(() => {
+    useEffect(() => {
 
-    if(all){
-        setFilteredTodos({...filteredTodos, all})
-    }
+        if(all){
+            setFilteredTodos({...filteredTodos, all})
+        }
 
-},[all])
+    },[all])
 
 
     function filteringTodos(todos){
@@ -104,23 +104,24 @@ useEffect(() => {
                 priority >= 0 && !all && active  && !completed  && filterTodos.priority === todo.priority && active === todo.active ){
                 return todo
             }
-            else if( filteredTodos.priority === -1 && filteredTodos.active && todo.active === filteredTodos.active || 
-                filteredTodos.priority === -1 && filteredTodos.completed  && todo.completed === filteredTodos.completed){
+            else if( filteredTodos.priority === -1 && active && todo.active === active || 
+                filteredTodos.priority === -1 && completed  && todo.completed === completed){
                     return todo
             }
-            else if( filteredTodos.priority === -1 && !filteredTodos.active && !filteredTodos.completed ){
+            else if( filteredTodos.priority === -1 && !active && !completed ){
                 return todo
             }
-            else if( filteredTodos.priority >= 0 && todo.active === filteredTodos.active && todo.priority === filteredTodos.priority || 
-                filteredTodos.priority >= 0 && todo.completed === filteredTodos.completed && todo.priority === filteredTodos.priority ){
+            else if( filteredTodos.priority >= 0 && todo.active === active && todo.priority === filteredTodos.priority || 
+                filteredTodos.priority >= 0 && todo.completed === completed && todo.priority === filteredTodos.priority ){
                     return todo
             }
            
         })
-
+        // console.log("filtered ",filtered);
         return filtered
     }
 
+    // console.log("filteredTodos ", filteredTodos);
 
     return (
         <div className='filter'>
