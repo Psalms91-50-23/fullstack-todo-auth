@@ -6,8 +6,6 @@ import { filterTodos } from '../actions/userActions'
 const Filter = ({userTodos}) => {
 
     const dispatch = useDispatch()
-    // const { filter } = useSelector(state => state.userState)
-    const [ buttonState, setButtonState ] = useState(false)
     const priorityIndex = ["low","moderate","high","very high"]
     const [ filteredTodos, setFilteredTodos ] = useState({
 
@@ -63,25 +61,19 @@ const Filter = ({userTodos}) => {
 
     useEffect(() => {
 
-        if(active){
-            setFilteredTodos({...filteredTodos, active})
-        }
-
+        setFilteredTodos({...filteredTodos, active: active})
+        
     },[active])
 
     useEffect(() => {
 
-        if(completed){
-            setFilteredTodos({...filteredTodos, completed})
-        }
-        
+         setFilteredTodos({...filteredTodos, completed})
+  
     },[completed])
 
     useEffect(() => {
 
-        if(all){
-            setFilteredTodos({...filteredTodos, all})
-        }
+        setFilteredTodos({...filteredTodos, all})
 
     },[all])
 

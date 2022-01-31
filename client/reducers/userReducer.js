@@ -14,7 +14,7 @@ const userReducer = ( state = initialState, action) => {
     switch(action.type){
         
         case SET_USER:
-            
+
             return {
                 ...state, user: action.user
             }
@@ -53,6 +53,7 @@ const userReducer = ( state = initialState, action) => {
                 ...state,
                 todos: state.todos.filter(todo => todo.id !== action.id)
             }
+            
         case LOADING:
 
             return {

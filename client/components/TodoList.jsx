@@ -17,7 +17,6 @@ const TodoList = () => {
     const dispatch = useDispatch()
     const { user, todos, loading, filter } = useSelector(state => state.userState )
     const [ loadingTodos, setLoadingTodos ] = useState(false)
-
     useEffect(() => {
 
         if(user){
