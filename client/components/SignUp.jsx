@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
-import { register, getUserByEmail, getUserByUserEmail } from '../api/user'
-import { validateEmail, validatePassword, minPasswordCharReqReached, minEmailLength } from "../utils/functions"
+import { register, getUserByEmail } from '../api/user'
+import { validateEmail, validatePassword, minEmailLength } from "../utils/functions"
 import "../css/Signup.css"
 
 
@@ -90,7 +90,7 @@ const SignUp = () => {
                 setUserExists(false)
                 register(userDeets)
                 history.push("/signin")
-                return
+                
             }
             setUserExists(true)
             

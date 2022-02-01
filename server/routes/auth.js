@@ -56,8 +56,8 @@ server.post("/register", async (req,res) => {
     .then(user => {
         //201 ok created
         // console.log("user registerd ",user);
-        user.created_at = new Date(user.created_at).toTimeString()
-        user.updated_at = new Date(user.updated_at).toTimeString()
+        user.created_at = new Date(user.created_at).toString()
+        user.updated_at = new Date(user.updated_at).toString()
         res.status(201).json(user)
     })
     .catch(error => {
@@ -74,8 +74,8 @@ server.get("/", (req,res) => {
 
         users = users.map( user => {
 
-            user.created_at = new Date(user.created_at).toTimeString()
-            user.updated_at = new Date(user.updated_at).toTimeString()
+            user.created_at = new Date(user.created_at).toString()
+            user.updated_at = new Date(user.updated_at).toString()
             return user
 
         })
@@ -110,8 +110,8 @@ server.get("/:email", async (req,res) => {
 
     if(user){
         
-        user.created_at = new Date(user.created_at).toTimeString()
-        user.updated_at = new Date(user.updated_at).toTimeString()
+        user.created_at = new Date(user.created_at).toString()
+        user.updated_at = new Date(user.updated_at).toString()
         res.status(200).json(user)
 
 
@@ -207,8 +207,8 @@ server.get("/:uid/todos", auth, async (req,res) => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
             todo.priority = priorityIndex[todo.priority]
-            todo.created_at = new Date( todo.created_at).toTimeString()
-            todo.updated_at = new Date(todo.updated_at).toTimeString()
+            todo.created_at = new Date( todo.created_at).toString()
+            todo.updated_at = new Date(todo.updated_at).toString()
             return todo
 
         })
@@ -239,8 +239,8 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
         todo.priority = priorityIndex[todo.priority]
-        todo.created_at = new Date( todo.created_at).toTimeString()
-        todo.updated_at = new Date(todo.updated_at).toTimeString()
+        todo.created_at = new Date( todo.created_at).toString()
+        todo.updated_at = new Date(todo.updated_at).toString()
         return res.status(200).json(todo)
 
     })

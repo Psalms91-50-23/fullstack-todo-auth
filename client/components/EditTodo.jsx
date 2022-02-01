@@ -27,9 +27,9 @@ const Edit = ({ todo, toggleEdit }) => {
 
         if(submit){
 
-            if(userTodo.active && userTodo.completed){
-                return setError(true)
-            }
+            // if(userTodo.active && userTodo.completed){
+            //     return setError(true)
+            // }
             
             updateTodoByID(id, userTodo)
             .then(response => {
@@ -61,16 +61,16 @@ const Edit = ({ todo, toggleEdit }) => {
 
   return (
 
-    <div className="editTodo">
-        { <div className='editTodo__text'>
-            <span>
-                <strong>Active:</strong> {active.toString()} <br/>
-            </span>
-            <span>
-                <strong>Completed:</strong> {completed.toString()}
-            </span>
+        <div className="editTodo">
+            <div className='editTodo__text'>
+                <span>
+                    <strong>Active:</strong> {active.toString()}
+                </span>
+                <span>
+                    <strong>Completed:</strong> {completed.toString()}
+                </span>
 
-        </div> }
+            </div> 
             <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
                     <div className="editTodo__task">
                         <label className='editTodo__label' htmlFor='task' >Todo: </label>

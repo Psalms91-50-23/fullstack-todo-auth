@@ -51,8 +51,10 @@ server.get("/", auth, (req,res) => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
             todo.priority = priorityIndex[todo.priority]
-            todo.created_at = new Date(todo.created_at).toTimeString()
-            todo.updated_at = new Date(todo.updated_at).toTimeString()
+            todo.created_at = new Date(todo.created_at).toString()
+            todo.updated_at = new Date(todo.updated_at).toString()
+          /*  todo.created_at = new Date(todo.created_at).toTimeString() */
+         /*   todo.updated_at = new Date(todo.updated_at).toTimeString() */
            
         })
         res.status(200).json(todos)
@@ -100,14 +102,14 @@ server.patch("/:todoId", auth,  async (req,res) => {
         updatedTodo.active = Boolean(updatedTodo.active)
         updatedTodo.completed = Boolean(updatedTodo.completed)
         updatedTodo.priority = priorityIndex[updatedTodo.priority]
-        updatedTodo.created_at = new Date(updatedTodo.created_at).toTimeString()
-        updatedTodo.updated_at = new Date(updatedTodo.updated_at).toTimeString()
+        updatedTodo.created_at = new Date(updatedTodo.created_at).toString()
+        updatedTodo.updated_at = new Date(updatedTodo.updated_at).toString()
 
         oldTodo.active = Boolean(oldTodo.active)
         oldTodo.completed = Boolean(oldTodo.completed)
         oldTodo.priority = priorityIndex[oldTodo.priority]
-        oldTodo.created_at = new Date(oldTodo.created_at).toTimeString()
-        oldTodo.updated_at = new Date(oldTodo.updated_at).toTimeString()
+        oldTodo.created_at = new Date(oldTodo.created_at).toString()
+        oldTodo.updated_at = new Date(oldTodo.updated_at).toString()
     
         // console.log("after response update todo ", updatedTodo);
 
@@ -136,8 +138,8 @@ server.get('/:todoId', auth, async (req,res) => {
         // updatedTodo.completed = Boolean(updatedTodo.completed)
         // updatedTodo.priority = priorityIndex[updatedTodo.priority]
         todo.priority = priorityIndex[todo.priority]
-        todo.created_at = new Date(todo.created_at).toTimeString()
-        todo.updated_at = new Date(todo.updated_at).toTimeString()
+        todo.created_at = new Date(todo.created_at).toString()
+        todo.updated_at = new Date(todo.updated_at).toString()
         todo.active = Boolean(todo.active)
         todo.completed = Boolean(todo.completed)
         /*todo.priority = priorityIndex[todo.priority]*/

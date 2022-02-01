@@ -24,7 +24,7 @@ const SignIn = () => {
     })
 
     const [ emailError, setEmailError ] = useState(false)
-    const [ userExists, setUserExists ] = useState(true)
+    // const [ userExists, setUserExists ] = useState(true)
     const [ submit, setSubmit ] = useState(false)
     const [ passwordError, setPasswordError ] = useState(false)
     const { email, password } = userDeets
@@ -36,6 +36,7 @@ const SignIn = () => {
 
     useEffect(() => {
 
+        setEmailError(false)
         if(!submit && email){
             setEmailError(false)
         }
@@ -51,40 +52,47 @@ const SignIn = () => {
 
     },[password])
 
+    useEffect(() => {
+
+        
+    },[emailError])
+
     function loginUser(e){
         e.preventDefault()
         setSubmit(true)
         getUserByEmail(email)
         .then( user => {
-
-            if(!user){
-                setUserExists(false)
-                setSubmit(false)
-                setEmailError(true)
-                throw new Error("Invalid Email")
+            // console.log("user response ", user);
+            if(!user.error){
+                // setUserExists(false)
+              
+                login(userDeets)
+                .then(headerResponse => {
+                    // console.log("header response ", headerResponse);
+                    if(!headerResponse){
+                        setPasswordError(true)
+                        //set submit state back to false to trigger useEffect
+                        setSubmit(false)
+                        throw new Error("Password did not match")
+                    }
+                    //successful grab the token from headerResponse and store it in localStorage
+                    const userToken = headerResponse["auth-token"]
+                    localStorage.setItem("auth-token", userToken )
+                    dispatch(setUser(user))
+                
+                })
+                .then(() => {
+                    history.replace("/home") 
+                })
+                .catch( error => {
+                    console.log("error ", error);
+                })
+                // throw new Error("Invalid Email or Email does not exist in the database")
             }   
-            
-            login(userDeets)
-            .then(headerResponse => {
+            else{
 
-                if(!headerResponse){
-                    setPasswordError(true)
-                    //set submit state back to false to trigger userEffect
-                    setSubmit(false)
-                    throw new Error("Password did not match")
-                }
-
-                const userToken = headerResponse["auth-token"]
-                localStorage.setItem("auth-token", userToken )
-                dispatch(setUser(user))
-               
-            })
-            .then(() => {
-                history.replace("/home") 
-            })
-            .catch( error => {
-                console.log("error ", error);
-            })
+                setEmailError(true)
+            }
               
         }).catch(error => {
             console.log('error ',error.message);
@@ -97,6 +105,8 @@ const SignIn = () => {
         history.push("signup")
 
     }
+
+    // console.log("email error ", emailError);
 
     return (
         <div className='signin'>
