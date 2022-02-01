@@ -52,10 +52,6 @@ const SignIn = () => {
 
     },[password])
 
-    useEffect(() => {
-
-        
-    },[emailError])
 
     function loginUser(e){
         e.preventDefault()
