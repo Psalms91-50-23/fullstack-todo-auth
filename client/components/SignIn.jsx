@@ -59,6 +59,8 @@ const SignIn = () => {
         getUserByEmail(email)
         .then( user => {
             // console.log("user response ", user);
+            //if I dont get !user.error from user response, means user exists, go ahead and login
+           
             if(!user.error){
                 // setUserExists(false)
               
@@ -86,7 +88,7 @@ const SignIn = () => {
                 // throw new Error("Invalid Email or Email does not exist in the database")
             }   
             else{
-
+                 //if doesnt exist will get user.error show message
                 setEmailError(true)
             }
               
