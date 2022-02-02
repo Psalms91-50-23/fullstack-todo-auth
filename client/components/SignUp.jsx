@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { register, getUserByEmail } from '../api/user'
 import { validateEmail, validatePassword, minEmailLength } from "../utils/functions"
 import "../css/Signup.css"
@@ -27,7 +27,6 @@ const SignUp = () => {
     const { password, email, name } = userDeets
 
     useEffect(() => {
-
         //test the start of the email min 3 character length
         const isValidEmailLength = minEmailLength(email)
         // console.log("isEmailValid ", isValidEmailLength);
@@ -40,8 +39,7 @@ const SignUp = () => {
                 setEmailMsgExample(false)  
             }else{
                 setEmailMsgExample(true)
-            }
-        
+            }       
         }
         else{
             setEmailLengthError(true)
@@ -57,14 +55,10 @@ const SignUp = () => {
            
     },[password])
 
-
-
     function handleChange(e){
         e.preventDefault()
         setUserDeets({...userDeets, [e.target.name]: e.target.value})
-
     }
-
 
     function registerUser(e){
 
@@ -86,11 +80,9 @@ const SignUp = () => {
         .then( response => {
             // response = {error: "Something went wrong, Email does not exist"}
             if(response.error) {
-
                 setUserExists(false)
                 register(userDeets)
-                history.push("/signin")
-                
+                history.push("/signin")               
             }
             setUserExists(true)
             
@@ -98,7 +90,6 @@ const SignUp = () => {
             console.log('error ',error.message);
         })
     }
-
 
     function login(){
         history.push("/signin")
@@ -152,7 +143,6 @@ const SignUp = () => {
                 </form>
             </div>
         </div>
-
     )
 }
 

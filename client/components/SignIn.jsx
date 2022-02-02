@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { getUserByEmail, login } from '../api/user'
-import { useSelector, useDispatch } from 'react-redux'
-import { getUserByUID } from '../api/user'
+import { useDispatch } from 'react-redux'
 import { setUser } from "../actions/userActions"
-import jwt_decode from "jwt-decode";
 import "../css/Signin.css"
 
 
@@ -24,7 +22,6 @@ const SignIn = () => {
     })
 
     const [ emailError, setEmailError ] = useState(false)
-    // const [ userExists, setUserExists ] = useState(true)
     const [ submit, setSubmit ] = useState(false)
     const [ passwordError, setPasswordError ] = useState(false)
     const { email, password } = userDeets
@@ -58,15 +55,10 @@ const SignIn = () => {
         setSubmit(true)
         getUserByEmail(email)
         .then( user => {
-            // console.log("user response ", user);
-            //if I dont get !user.error from user response, means user exists, go ahead and login
-           
-            if(!user.error){
-                // setUserExists(false)
-              
+            //if I dont get !user.error from user response, means user exists, go ahead and login           
+            if(!user.error){              
                 login(userDeets)
                 .then(headerResponse => {
-                    // console.log("header response ", headerResponse);
                     if(!headerResponse){
                         setPasswordError(true)
                         //set submit state back to false to trigger useEffect
@@ -85,7 +77,6 @@ const SignIn = () => {
                 .catch( error => {
                     console.log("error ", error);
                 })
-                // throw new Error("Invalid Email or Email does not exist in the database")
             }   
             else{
                  //if doesnt exist will get user.error show message
@@ -103,8 +94,6 @@ const SignIn = () => {
         history.push("signup")
 
     }
-
-    // console.log("email error ", emailError);
 
     return (
         <div className='signin'>
@@ -137,7 +126,6 @@ const SignIn = () => {
                             }
                         </div>
                         <button className='signin__submitButton' type="submit">Sign-in</button>
-                        {/* <input type="submit"/> */}
                     </form>
                     <div className='signin__signupButton'>
                         <button className='signin__goRegisterButton' onClick={goRegister}>

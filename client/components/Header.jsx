@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { logoutUser } from '../api/user'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import "../css/Header.css"
 
 
 const Header = () => {
 
     const history = useHistory()
-    const dispatch = useDispatch()
     const { user } = useSelector(state => state.userState)
     const [ name, setName ] = useState("")
 
@@ -20,7 +19,6 @@ const Header = () => {
 
     },[user])
     
-    // console.log("name ", name);
     function logout(){
         const authToken = localStorage.getItem("auth-token")
         logoutUser(authToken)

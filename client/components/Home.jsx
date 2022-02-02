@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import AddTodos from './AddTodos'
 import Header from './Header'
 import TodoList from './TodoList'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUser } from "../actions/userActions"
 import { getUserByUID } from '../api/user'
 import jwt_decode from "jwt-decode";
-import { setTodos } from "../actions/userActions"
 import "../css/Home.css"
 
 
 const Home = () => {
 
-    const history = useHistory()
     const dispatch = useDispatch()
-    const { user, todos } = useSelector(state => state.userState )
-    
+    //this useEffect is for if they didnt logout and came back into the home page and auth token is still valid
     useEffect(() => {
 
         const userToken = localStorage.getItem("auth-token")
-        // console.log("userToken Home ", userToken);
       
         if(userToken){
             var decoded = jwt_decode(userToken);
-            // console.log("decoded in addtodo ", decoded);
             //sent uid to jwt online in login route backend, just grabbing uid from jwt token 
             const { uid } = decoded
             getUserByUID(uid)

@@ -22,7 +22,6 @@ const Edit = ({ todo, toggleEdit }) => {
         
     })
 
-
     useEffect(() => {
 
         if(submit){
@@ -33,7 +32,7 @@ const Edit = ({ todo, toggleEdit }) => {
             
             updateTodoByID(id, userTodo)
             .then(response => {
-    
+                console.log("userTodo updated ",response);
                 setUserTodo(response)
                 dispatch(updateTodo(response))
                 setUserTodo(response)
@@ -56,78 +55,71 @@ const Edit = ({ todo, toggleEdit }) => {
         
     }
 
-//    console.log("submit ",submit);
-    // console.log("edit user todo ", userTodo);
-
   return (
 
-        <div className="editTodo">
-            <div className='editTodo__text'>
-                <span>
-                    <strong>Active:</strong> {active.toString()}
-                </span>
-                <span>
-                    <strong>Completed:</strong> {completed.toString()}
-                </span>
+    <div className="editTodo">
+        <div className='editTodo__text'>
+            <span>
+                <strong>Active:</strong> {active.toString()}
+            </span>
+            <span>
+                <strong>Completed:</strong> {completed.toString()}
+            </span>
 
-            </div> 
-            <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
-                    <div className="editTodo__task">
-                        <label className='editTodo__label' htmlFor='task' >Todo: </label>
-                        <input 
-                            className='editTodo__input' 
-                            name="task" value={task} 
-                            onChange={(e) => setUserTodo({...userTodo, [e.target.name] : e.target.value})}
-                        />
+        </div> 
+        <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
+                <div className="editTodo__task">
+                    <label className='editTodo__label' htmlFor='task' >Todo: </label>
+                    <input 
+                        className='editTodo__input' 
+                        name="task" value={task} 
+                        onChange={(e) => setUserTodo({...userTodo, [e.target.name] : e.target.value})}
+                    />
+                </div>
+                <div className="editTodo__checkBoxContainer">
+                    <div className='editTodo__priority'>
+                        <label htmlFor='priority' >Priority: </label>
+                        <select name="priority" value={priority} onChange={ (e) =>  setUserTodo({...userTodo, [e.target.name]: e.target.value })}>
+                            <option value={0}>low</option>
+                            <option value={1}>moderate</option>
+                            <option value={2}>high</option>
+                            <option value={3}>very high</option>
+                        </select>
                     </div>
-                    <div className="editTodo__checkBoxContainer">
-                        <div className='editTodo__priority'>
-                            <label htmlFor='priority' >Priority: </label>
-                            <select name="priority" value={priority} onChange={ (e) =>  setUserTodo({...userTodo, [e.target.name]: e.target.value })}>
-                                <option value={0}>low</option>
-                                <option value={1}>moderate</option>
-                                <option value={2}>high</option>
-                                <option value={3}>very high</option>
-                            </select>
-                        </div>
-                       {
-                           !active && 
-                           <div className='editTodo__completed'>
-                                <label htmlFor='completed'>completed </label>
-                                <input 
-                                    name="completed" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={completed}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !completed})}
-                                />
-                           </div> 
+                    {
+                        !active && 
+                        <div className='editTodo__completed'>
+                            <label htmlFor='completed'>completed </label>
+                            <input 
+                                name="completed" 
+                                type="checkbox"
+                                defaultChecked={completed}
+                                onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !completed})}
+                            />
+                        </div> 
 
-                       }
-                       {
-                           !completed &&
-                            <div className='editTodo__active'>
-                                <label htmlFor="active">active: </label>
-                                <input 
-                                    name="active" 
-                                    type="checkbox"
-                                    //setting default value to the todo passed down as props
-                                    defaultChecked={active}
-                                    onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !active}) }
-                                /> 
-                            </div>
-
-                       }
-                        <div className='editTodo__addBoxIcon' onClick={(e) => submitTodo(e)}>
-                            <span  onClick={(e) => submitTodo(e)} >
-                                <AddBoxIcon/>
-                            </span>
+                    }
+                    {
+                        !completed &&
+                        <div className='editTodo__active'>
+                            <label htmlFor="active">active: </label>
+                            <input 
+                                name="active" 
+                                type="checkbox"
+                                defaultChecked={active}
+                                onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !active}) }
+                            /> 
                         </div>
+
+                    }
+                    <div className='editTodo__addBoxIcon' onClick={(e) => submitTodo(e)}>
+                        <span  onClick={(e) => submitTodo(e)} >
+                            <AddBoxIcon/>
+                        </span>
                     </div>
-            </form>
-  
-    </div>
-      
+                </div>
+        </form>
+    </div>      
   )
 }
 

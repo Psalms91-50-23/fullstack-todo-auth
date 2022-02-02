@@ -16,8 +16,6 @@ export function createTodo(todo){
     }).catch(error => {
         console.log("error ",error.message)
     })
-
-
 }
 
 export function getAllUserTodosByUID(userUID){
@@ -27,32 +25,23 @@ export function getAllUserTodosByUID(userUID){
     .get(`${userTodosBaseURL}/${userUID}/todos`)
     .set("auth-token", token)
     .then( response  => {
-        // console.log("response get all user todo by uid ", response.body)
         return response.body
     }).catch(error => {
         console.log("error ",error.message);
     })
-
 }
 
 export function updateTodoByID(todoId, todo){
 
     const token = localStorage.getItem("auth-token")
-    // console.log("token in update by id ", token)
-    // console.log("todo update by id ", todo)
-    // console.log("todo id ", todoId)
     todo.priority = Number(todo.priority)
-    
     return request
     .patch(`${todoBaseURL}/${todoId}`)
     .set('auth-token', token)
     .send(todo)
     .then(response => {
-        // console.log("msg in todo.js res.body ", response.body)
-        // console.log("date format id "+todoId+" ", dateFormat);
-        const { oldTodo, updatedTodo, message } = response.body
+        const { updatedTodo } = response.body
         return updatedTodo
-
     }).catch(error => {
         console.log("error ",error.message);
     })
@@ -65,12 +54,10 @@ export function deleteTodoById(id){
     .delete(`${todoBaseURL}/${id}`)
     .set("auth-token", token)
     .then( response  => {
-        // console.log("response for delete ", response)
         return response.body
     }).catch(error => {
         console.log("error ",error.message);
     })
-
 }
 
 export function getTodoById(id){
@@ -79,7 +66,6 @@ export function getTodoById(id){
     .get(`${todoBaseURL}/${id}`)
     .set("auth-token", token)
     .then( response  => {
-        // console.log("response for delete ", response)
         return response.body
     }).catch(error => {
         console.log("error ",error.message);

@@ -1,58 +1,44 @@
-
 .editTodo {
-
     display: flex;
     flex-direction: column;
 }
 
 .editTodo__form {
-
     display: flex;
     flex-direction: column;
     margin: 0px 10px;
 }
 
 .editTodo__text {
-
     display: flex;
     flex-direction: column;
     margin-left: 10px;
-
 }
 
 .editTodo__checkBoxContainer {
-
     display: flex;
     justify-content: start;
     align-items: center;
-
 }
 
 .editTodo__task {
-
     display: flex;
-
 }
 
 .editTodo__task > label {
-
     font-weight: 700;
     margin-right: 5px;
-
 }
 
 .editTodo__label {
-
     flex: 0.10;
 }
 
 .editTodo__input {
-
     flex: 0.90;
 }
 
 .editTodo__completed {
-
     display: flex;
     flex-direction: row;
     margin-right: 10px;
@@ -60,59 +46,43 @@
 }
 
 .editTodo__completed > label {
-
     margin-right: 5px; 
     font-weight: 700;
-
 }
 
 .editTodo__active {
-
     display: flex;
     flex-direction: row;
     margin-right: 10px;
-
 }
 
 .editTodo__active > label {
-
     margin-right: 5px;
     font-weight: 700;
-
 }
 
-
 .editTodo__priority {
-
     display: flex;
     flex-direction: row;
     margin-right: 10px;
-
 }
 
 .editTodo__priority > label {
-
     margin-right: 5px;
     font-weight: 700;
-
 }
 
-
 .editTodo__addBoxIcon {
-
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 0;
     cursor: pointer;
-
 }
 
 .editTodo__addBoxIcon > span {
-
     display: flex;
     height: auto;
-    justify-content: center;
-    
+    justify-content: center;   
 }

@@ -1,150 +1,113 @@
 
 .addTodo__container {
-
     display: flex;
     width: 100%;
-    /* margin: 10px 0px; */
-    margin-top: 5px; /*latest changes */
-
+    margin-top: 5px; 
 }
 
 .addTodo__inputs {
-
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-around;
-    
+    justify-content: space-around;   
 }
 
-
 .addTodo__task {
-
     display: flex;
     flex-direction: column;
     padding: 5px 10px;
     width: 100%;
-
 }
 
 .addTodo__task > div {
-
     display: flex;
     flex-direction: row;
-
 }
 
 .addTodo__task > div >  label {
-
     flex: 0.1;
     font-weight: 900;
     color: aliceblue;
     padding-right: 10px;
-
 }
 
 .addTodo__task > div > input {
-
     flex: 0.85;
-
 }
 
 .addTodo__task > span {
-
     display: flex;
     justify-content: center;
     margin-top: 5px;
     margin-bottom: 2px;
     color: red;
     font-weight: 400;
-
 }
 
 .addTodo__form {
-
     display: flex;
     flex-direction: column;
     width: 100%;
     background-color: rgba(128, 128, 128, 0.3);
     flex-wrap: wrap;
-
 }
 
 .addTodo__addBoxIcon {
-
     display: flex;
     width: 25px;
     margin-right: 10px;
     justify-content:flex-start;
-    background-color: rgba(168, 174, 174, 0.6);
-    
+    background-color: rgba(168, 174, 174, 0.6);  
 }
 
 .addTodo__addBoxIcon:hover {
-
     cursor: pointer;
-
 }
 
 .addTodo__priority {
-
     display: flex;
     flex-direction: row;
     width: 100%;
     max-width: 50%;
     justify-content: space-evenly;
     padding-left: 10px;
-
 }
 
 .addTodo__priority > label {
-
     color: aliceblue;
     font-weight: 700;
-
 }
 
 
 .addTodo__priority > select {
-
     max-width: 50%;
     flex: 1;
     width: 100%;
-
 }
 
 .addTodo__active {
-
     display: flex;
     justify-content: space-between;
     max-width: 20%;
     width: 100%;
     justify-content: space-evenly;
     margin-right: 5px;
-
 }
 
 .addTodo__active > label {
-
     color: aliceblue;
     font-weight: 700;
-
 }
 
 .addTodo__completed {
-
     display: flex;
     width: 100%;
     max-width: 30%;
-    /* background-color: chartreuse; */
     justify-content: space-evenly;
     margin-right: 5px;
-
 }
 
 .addTodo__completed > label {
-
     color: aliceblue;
     font-weight: 700;
-
 }

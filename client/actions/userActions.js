@@ -8,16 +8,13 @@ export const LOADING = "LOADING"
 export const FILTER = "FILTER"
 
 export function setUser(user){
-
     return {
         type: SET_USER,
         user
     }
-
 }
 
 export function addTodo(todo){
-
     return {
         type: ADD_TODO,
         todo
@@ -25,7 +22,6 @@ export function addTodo(todo){
 }
 
 export function setTodos(todoList){
-
     return {
         type: SET_TODOS,
         todos: todoList
@@ -34,7 +30,6 @@ export function setTodos(todoList){
 }
 
 export function updateTodo(todo){
-
     return {
         type: UPDATE_TODO,
         todo
@@ -42,7 +37,6 @@ export function updateTodo(todo){
 }
 
 export function deleteTodo(id){
-
     return {
         type: DELETE,
         id
@@ -50,7 +44,6 @@ export function deleteTodo(id){
 }
 
 export function load(booleanState){
-
     return {
         type: LOADING,
         loading: booleanState
@@ -58,19 +51,15 @@ export function load(booleanState){
 }
 
 export function filterTodos(filter){
-
     return {
         type: FILTER,
         filter
     }
-
 }
 
 export function updateThisTodo(todo){
-
     return {
         type: UPDATE_TODO,
         todo
     }
-
 }

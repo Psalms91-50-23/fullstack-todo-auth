@@ -1,6 +1,6 @@
 const server = require('./server')
 const PORT = process.env.PORT || 3000
-// require('dotenv').config() //you can grab this even though dotevn-webpack is installed as a dependency, its in node_mdule package dotenv
+// require('dotenv').config() //you can grab this even though dotenv-webpack is installed as a dependency, its in node_module package dotenv
 
 if(!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   const envConfig = require('dotenv').config()

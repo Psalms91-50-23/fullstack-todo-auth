@@ -1,53 +1,30 @@
 import React, { useState, useEffect} from 'react'
 import "../css/Todo.css"
-import { useSelector, useDispatch } from 'react-redux'
-import { updateTodoByID, deleteTodoById } from '../api/todo.js'
-import { updateTodo, deleteTodo, updateThisTodo } from '../actions/userActions'
+import { useDispatch } from 'react-redux'
+import { deleteTodoById } from '../api/todo.js'
+import { deleteTodo, updateThisTodo } from '../actions/userActions'
 import  DeleteForeverIcon  from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import EditTodo from './EditTodo'
 
 const Todo = ({todo}) => {
 
-    const priorityIndex = ["low","moderate","high","very high"]
     const dispatch = useDispatch()
     const [ toggle, setToggle ] = useState(false)
-
     const { task, user_uid, id, completed, priority, active, created_at, updated_at } = todo 
 
-    const [ userTodo, setUserTodo ] = useState({
-        id,
-        user_uid,
-        task,
-        completed,
-        active,
-        priority: priorityIndex.indexOf(priority),//priority comes in the form of a string (a word not string number), converted it to a number
-    })
-
-
-
     function toggleEdit(){
-
         setToggle(!toggle)
-
     }
 
     function deleteById(){
-
         deleteTodoById(id)
         .then(() => {
-            // console.log("response in delete ", response)
             dispatch(deleteTodo(id))
-
         }).catch(error => {
             console.log("error ",error.message);
         })
-
     }
-
-    // console.log("todo in todo jsx ", todo);
-    // console.log('userTodos in todo.jsx ', userTodo);
 
     return (
         <div className='todo__container'>
@@ -58,9 +35,7 @@ const Todo = ({todo}) => {
                     :
                     <div className='todo__info'>
                         <h3>Todo</h3>
-                        {/* <p> id: {id}</p> */}
                         <p><strong>Task:</strong> {task}</p>
-                        {/* <p> user_uid: {user_uid}</p> */}
                         <p><strong>Completed:</strong> {completed.toString()}</p>
                         <p><strong>Active:</strong> {active.toString()}</p>
                         <p><strong>Priority:</strong> {priority}</p>
@@ -69,7 +44,6 @@ const Todo = ({todo}) => {
                         </p>
                         <p> 
                             <strong>Updated at:</strong> {updated_at}   
-
                         </p>
                     </div>
                     

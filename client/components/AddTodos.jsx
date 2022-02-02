@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import "../css/AddTodo.css"
-import jwt_decode from "jwt-decode";
-import { getUserByUID } from '../api/user'
 import { createTodo } from '../api/todo'
 import { addTodo } from "../actions/userActions"
 import AddBoxIcon from '@mui/icons-material/AddBox';
@@ -13,7 +11,6 @@ const AddTodos = () => {
     const { user } = useSelector(state => state.userState )
     const dispatch = useDispatch()
     const [ empty, setEmpty ] = useState(false)
-    
     const [ todo, setTodo ] = useState({
         task: "",
         completed: false,
@@ -33,8 +30,6 @@ const AddTodos = () => {
           
     },[user])
 
-    
-
     function submitTodo(e){
 
         if(!todo.task)
@@ -45,13 +40,10 @@ const AddTodos = () => {
         if(!todo.completed && !todo.active ){
             setTodo({...todo, active: todo.active})
         }
-        // console.log("add todo ",todo);
         setEmpty(false)
         e.preventDefault()
         createTodo(todo)
         .then(response => {
-
-            // console.log("response todo ",response);
             dispatch(addTodo(response))
             //set back to default
             setTodo({...todo, task: ""})

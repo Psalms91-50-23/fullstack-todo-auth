@@ -21,54 +21,37 @@ const TodoList = () => {
 
         if(user){
             dispatch(load(true))
-            // const token = localStorage.getItem("auth-token")
-            // console.log("token in todolist ", token);
             const { uid }= user
             getAllUserTodosByUID(uid)
             .then(todos => {
-                // console.log("todo");
                 dispatch(setTodos(todos))
                 dispatch(load(false))
             }).catch(error => {
                 console.log("error ",error.message);
                 //error token expired/invalid logout and reload browser, otherwise it stays on loading error
                 logout()
-                location.reload()
-                
+                location.reload()       
             })
         }
         
     },[user])
 
     useEffect(() => {
-
         if(todos){
-
             setUserTodos(todos)
-
         }
-
     }, [todos])
 
-
-
     useEffect(() => {
-
         setLoadingTodos(loading)
-        // console.log("loading todos  ",loadingTodos);
-
     },[loading])
 
-
     function logout(){
-        // const authToken = localStorage.getItem("auth-token")
         logoutUser()
         .then(response => {
-            // console.log("response in logout homepage  ", response);
             localStorage.removeItem('auth-token');
             //user logged out, push to login page/ which is home
-            history.push("/")
-            
+            history.push("/")            
         })
         .catch(error => {
             console.log("error ", error.message);
@@ -81,7 +64,6 @@ const TodoList = () => {
                 <h1>Todo List</h1>
             </div>
             <Filter userTodos={userTodos}/> 
-            {/* <h4>User: {user?.email}</h4> */}
             <div className='todoLists__content'>
             {!loadingTodos && filter ? (filter?.map(todo => {
                 const { id } = todo

@@ -39,7 +39,6 @@ function minPasswordCharReqReached(password){
     var numberCounter = 0
     var specialCharCounter = 0
     var minPasswordCharReached = false //instantiated as false
-
     //test for length of password, if 5 or lower return false
     if(passwordArray.length <= 5) return minPasswordCharReached
     // console.log("pw length pass ", passwordArray.length)
@@ -59,10 +58,6 @@ function minPasswordCharReqReached(password){
         if(specialCharRegex.test(character)){
             specialCharCounter++
         }
-        // console.log("numcounter ", numberCounter);
-        // console.log("lowerCaseLetterCounter ", lowerCaseLetterCounter);
-        // console.log("specialCharCounter ", specialCharCounter);
-        // console.log("capitalLetterCounter ", capitalLetterCounter);
         if(capitalLetterCounter >= 1 && numberCounter >= 1 && lowerCaseLetterCounter >= 1 && specialCharCounter >= 1){
             minPasswordCharReached = true
             return minPasswordCharReached 
@@ -73,14 +68,10 @@ function minPasswordCharReqReached(password){
     return minPasswordCharReached
 }
 
-
 function validatePassword(password){
-
     if(minPasswordCharReqReached(password)) return true
     else return false
-
 }
-
 
 module.exports = {
     validatePassword,
