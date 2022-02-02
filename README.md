@@ -35,8 +35,7 @@ When adding values for priority use digits 0-3 ["low","moderate","high","very hi
 0 being "low" and use number values 0 (being false) 1 for being true for active and completed
 Make sure you login and so you get a users UID for creating todos etc.
 
-
-Create User 
+Create User, POST route
 http://localhost:3000/api/user/register 
 {
 	"name": "kho",
@@ -44,16 +43,15 @@ http://localhost:3000/api/user/register
 	"password": "!123Abc"	
 }
 
-Login sample
+Login sample is a POST route
 http://localhost:3000/api/user/login
 {
 	"email": "kho@gmail.com",
 	"password": "!123Abc"	
 }
 
-Creating Todo
+Creating Todo is Post route
 http://localhost:3000/api/todos
-
 {
 	"task": "Keep learning",
 	"completed": 0,
@@ -62,13 +60,13 @@ http://localhost:3000/api/todos
 	"user_uid": "4373e4cd41d48d46"
 }
 
-Delete Todo
+Delete Todo, DELETE route
 http://localhost:3000/api/todos/2
 
-Get Todo by id
+Get Todo by id, is a GET route
 http://localhost:3000/api/todos/6
 
-Patch Todo by id
+Patch Todo by id, is a PATCH route
 http://localhost:3000/api/todos/6
 {
     "id": 6,
