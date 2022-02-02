@@ -32,6 +32,51 @@ and pass it your jwt token in the value section,
 I left the token in your terminal, 
 so you can copy that and paste it in Insomnia to see what each routes returns
 When adding values for priority use digits 0-3 ["low","moderate","high","very high"],
-0 being "low" and use values for true or false for active and completed
+0 being "low" and use number values 0 (being false) 1 for being true for active and completed
+Make sure you login and so you get a users UID for creating todos etc.
+
+
+Create User 
+http://localhost:3000/api/user/register 
+{
+	"name": "kho",
+	"email": "kho@gmail.com",
+	"password": "!123Abc"	
+}
+
+Login sample
+http://localhost:3000/api/user/login
+{
+	"email": "kho@gmail.com",
+	"password": "!123Abc"	
+}
+
+Creating Todo
+http://localhost:3000/api/todos
+
+{
+	"task": "Keep learning",
+	"completed": 0,
+	"active": 1,
+	"priority": 3,
+	"user_uid": "4373e4cd41d48d46"
+}
+
+Delete Todo
+http://localhost:3000/api/todos/2
+
+Get Todo by id
+http://localhost:3000/api/todos/6
+
+Patch Todo by id
+http://localhost:3000/api/todos/6
+{
+    "id": 6,
+    "task": "testing again trying it???",
+    "completed": 0,
+    "active": 1,
+    "priority": 1,
+    "user_uid": "4373e4cd41d48d46"
+}
 
 ```

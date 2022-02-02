@@ -44,16 +44,16 @@ const Todo = ({todo}) => {
                 }
             </div>
             <div className='todo__buttons'>
-                    <span className='todo__edit__button'  onClick={toggleEdit}>
-                        <EditIcon />
-                    </span>
+                <span className='todo__edit__button'  onClick={toggleEdit}>
+                    <EditIcon />
+                </span>
                 {/* <p className='todo__edit' onClick={toggleEdit}>
                 </p>
                 <p className='todo__delete' onClick={deleteById}>
                 </p> */}
-                    <span className='todo__delete__button' onClick={deleteById}>
-                        <DeleteForeverIcon />
-                    </span>
+                <span className='todo__delete__button' onClick={deleteById}>
+                    <DeleteForeverIcon />
+                </span>
             </div>
         </div>
     )

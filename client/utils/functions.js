@@ -16,19 +16,15 @@ const specialCharRegex = /[!@#$%^&]{1}/ //must have 1 special character '!@#$%^&
 const minEmailReq = /\w{3,}/
 
 function validateEmail(userEmail){
-
     //test if email matches email regex expression and that it has all the min requirements for an email
     if(emailRegex.test(userEmail)) return true
     else return false
-
 }
 
 function minEmailLength(email){
-
     const minChar = email.substring(0,3)
     if(minEmailReq.test(minChar)) return true
     else return false
-
 }
 
 function minPasswordCharReqReached(password){
@@ -41,7 +37,6 @@ function minPasswordCharReqReached(password){
     var minPasswordCharReached = false //instantiated as false
     //test for length of password, if 5 or lower return false
     if(passwordArray.length <= 5) return minPasswordCharReached
-    // console.log("pw length pass ", passwordArray.length)
     //after above condition passes do below
     for(var i = 0; i < passwordArray.length ; i++){
         
@@ -62,9 +57,7 @@ function minPasswordCharReqReached(password){
             minPasswordCharReached = true
             return minPasswordCharReached 
         }
-     
     }
-
     return minPasswordCharReached
 }
 
