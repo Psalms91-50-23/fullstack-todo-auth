@@ -28,7 +28,10 @@ Go into the user or todos table to see which one you added
 Make sure Header tab has "Content-Type" as header set and value application/json
 Any routes that needs auth (creating Todos, delete Todos, edit Todos etc), 
 to test it in Insomnia, add a second Header value called "auth-token", 
-and pass it you jwt token in the value section, 
+and pass it your jwt token in the value section, 
 I left the token in your terminal, 
 so you can copy that and paste it in Insomnia to see what each routes returns
+When adding values for priority use digits 0-3 ["low","moderate","high","very high"],
+0 being "low" and use values for true or false for active and completed
+
 ```

@@ -74,8 +74,7 @@ const TodoList = () => {
                     }))
             }
             {loadingTodos && <Loading/>}
-            </div>
-            
+            </div>   
         </div>
     )
 }

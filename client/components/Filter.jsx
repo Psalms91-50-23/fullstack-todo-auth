@@ -76,7 +76,7 @@ const Filter = ({userTodos}) => {
 
     return (
         <div className='filter'>
-            <h3>Filter search</h3>
+            <h3>Filter Search</h3>
             <form onSubmit={e => onSubmit(e)} className='filter__form'>
                 {all ?
                     <div className='filter__inputs'> 

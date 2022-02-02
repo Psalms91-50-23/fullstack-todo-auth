@@ -6,7 +6,7 @@
     box-sizing: border-box;
     margin-bottom: 10px; 
     overflow: hidden;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 .todoList__title {
@@ -26,5 +26,6 @@
 }
 
 .todoLists__content {
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
+    width: 100%;
 }

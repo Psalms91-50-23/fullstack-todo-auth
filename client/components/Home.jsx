@@ -11,7 +11,8 @@ import "../css/Home.css"
 const Home = () => {
 
     const dispatch = useDispatch()
-    //this useEffect is for if they didnt logout and came back into the home page and auth token is still valid
+    //this useEffect is for if they didnt logout and close the tab
+    //and came back into the home page and auth token is still valid
     useEffect(() => {
 
         const userToken = localStorage.getItem("auth-token")
@@ -34,13 +35,13 @@ const Home = () => {
             <div className='home__container'>
                 <div className='home__content__container'>
                     <img className='home__img' src="https://c.tenor.com/ak6js9w3VSIAAAAC/todos.gif" alt="" />
-                    <div className='home__container'>
+                    {/* <div className='home__container'> */}
                         <div className='home__components'>  
                             <Header />
                             <AddTodos />
                             <TodoList/>
                         </div> 
-                    </div>
+                    {/* </div> */}
                 </div>
             </div>
         </div>

@@ -2,8 +2,6 @@ const express = require('express')
 const server = express()
 const db = require("../db/db")
 const { auth } = require("./authJwtVerify")
-// const { auth } = authenticator
-
 const priorityIndex = ["low","moderate","high","very high"]
 
 server.post("/", auth, (req,res) => {
@@ -53,7 +51,6 @@ server.get("/", auth, (req,res) => {
     })
 })
 
-
 server.delete("/:todoId", auth, async (req,res) => {
 
     const { todoId } = req.params
@@ -65,7 +62,6 @@ server.delete("/:todoId", auth, async (req,res) => {
     }).catch(error => {
         res.status(500).json({ message: `Something went wrong`, error: error.message })
     })
-
 })
 
 server.patch("/:todoId", auth,  async (req,res) => {
@@ -95,7 +91,6 @@ server.patch("/:todoId", auth,  async (req,res) => {
     }).catch(error => {
         res.status(500).json({ message: `Something went wrong`, error: error.message })
     })
-
 })
 
 // get all todos from this user

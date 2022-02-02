@@ -17,7 +17,6 @@ const lowerCaseLetterRegex = /[a-z]{1}/ //1 character match a-z
 const numberRegex = /\d{1}/ //1 digit match 0-9
 const specialCharRegex = /[!@#$%^&]{1}/ //must have 1 special character '!@#$%^&*
 
-
 function validateEmail(userEmail){
     //test if email matches email regex expression and that it has all the min requirements for an email
     if(emailRegex.test(userEmail)) return true
@@ -57,11 +56,9 @@ function minPasswordCharReqReached(password){
     return minPasswordCharReached 
 }
 
-
 function validatePassword(password){
     if(minPasswordCharReqReached(password)) return true
 }
-
 
 function addUser(user){
     return db("users")
@@ -74,8 +71,7 @@ function addUser(user){
 function getUserByEmail(email){
     return db("users")
     .where({email})
-    .first()
-      
+    .first()    
 }
 
 function getUserById(id){

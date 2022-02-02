@@ -1,7 +1,8 @@
 .todo__container {
 
     display: flex;
-    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: space-between;
     padding-bottom: 20px;
     width: 100%;
     padding: 10px;
@@ -11,13 +12,15 @@
 
 .todo__buttons {
     display: flex;
-    flex: 0.2;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 25px;
+    margin-right: 10px;
 }
 
 .todo__details {
-
     width: 100%;
-    flex: 0.8;
 }
 
 .todo__edit {
@@ -61,22 +64,24 @@
     margin-right: 10px; 
 }
 
-.todo__edit:hover {
+.todo__edit__button:hover {
     background-color: rgba(128, 128, 128, 0.4);
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.todo__edit:active {
+.todo__edit__button:active {
     background-color: rgba(128, 128, 128, 0.7);
     border-radius: 5px;
 }
 
-.todo__delete:hover {
+.todo__delete__button:hover {
     background-color: rgba(128, 128, 128, 0.4);
     border-radius: 5px;
+    cursor: pointer;
 }
 
-.todo__delete:active {
+.todo__delete__button:active {
     background-color: rgba(128, 128, 128, 0.7);
     border-radius: 5px;
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import "../css/Todo.css"
 import { useDispatch } from 'react-redux'
 import { deleteTodoById } from '../api/todo.js'
-import { deleteTodo, updateThisTodo } from '../actions/userActions'
+import { deleteTodo } from '../actions/userActions'
 import  DeleteForeverIcon  from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import EditTodo from './EditTodo'
@@ -29,7 +29,6 @@ const Todo = ({todo}) => {
     return (
         <div className='todo__container'>
             <div className='todo__details'>
-
                 { toggle?
                      <EditTodo todo={todo} toggleEdit={toggleEdit}/>
                     :
@@ -45,16 +44,16 @@ const Todo = ({todo}) => {
                 }
             </div>
             <div className='todo__buttons'>
-                <p className='todo__edit' onClick={toggleEdit}>
-                    <span className='todo__edit__button'>
+                    <span className='todo__edit__button'  onClick={toggleEdit}>
                         <EditIcon />
                     </span>
+                {/* <p className='todo__edit' onClick={toggleEdit}>
                 </p>
                 <p className='todo__delete' onClick={deleteById}>
-                    <span className='todo__delete__button'>
+                </p> */}
+                    <span className='todo__delete__button' onClick={deleteById}>
                         <DeleteForeverIcon />
                     </span>
-                </p>
             </div>
         </div>
     )

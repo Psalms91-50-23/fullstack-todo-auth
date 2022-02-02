@@ -59,7 +59,7 @@ const AddTodos = () => {
                 <div className='addTodo__task'>
                     <div>
                         <label htmlFor='task' >Todo </label>
-                        <input name="task" value={task} onChange={ e => onChangeTask(e)}/>
+                        <input name="task" placeholder='Add your Todo here' value={task} onChange={ e => onChangeTask(e)}/>
                     </div>
                     {empty && <span >Task cannot be empty</span>}
                 </div>

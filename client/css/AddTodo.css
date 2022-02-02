@@ -1,5 +1,6 @@
 .addTodo__container {
     display: flex;
+    /* box-sizing: border-box; */
     width: 100%;
     margin-top: 5px; 
 }
@@ -14,6 +15,7 @@
 .addTodo__task {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     padding: 5px 10px;
     width: 100%;
 }
@@ -24,14 +26,16 @@
 }
 
 .addTodo__task > div >  label {
-    flex: 0.1;
+    flex: 0.15;
     font-weight: 900;
     color: aliceblue;
     padding-right: 10px;
 }
 
 .addTodo__task > div > input {
-    flex: 0.85;
+    /* flex: 1; */
+    width: 100%;
+    margin-right: 10px;
 }
 
 .addTodo__task > span {

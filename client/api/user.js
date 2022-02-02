@@ -56,7 +56,7 @@ export function logoutUser(){
     .post(baseURL+"/logout")
     .send(authToken)
     .then(response => {
-        console.log("response from backend logout ", response);
+        console.log("Response from backend logout ", response);
     }).catch(error => {
         console.log("error ",error.message);
     })
