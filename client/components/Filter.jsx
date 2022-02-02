@@ -46,8 +46,7 @@ const Filter = ({userTodos}) => {
 
     function filteringTodos(todos){
 
-        const filtered = todos.filter((todo, id) => {
-
+        const filtered = todos.filter((todo) => {
             //converting filtered.priority Number to store a string value instead, a word string not a number string
             if(priority >= 0){
                 filterTodos.priority = priorityIndex[priority]               
@@ -70,8 +69,7 @@ const Filter = ({userTodos}) => {
             else if( filteredTodos.priority >= 0 && todo.active === active && todo.priority === filteredTodos.priority || 
                 filteredTodos.priority >= 0 && todo.completed === completed && todo.priority === filteredTodos.priority ){
                     return todo
-            }
-           
+            }    
         })
         return filtered
     }
@@ -104,7 +102,6 @@ const Filter = ({userTodos}) => {
                                     onChange={(e) => setFilteredTodos({...filteredTodos, [e.target.name]: !all})}
                                 />
                                 <label htmlFor='all'>All</label>
-
                             </div>
                             {!active && 
                                 <div className='filter__completed'>
@@ -116,7 +113,6 @@ const Filter = ({userTodos}) => {
                                     />
                                     <label htmlFor='completed'>Completed</label>
                                 </div>
-
                             }
                             {!completed && 
                                 <div className='filter__active'>
@@ -140,8 +136,7 @@ const Filter = ({userTodos}) => {
                                     <option value={0}>low</option>
                                     <option value={1}>moderate</option>
                                     <option value={2}>high</option>
-                                    <option value={3}>very high</option>
-                            
+                                    <option value={3}>very high</option>                            
                                 </select>                                    
                             </div>
                             <button className='filter__submitButton' onClick={(e) => onSubmit(e)}>Filter</button>

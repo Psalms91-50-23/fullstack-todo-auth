@@ -49,7 +49,6 @@ const SignIn = () => {
 
     },[password])
 
-
     function loginUser(e){
         e.preventDefault()
         setSubmit(true)
@@ -68,8 +67,7 @@ const SignIn = () => {
                     //successful grab the token from headerResponse and store it in localStorage
                     const userToken = headerResponse["auth-token"]
                     localStorage.setItem("auth-token", userToken )
-                    dispatch(setUser(user))
-                
+                    dispatch(setUser(user))                
                 })
                 .then(() => {
                     history.replace("/home") 
@@ -85,14 +83,11 @@ const SignIn = () => {
               
         }).catch(error => {
             console.log('error ',error.message);
-        })        
-        
+        })           
     }
 
     function goRegister(){
-
         history.push("signup")
-
     }
 
     return (

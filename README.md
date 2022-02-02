@@ -10,8 +10,8 @@ npm run dev
 Will run on local host 3000, 
 make sure your vpn is turned off as it will not work
 To reset data back to the initial state use the command,
-"npm run knex migrate:rollback" followed by
-"npm run knex migrate:latest"
+"npm run knex migrate:rollback" followed by,
+"npm run knex migrate:latest",
 then do "npm run dev" to start server
 ```
 ## Want to see your data get added  LIVE in VScode?
@@ -22,7 +22,7 @@ Click "Open Database" and you will see it pop up at the bottom
 Go into the user or todos table to see which one you added
 ```
 
-## Want to test it on Insomnia? create your routes "Todo" the following
+## Want to test it in Insomnia? Create your routes "Todo" the following
 
 ```
 Make sure Header tab has "Content-Type" as header set and value application/json

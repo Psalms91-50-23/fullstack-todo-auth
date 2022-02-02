@@ -39,14 +39,9 @@ const Todo = ({todo}) => {
                         <p><strong>Completed:</strong> {completed.toString()}</p>
                         <p><strong>Active:</strong> {active.toString()}</p>
                         <p><strong>Priority:</strong> {priority}</p>
-                        <p> 
-                            <strong>Created at:</strong> {created_at}
-                        </p>
-                        <p> 
-                            <strong>Updated at:</strong> {updated_at}   
-                        </p>
-                    </div>
-                    
+                        <p><strong>Created at:</strong> {created_at}</p>
+                        <p><strong>Updated at:</strong> {updated_at}</p>
+                    </div>                  
                 }
             </div>
             <div className='todo__buttons'>

@@ -25,6 +25,10 @@
     height: auto;
 }
 
+.header__user__container span {
+    padding-left: 5px;
+}
+
 .header__user__logout {
     cursor: pointer;
     font-weight: bolder;

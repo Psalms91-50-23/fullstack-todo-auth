@@ -60,3 +60,23 @@
     flex: 0.90;
     margin-right: 10px; 
 }
+
+.todo__edit:hover {
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
+}
+
+.todo__edit:active {
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 5px;
+}
+
+.todo__delete:hover {
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
+}
+
+.todo__delete:active {
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 5px;
+}

@@ -1,58 +1,43 @@
 import React, { useState, useEffect} from 'react'
-import { updateTodoByID, getTodoById } from '../api/todo.js'
-import { updateTodo, deleteTodo, updateThisTodo, setUser } from '../actions/userActions'
+import { updateTodoByID } from '../api/todo.js'
+import { updateTodo } from '../actions/userActions'
 import "../css/EditTodo.css"
-// import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux'
 import AddBoxIcon from '@mui/icons-material/AddBox';
 const priorityIndex = ["low","moderate","high","very high"]
 
 const Edit = ({ todo, toggleEdit }) => {
 
-   
     const [ submit, setSubmit ] = useState(false)
     const [ userTodo, setUserTodo ] = useState({
-
             id: todo.id,
             user_uid: todo.user_uid,
             task: todo.task,
             completed: todo.completed,
             active: todo.active,
             priority: priorityIndex.indexOf(todo.priority),
-        
     })
 
     useEffect(() => {
-
-        if(submit){
-
-            // if(userTodo.active && userTodo.completed){
-            //     return setError(true)
-            // }
-            
+        if(submit){  
             updateTodoByID(id, userTodo)
             .then(response => {
-                console.log("userTodo updated ",response);
                 setUserTodo(response)
                 dispatch(updateTodo(response))
                 setUserTodo(response)
-                toggleEdit()
-               
+                toggleEdit()               
             }).catch(error => {
                 console.log("error ",error.message);
             }) 
         }
-
     },[submit])
 
     const dispatch = useDispatch()
     const { id, completed, active, priority, task } = userTodo
 
     function submitTodo(e){
-
         e.preventDefault()
-        setSubmit(true)
-        
+        setSubmit(true)   
     }
 
   return (
@@ -65,7 +50,6 @@ const Edit = ({ todo, toggleEdit }) => {
             <span>
                 <strong>Completed:</strong> {completed.toString()}
             </span>
-
         </div> 
         <form className="editTodo__form" onSubmit={(e) => submitTodo(e)}>
                 <div className="editTodo__task">
@@ -97,7 +81,6 @@ const Edit = ({ todo, toggleEdit }) => {
                                 onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !completed})}
                             />
                         </div> 
-
                     }
                     {
                         !completed &&
@@ -110,7 +93,6 @@ const Edit = ({ todo, toggleEdit }) => {
                                 onChange={(e) => setUserTodo({...userTodo, [e.target.name] : !active}) }
                             /> 
                         </div>
-
                     }
                     <div className='editTodo__addBoxIcon' onClick={(e) => submitTodo(e)}>
                         <span  onClick={(e) => submitTodo(e)} >

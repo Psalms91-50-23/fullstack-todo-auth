@@ -4,7 +4,6 @@ import { register, getUserByEmail } from '../api/user'
 import { validateEmail, validatePassword, minEmailLength } from "../utils/functions"
 import "../css/Signup.css"
 
-
 const SignUp = () => {
 
     const authToken = localStorage.getItem("auth-token")
@@ -43,16 +42,13 @@ const SignUp = () => {
         }
         else{
             setEmailLengthError(true)
-        }
-          
+        }   
     },[email])
 
     useEffect(() => {
-
         const isValidPassword = validatePassword(password)
         if(isValidPassword) setPasswordError(false)
-        else setPasswordError(true)
-           
+        else setPasswordError(true)       
     },[password])
 
     function handleChange(e){

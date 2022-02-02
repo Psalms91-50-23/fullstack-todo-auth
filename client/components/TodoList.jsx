@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import jwt_decode from "jwt-decode";
-import { getUserByUID } from '../api/user'
 import { getAllUserTodosByUID } from '../api/todo'
 import Todo from './Todo';
 import { setTodos, load } from "../actions/userActions"

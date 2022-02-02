@@ -5,7 +5,6 @@ import { createTodo } from '../api/todo'
 import { addTodo } from "../actions/userActions"
 import AddBoxIcon from '@mui/icons-material/AddBox';
 
-const priorityIndex = ["low","moderate","high","very high"]
 const AddTodos = () => {
 
     const { user } = useSelector(state => state.userState )
@@ -22,16 +21,12 @@ const AddTodos = () => {
     const { task, completed, active, priority, user_uid } = todo
 
     useEffect(() => {
-
         if(user){
-            // console.log("user 2 ", user);
             setTodo({...todo, user_uid: user.uid}) 
-        }
-          
+        }      
     },[user])
 
     function submitTodo(e){
-
         if(!todo.task)
         {
             setEmpty(true)
@@ -50,14 +45,12 @@ const AddTodos = () => {
         }).catch(error => {
             console.log("error ",error.message);
         })
-
     }
 
     function onChangeTask(e){
         e.preventDefault()
         setTodo({...todo, [e.target.name] : e.target.value})
         setEmpty(false)
-
     }
 
     return (
@@ -99,7 +92,6 @@ const AddTodos = () => {
                             />
                         </div>
                     }
-                    
                     <span className='addTodo__addBoxIcon'>
                         <AddBoxIcon onClick={e => submitTodo(e)}/>
                     </span>

@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import "../css/Header.css"
 
-
 const Header = () => {
 
     const history = useHistory()
@@ -12,11 +11,9 @@ const Header = () => {
     const [ name, setName ] = useState("")
 
     useEffect(() => {
-
         if(user){
             setName(user.name)
         }
-
     },[user])
     
     function logout(){
@@ -25,8 +22,7 @@ const Header = () => {
         .then(response => {
             localStorage.removeItem('auth-token');
             //user logged out, push to login page which is home
-            history.push("/")
-            
+            history.push("/")           
         })
         .catch(error => {
             console.log("error ", error.message);

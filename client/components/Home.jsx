@@ -8,7 +8,6 @@ import { getUserByUID } from '../api/user'
 import jwt_decode from "jwt-decode";
 import "../css/Home.css"
 
-
 const Home = () => {
 
     const dispatch = useDispatch()
@@ -16,7 +15,6 @@ const Home = () => {
     useEffect(() => {
 
         const userToken = localStorage.getItem("auth-token")
-      
         if(userToken){
             var decoded = jwt_decode(userToken);
             //sent uid to jwt online in login route backend, just grabbing uid from jwt token 
