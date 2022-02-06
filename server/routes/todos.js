@@ -23,8 +23,8 @@ server.post("/", auth, (req,res) => {
     .then( todo => {
         todo.completed = Boolean(todo.completed)
         todo.active = Boolean(todo.active)
-        todo.created_at = new Date(todo.created_at).toTimeString()
-        todo.updated_at = new Date(todo.updated_at).toTimeString()
+        todo.created_at = new Date(todo.created_at).toString()
+        todo.updated_at = new Date(todo.updated_at).toString()
         todo.priority = priorityIndex[todo.priority]
         res.status(200).json(todo)
     }).catch( error => {

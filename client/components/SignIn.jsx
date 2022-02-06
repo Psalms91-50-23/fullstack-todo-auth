@@ -34,9 +34,9 @@ const SignIn = () => {
     useEffect(() => {
 
         setEmailError(false)
-        if(!submit && email){
-            setEmailError(false)
-        }
+        // if(!submit && email){
+        //     setEmailError(false)
+        // }
 
     },[email])
 

@@ -43,7 +43,6 @@ server.post("/register", async (req,res) => {
     db.addUser(newUser)
     .then(user => {
         //201 ok created
-        // console.log("user registerd ",user);
         user.created_at = new Date(user.created_at).toString()
         user.updated_at = new Date(user.updated_at).toString()
         res.status(201).json(user)
@@ -57,7 +56,7 @@ server.get("/", (req,res) => {
 
     db.getAllUsers()
     .then(users => {
-        users = users.map( user => {
+        users.map( user => {
             user.created_at = new Date(user.created_at).toString()
             user.updated_at = new Date(user.updated_at).toString()
             return user
@@ -95,15 +94,14 @@ server.get("/:email", async (req,res) => {
     }else{
         res.json({ error: "Something went wrong, Email does not exist"})
     }
-
 })
-
 
 server.delete("/:email", async (req,res) => {
 
     const { email } = req.params 
     const userEmailExists = await db.getUserByEmail(email)
     if(!userEmailExists) return res.status(404).json({ message: "User name does not exist" })
+    
     db.deleteUserByUserEmail(email)
     .then( userDeleted => {
         res.status(200).json(userDeleted)
@@ -152,13 +150,12 @@ server.post("/login", async (req,res) => {
 server.get("/:uid/todos", auth, async (req,res) => {
 
     const { uid } = req.params
-    // console.log("uid in auth ", uid);
     const userUIDExist = await db.getUserByUID(uid)
-    // console.log("user in auth exisit ", userUIDExist);
     if(!userUIDExist) return res.status(404).json({ message: `No User found with given UID: ${uid}` })
+
     db.getAllUserTodosByUID(uid)
     .then(userTodos => {
-        userTodos = userTodos.map( todo => {
+        userTodos.map( todo => {
             todo.completed = Boolean(todo.completed)
             todo.active = Boolean(todo.active)
             todo.priority = priorityIndex[todo.priority]
@@ -177,9 +174,7 @@ server.get("/:uid/todos", auth, async (req,res) => {
 server.get("/:uid/todos/:todoId", auth, async (req,res) => {
 
     const { uid, todoId } = req.params
-    // console.log("uid in auth ", uid);
     const userUIDExist = await db.getUserByUID(uid)
-    // console.log("user in auth exisit ", userUIDExist);
     if(!userUIDExist) return res.status(404).json({ message: `No User found with given UID: ${uid}` })
 
     const todoExists = await db.getTodoById(todoId)
@@ -201,7 +196,6 @@ server.get("/:uid/todos/:todoId", auth, async (req,res) => {
     })
 
 })
-
 
 server.post("/logout", (req,res) => {
 
